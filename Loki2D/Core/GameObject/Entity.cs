@@ -25,7 +25,12 @@ namespace Loki2D.Core.GameObject
             Id = id;
             Name = name; 
         }
-        
+
+        public T GetComponent<T>() where T: Component.Component
+        {
+            return (T)Components.First(x => x.GetType() == typeof(T));
+        }
+
         public virtual void Update(GameTime gameTime)
         {
             foreach (var components in Components)

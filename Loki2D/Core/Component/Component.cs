@@ -13,13 +13,25 @@ namespace Loki2D.Core.Component
     {
         public string Name { get; set; }
         public bool CanDraw { get; set; }
-
+        public Entity Parent { get; set;}
+        public List<Entity> Children = new List<Entity>();
         public Entity Owner { get; set; }
 
         public Component(Entity entity)
         {
             Owner = entity; 
         }
+
+        public void SetParent(Entity entity)
+        {
+            Parent = entity; 
+        }
+
+        public void AddChild(Entity entity)
+        {
+            Children.Add(entity);
+        }
+
 
         public virtual void Update(GameTime gameTime)
         {

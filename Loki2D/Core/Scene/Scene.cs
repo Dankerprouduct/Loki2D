@@ -21,6 +21,7 @@ namespace Loki2D.Core.Scene
         {
             _world = new World(new AABB(Vector2.Zero, new Vector2(5000,5000)));
             _world.Gravity = Vector2.Zero;
+            
         }
         
         public Scene(string name)
