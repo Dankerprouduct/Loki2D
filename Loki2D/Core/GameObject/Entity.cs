@@ -12,12 +12,13 @@ namespace Loki2D.Core.GameObject
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        
+        public bool CanUpdate { get; set; }
+
         internal List<Component.Component> Components = new List<Component.Component>();
 
         public Entity()
         {
-
+            CanUpdate = true;
         }
 
         public Entity(int id, string name)
