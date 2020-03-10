@@ -17,6 +17,13 @@ namespace Loki2D.Core.Utilities
         public Rectangle VisibleArea { get; protected set; }
         public Matrix Transform { get; protected set; }
 
+        public Vector2 TopLeft { get; private set; }
+        public Vector2 TopRight { get; private set; }
+        public Vector2 BottomLeft { get; private set; }
+        public Vector2 BottomRight { get; private set; }
+        
+        
+
         public Camera(Viewport viewport)
         {
             Bounds = viewport.Bounds;
@@ -33,6 +40,11 @@ namespace Loki2D.Core.Utilities
             var tr = Vector2.Transform(new Vector2(Bounds.X, 0), inverseViewMatrix);
             var bl = Vector2.Transform(new Vector2(0, Bounds.Y), inverseViewMatrix);
             var br = Vector2.Transform(new Vector2(Bounds.Width, Bounds.Height), inverseViewMatrix);
+
+            TopLeft = tl;
+            TopRight = tr;
+            BottomLeft = bl;
+            BottomRight = br;
 
             var min = new Vector2(
                 MathHelper.Min(tl.X, MathHelper.Min(tr.X, MathHelper.Min(bl.X, br.X))),
