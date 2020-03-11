@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Loki2D.Core.Component;
 using Loki2D.Core.GameObject;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Loki2D.Core.Scene
 {
@@ -47,6 +48,17 @@ namespace Loki2D.Core.Scene
                 if (entity.CanUpdate)
                 {
                     entity.Update(gameTime);
+                }
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            foreach (var entity in _entities)
+            {
+                if (entity.HasComponent<RenderComponent>())
+                {
+                    entity.GetComponent<RenderComponent>().Draw(spriteBatch);
                 }
             }
         }
@@ -115,6 +127,26 @@ namespace Loki2D.Core.Scene
 
             var index = _x + Width * _y;
             _cells[index].Update(gameTime);
+        }
+
+        public void UpdateCell(int index, GameTime gameTime)
+        {
+            _cells[index].Update(gameTime);
+        }
+
+
+        public void DrawCell(int x, int y, SpriteBatch spriteBatch)
+        {
+            var _x = x /= (int)CellWidth;
+            var _y = y /= (int)CellWidth;
+
+            var index = _x + Width * _y;
+            _cells[index].Draw(spriteBatch);
+        }
+
+        public void DrawCell(int index, SpriteBatch spriteBatch)
+        {
+            _cells[index].Draw(spriteBatch);
         }
 
     }

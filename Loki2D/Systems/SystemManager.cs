@@ -8,7 +8,7 @@ namespace Loki2D.Systems
 {
     public abstract class SystemManager<T> where T: class
     {
-        public T Instance { get; set; }
+        public static T Instance { get; set; }
 
         protected SystemManager()
         {

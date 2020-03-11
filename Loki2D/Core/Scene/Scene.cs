@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Loki2D.Core.GameObject;
+using Loki2D.Core.Utilities;
 using Loki2D.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,9 +21,11 @@ namespace Loki2D.Core.Scene
         private readonly World _world;
 
         public CellSpacePartition CellSpacePartition { get; set; }
-        
+        public Camera Camera { get; set; }
+
         public Scene()
         {
+
             _world = new World(new AABB(Vector2.Zero, new Vector2(5000,5000)));
             _world.Gravity = Vector2.Zero;
             
@@ -32,6 +35,11 @@ namespace Loki2D.Core.Scene
         public Scene(string name): this()
         {
             Name = name; 
+        }
+
+        public void Initialize(GraphicsDevice graphicsDevice)
+        {
+            Camera = new Camera(graphicsDevice.Viewport);
         }
 
         public bool AddEntity(Entity entity)
@@ -48,11 +56,27 @@ namespace Loki2D.Core.Scene
         {
             float totalSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _world.Step(totalSeconds);
+            
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null,null, null, null, Camera.Transform);
 
+            var topLeftX = (int)Camera.TopLeft.X;
+            var topRightX = (int)Camera.TopRight.X;
+            var topLeftY = (int) Camera.TopLeft.Y;
+            var bottomLeftY = (int) Camera.BottomLeft.Y;
+
+            for (int x = topLeftX; x < (int)(topRightX - topLeftX); x++)
+            {
+                for (int y = topLeftY; y < (int) (bottomLeftY - topLeftY); y++)
+                {
+                    CellSpacePartition.DrawCell(x,y, spriteBatch);
+                }
+            }
+
+            spriteBatch.End();
         }
     }
 }

@@ -54,6 +54,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\InputManager.cs" />
+    <Compile Include="Systems\RenderManager.cs" />
     <Compile Include="Systems\TextureManager.cs" />
     <Compile Include="Systems\SystemManager.cs" />
   </ItemGroup>

@@ -27,6 +27,16 @@ namespace Loki2D.Core.GameObject
             Name = name; 
         }
 
+        public bool HasComponent<T>() where T :Component.Component
+        {
+            foreach (var component in Components)
+            {
+                return component is T;
+            }
+
+            return false;
+        }
+
         public T GetComponent<T>() where T: Component.Component
         {
             return (T)Components.First(x => x.GetType() == typeof(T));
