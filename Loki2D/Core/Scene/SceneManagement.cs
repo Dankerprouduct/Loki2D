@@ -18,6 +18,10 @@ namespace Loki2D.Core.Scene
             Instance = this; 
         }
 
+        /// <summary>
+        /// Loads a scene and sets the current scene
+        /// </summary>
+        /// <param name="scene"></param>
         public void LoadScene(Scene scene)
         {
             CurrentScene = scene; 
