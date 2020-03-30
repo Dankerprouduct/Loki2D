@@ -18,7 +18,7 @@ namespace Loki2D.Core.Scene
     public class Scene
     {
         public string Name { get; set; }
-        private readonly World _world;
+        private  World _world;
 
         public CellSpacePartition CellSpacePartition { get; set; }
         public Camera Camera { get; set; }
@@ -28,21 +28,24 @@ namespace Loki2D.Core.Scene
         public Scene()
         {
 
-            _world = new World(new AABB(Vector2.Zero, Size.ToVector2()));
-            _world.Gravity = Vector2.Zero;
-            
-            CellSpacePartition = new CellSpacePartition(Size.X, Size.Y);
         }
         
         public Scene(string name): this()
         {
             Name = name; 
         }
-
+        
         public virtual void Initialize(GraphicsDevice graphicsDevice)
         {
             Camera = new Camera(graphicsDevice.Viewport);
+
+            _world = new World(new AABB(Vector2.Zero, Size.ToVector2()));
+            _world.Gravity = Vector2.Zero;
+
+            CellSpacePartition = new CellSpacePartition(Size.X, Size.Y);
         }
+
+
 
         public bool AddEntity(Entity entity)
         {
