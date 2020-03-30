@@ -37,7 +37,7 @@ namespace Loki2D.Core.Scene
             Name = name; 
         }
 
-        public void Initialize(GraphicsDevice graphicsDevice)
+        public virtual void Initialize(GraphicsDevice graphicsDevice)
         {
             Camera = new Camera(graphicsDevice.Viewport);
         }
