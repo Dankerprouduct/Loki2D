@@ -23,13 +23,15 @@ namespace Loki2D.Core.Scene
         public CellSpacePartition CellSpacePartition { get; set; }
         public Camera Camera { get; set; }
 
+        public Point Size { get; set; } = new Point(5000,5000);
+
         public Scene()
         {
 
-            _world = new World(new AABB(Vector2.Zero, new Vector2(5000,5000)));
+            _world = new World(new AABB(Vector2.Zero, Size.ToVector2()));
             _world.Gravity = Vector2.Zero;
             
-            CellSpacePartition = new CellSpacePartition(5000,5000);
+            CellSpacePartition = new CellSpacePartition(Size.X, Size.Y);
         }
         
         public Scene(string name): this()
