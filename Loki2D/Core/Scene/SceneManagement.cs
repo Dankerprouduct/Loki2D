@@ -11,11 +11,17 @@ namespace Loki2D.Core.Scene
     public class SceneManagement
     {
         public static SceneManagement Instance;
+        private GraphicsDevice _graphicsDevice;
         public Scene CurrentScene { get; private set; }
 
-        public SceneManagement()
+        private SceneManagement()
         {
             Instance = this; 
+        }
+
+        public SceneManagement(GraphicsDevice graphicsDevice)
+        {
+            _graphicsDevice = graphicsDevice;
         }
 
         /// <summary>
@@ -25,6 +31,7 @@ namespace Loki2D.Core.Scene
         public void LoadScene(Scene scene)
         {
             CurrentScene = scene; 
+            CurrentScene.Initialize(_graphicsDevice);
         }
 
 
