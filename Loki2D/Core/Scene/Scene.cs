@@ -54,9 +54,10 @@ namespace Loki2D.Core.Scene
 
         public void Update(GameTime gameTime)
         {
+
+
             float totalSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _world.Step(totalSeconds);
-            
         }
 
         public void Draw(SpriteBatch spriteBatch)
