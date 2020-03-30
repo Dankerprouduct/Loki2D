@@ -26,6 +26,7 @@ namespace Loki2D.Core.Scene
 
         /// <summary>
         /// Loads a scene and sets the current scene
+        /// Also initializes the scene
         /// </summary>
         /// <param name="scene"></param>
         public void LoadScene(Scene scene)
