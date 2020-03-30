@@ -27,6 +27,11 @@ namespace Loki2D.Core.GameObject
             Name = name; 
         }
 
+        /// <summary>
+        /// checks if a component exists in the entity
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public bool HasComponent<T>() where T :Component.Component
         {
             foreach (var component in Components)
@@ -37,9 +42,26 @@ namespace Loki2D.Core.GameObject
             return false;
         }
 
+        /// <summary>
+        /// returns the first component of the same type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public T GetComponent<T>() where T: Component.Component
         {
             return (T)Components.First(x => x.GetType() == typeof(T));
+        }
+
+        /// <summary>
+        /// Adds a component to the the entity
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="component"></param>
+        /// <returns></returns>
+        public T AddComponent<T>(T component) where T : Component.Component
+        {
+            Components.Add(component);
+            return component;
         }
 
         public virtual void Update(GameTime gameTime)
