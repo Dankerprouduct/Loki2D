@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Loki2D.Core.Component;
+using Loki2D.Core.GameObject;
+using Loki2D.Core.Scene;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,75 +14,280 @@ namespace Loki2D.Core.Utilities
 {
     public class Camera
     {
-        public float Zoom { get; set; }
-        public Vector2 Position { get; set; }
-        public Rectangle Bounds { get; protected set; }
-        public Rectangle VisibleArea { get; protected set; }
-        public Matrix Transform { get; protected set; }
+        public static Camera Instance;
+        KeyboardState keyboardState;
+        KeyboardState oldKeyboardState;
+        MouseState mouseState;
+        MouseState oldMouseState;
 
-        public Vector2 TopLeft { get; private set; }
-        public Vector2 TopRight { get; private set; }
-        public Vector2 BottomLeft { get; private set; }
-        public Vector2 BottomRight { get; private set; }
-        
-        
+        public Matrix transform;
 
-        public Camera(Viewport viewport)
+        Viewport viewPort;
+        public Vector2 center;
+        public Vector2 lerpedCenter;
+        public float ZoomScale = 1f;
+        private float _minScale = .0001f;
+        private float _maxScale = 4;
+
+        public bool CamControl = true;
+        public float speed = 60;
+        private float originalSpeed = 60;
+        private float _zoomSpeed = .0005f;
+        public static Vector2 position;
+        private Entity focusedEntity;
+
+        private int _topLeft;
+        private int _topRight;
+        private int _bottomLeft;
+        private int _bottomRight;
+
+        public bool Scrolling { get; private set; }
+
+        public Camera(Viewport vPort)
         {
-            Bounds = viewport.Bounds;
-            Zoom = 1f;
-            Position = Vector2.Zero;
+            Instance = this;
+            position = new Vector2(0, 0);
+            viewPort = vPort;
+            Scrolling = true;
         }
 
-
-        private void UpdateVisibleArea()
+        [System.Obsolete("Use Update() instead", true)]
+        public void Update(GameTime gameTime)
         {
-            var inverseViewMatrix = Matrix.Invert(Transform);
 
-            var tl = Vector2.Transform(Vector2.Zero, inverseViewMatrix);
-            var tr = Vector2.Transform(new Vector2(Bounds.X, 0), inverseViewMatrix);
-            var bl = Vector2.Transform(new Vector2(0, Bounds.Y), inverseViewMatrix);
-            var br = Vector2.Transform(new Vector2(Bounds.Width, Bounds.Height), inverseViewMatrix);
-
-            TopLeft = tl;
-            TopRight = tr;
-            BottomLeft = bl;
-            BottomRight = br;
-
-            var min = new Vector2(
-                MathHelper.Min(tl.X, MathHelper.Min(tr.X, MathHelper.Min(bl.X, br.X))),
-                MathHelper.Min(tl.Y, MathHelper.Min(tr.Y, MathHelper.Min(bl.Y, br.Y))));
-            var max = new Vector2(
-                MathHelper.Max(tl.X, MathHelper.Max(tr.X, MathHelper.Max(bl.X, br.X))),
-                MathHelper.Max(tl.Y, MathHelper.Max(tr.Y, MathHelper.Max(bl.Y, br.Y))));
-            VisibleArea = new Rectangle((int)min.X, (int)min.Y, (int)(max.X - min.X), (int)(max.Y - min.Y));
         }
 
-        private void UpdateMatrix()
+        public void Update()
         {
-            Transform = Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
-                    Matrix.CreateScale(Zoom) *
-                    Matrix.CreateTranslation(new Vector3(Bounds.Width * 0.5f, Bounds.Height * 0.5f, 0));
-            UpdateVisibleArea();
-        }
+            keyboardState = Keyboard.GetState();
+            mouseState = Mouse.GetState();
 
-        public void MoveCamera(Vector2 movePosition)
-        {
-            Vector2 newPosition = Position + movePosition;
-            Position = newPosition;
-        }
+            UpdateCameraBoundaries();
 
-        public void AdjustZoom(float zoomAmount)
-        {
-            Zoom += zoomAmount;
-            if (Zoom < .35f)
+            if (Scrolling)
             {
-                Zoom = .35f;
+                if (mouseState.ScrollWheelValue > oldMouseState.ScrollWheelValue)
+                {
+                    if (!CamControl)
+                    {
+                        ZoomScale += .025f;
+                    }
+                    else
+                    {
+                        ZoomScale += _zoomSpeed;
+                    }
+                }
+
+                if (mouseState.ScrollWheelValue < oldMouseState.ScrollWheelValue)
+                {
+                    if (!CamControl)
+                    {
+                        ZoomScale -= .025f;
+                    }
+                    else
+                    {
+                        ZoomScale -= _zoomSpeed;
+                    }
+                }
             }
-            if (Zoom > 2f)
+            // Tree tree = new Tree(Vector2.Zero, 0, 0);
+
+            if (ZoomScale > _maxScale)
             {
-                Zoom = 2f;
+                ZoomScale = _maxScale;
             }
+            if (ZoomScale <= _minScale)
+            {
+                ZoomScale = _minScale;
+            }
+
+
+
+
+            if (keyboardState.IsKeyDown(Keys.F1) && oldKeyboardState.IsKeyUp(Keys.F1) && focusedEntity != null)
+            {
+                CamControl = !CamControl;
+            }
+
+            if (CamControl)
+            {
+                center = position;
+                lerpedCenter = Vector2.Lerp(lerpedCenter, center, .5f);
+                keyboardState = Keyboard.GetState();
+
+                if (keyboardState.IsKeyDown(Keys.Up) /*|| keyboardState.IsKeyDown(Keys.W)*/)
+                {
+                    position.Y -= speed;
+                }
+                if (keyboardState.IsKeyDown(Keys.Down) /*|| keyboardState.IsKeyDown(Keys.S)*/)
+                {
+                    position.Y += speed;
+                }
+                if (keyboardState.IsKeyDown(Keys.Right) /*|| keyboardState.IsKeyDown(Keys.D)*/)
+                {
+                    position.X += speed;
+                }
+                if (keyboardState.IsKeyDown(Keys.Left) /*|| keyboardState.IsKeyDown(Keys.A)*/)
+                {
+                    position.X -= speed;
+                }
+                if (keyboardState.IsKeyDown(Keys.LeftShift))
+                {
+                    speed = (originalSpeed * 3);
+                }
+                else
+                {
+                    speed = originalSpeed;
+                }
+            }
+            else
+            {
+                if (focusedEntity == null)
+                {
+                    //center = Game1.player.GetCenter();
+                    center = position;
+                }
+                else
+                {
+                    center = focusedEntity.GetComponent<TransformComponent>().Position;
+                    position = center;
+                    lerpedCenter = Vector2.Lerp(lerpedCenter, center, .1f);
+
+                }
+
+            }
+
+
+            transform = Matrix.CreateTranslation(new Vector3(-lerpedCenter.X, -lerpedCenter.Y, 0)) *
+                Matrix.CreateScale(new Vector3(ZoomScale, ZoomScale, 1)) *
+                Matrix.CreateTranslation(new Vector3(viewPort.Width * 0.5f, viewPort.Height * 0.5f, 0));
+
+            oldMouseState = mouseState;
+            oldKeyboardState = keyboardState;
+        }
+
+        public void WSADMovement()
+        {
+            if (keyboardState.IsKeyDown(Keys.W) /*|| keyboardState.IsKeyDown(Keys.W)*/)
+            {
+                position.Y -= speed;
+            }
+            if (keyboardState.IsKeyDown(Keys.S) /*|| keyboardState.IsKeyDown(Keys.S)*/)
+            {
+                position.Y += speed;
+            }
+            if (keyboardState.IsKeyDown(Keys.D) /*|| keyboardState.IsKeyDown(Keys.D)*/)
+            {
+                position.X += speed;
+            }
+            if (keyboardState.IsKeyDown(Keys.A) /*|| keyboardState.IsKeyDown(Keys.A)*/)
+            {
+                position.X -= speed;
+            }
+        }
+
+        public Vector2 TopLeftPosition { get; private set; }
+        public Vector2 TopRightPosition { get; private set; }
+        public Vector2 BottomLeftPosition { get; private set; }
+        public Vector2 BottomRightPosition { get; private set; }
+        private void UpdateCameraBoundaries()
+        {
+            TopLeftPosition = Vector2.Transform(new Vector2(0, 0), Matrix.Invert(transform));
+            TopRightPosition =
+               Vector2.Transform(new Vector2(viewPort.Width, 0), Matrix.Invert(transform));
+            BottomLeftPosition = Vector2.Transform(new Vector2(0, viewPort.Height), Matrix.Invert(transform));
+            BottomRightPosition =
+               Vector2.Transform(new Vector2(viewPort.Width, viewPort.Height), Matrix.Invert(transform));
+
+            //_topLeft = CellSpacePartition.GetTopLeftPartition(TopLeftPosition);
+            //_topRight = CellSpacePartition.GetTopRightPartition(TopRightPosition);
+            //_bottomLeft = CellSpacePartition.GetBottomLeftPartition(BottomLeftPosition);
+            //_bottomRight = CellSpacePartition.GetBottomRightPartition(BottomRightPosition);
+
+
+        }
+
+        public int GetTopLeftCell()
+        {
+            return _topLeft;
+        }
+
+        public int GetTopRightCell()
+        {
+            return _topRight;
+        }
+
+        public int GetBottomLeft()
+        {
+            return _bottomLeft;
+        }
+
+        public int GetBottomRight()
+        {
+            return _bottomRight;
+        }
+
+        /// <summary>
+        /// How far the camera zooms in
+        /// larger number the more youre able to zoom in
+        /// </summary>
+        /// <param name="zoom"></param>
+        public void SetMaxZoom(float zoom = 4)
+        {
+            _maxScale = zoom;
+        }
+
+        /// <summary>
+        /// How far the camera zooms out
+        /// smaller number the farther it zooms out
+        /// </summary>
+        /// <param name="zoom"></param>
+        public void SetMinZoom(float zoom = .0001f)
+        {
+            _minScale = zoom;
+        }
+
+        public void SetZoom(float zoom = 1)
+        {
+            ZoomScale = zoom;
+        }
+
+        public void SetZoomSpeed(float zoomSpeed = .0005f)
+        {
+            _zoomSpeed = zoomSpeed;
+        }
+
+        public void SetFocus(Entity entity)
+        {
+            focusedEntity = entity;
+        }
+
+        public void SetMoveSpeed(float speed = 60)
+        {
+            this.speed = speed;
+            originalSpeed = speed;
+        }
+
+        /// <summary>
+        /// enable and disables scroll
+        /// </summary>
+        /// <param name="canScroll"></param>
+        public void SetScroll(bool canScroll)
+        {
+            Scrolling = canScroll;
+        }
+
+        public Entity GetFocus()
+        {
+            return focusedEntity;
+        }
+
+
+        public Vector2 WindowToCameraSpace(Vector2 windowPosition)
+        {
+            // Scale for camera bounds that vary from window
+            // Also, must adjust for translation if camera isn't at 0, 0 in screen space (such as a mini-map)
+            return (ZoomScale * windowPosition) + center;
         }
 
     }

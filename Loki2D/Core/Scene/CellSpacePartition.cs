@@ -17,13 +17,27 @@ namespace Loki2D.Core.Scene
         public int Y { get; set; }
 
 
-        private  List< Entity> _entities = new List<Entity>();
+        private List<Entity> _entities;
+
+        public void Initialize()
+        {
+            _entities = new List<Entity>();
+        }
 
         public bool AddEntity(Entity entity)
         {
+            if (_entities == null)
+            {
+                Initialize();
+                Console.WriteLine($"Initialized: {X} {Y}");
+            }
+            
+
             if (!_entities.Contains(entity))
             {
                 _entities.Add(entity);
+
+                Console.WriteLine($"added entity to {X} {Y}");
                 return true;
             }
 
@@ -43,6 +57,9 @@ namespace Loki2D.Core.Scene
 
         public void Update(GameTime gameTime)
         {
+            if(_entities == null)
+                return;
+            
             foreach (var entity in _entities)
             {
                 if (entity.CanUpdate)
@@ -54,10 +71,13 @@ namespace Loki2D.Core.Scene
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            if(_entities == null)
+                return;
             foreach (var entity in _entities)
             {
                 if (entity.HasComponent<RenderComponent>())
                 {
+                    Console.WriteLine($"drawing {entity.Name}");
                     entity.GetComponent<RenderComponent>().Draw(spriteBatch);
                 }
             }
@@ -76,15 +96,15 @@ namespace Loki2D.Core.Scene
         public int Height { get; set; }
         public const float CellWidth = 1024;
 
-        private Cell[] _cells;
+        public Cell[] Cells;
 
         public CellSpacePartition(int x, int y)
         {
             Width = x;
             Height = y; 
 
-            _cells = new Cell[x * y];
-            InitCells(_cells);
+            Cells = new Cell[x * y];
+            InitCells(Cells);
         }
 
         public void InitCells(Cell[] cells)
@@ -104,7 +124,10 @@ namespace Loki2D.Core.Scene
 
             var index = x + Width * y;
 
-            return _cells[index].AddEntity(entity);
+            Cells[index].X = x;
+            Cells[index].Y = y;  
+            Console.WriteLine($"Adding entity to cell {x} {y} {index}");
+            return Cells[index].AddEntity(entity);
         }
 
         public bool RemoveEntity(Entity entity)
@@ -116,7 +139,7 @@ namespace Loki2D.Core.Scene
 
             var index = x + Width * y;
 
-            return _cells[index].RemoveEntity(entity);
+            return Cells[index].RemoveEntity(entity);
         }
 
 
@@ -126,27 +149,26 @@ namespace Loki2D.Core.Scene
             var _y = y /= (int)CellWidth;
 
             var index = _x + Width * _y;
-            _cells[index].Update(gameTime);
+            Cells[index].Update(gameTime);
         }
 
         public void UpdateCell(int index, GameTime gameTime)
         {
-            _cells[index].Update(gameTime);
+            Cells[index].Update(gameTime);
         }
 
 
         public void DrawCell(int x, int y, SpriteBatch spriteBatch)
         {
-            var _x = x /= (int)CellWidth;
-            var _y = y /= (int)CellWidth;
+            var index = x + Width * y;
+            Cells[index].Draw(spriteBatch);
 
-            var index = _x + Width * _y;
-            _cells[index].Draw(spriteBatch);
         }
 
         public void DrawCell(int index, SpriteBatch spriteBatch)
         {
-            _cells[index].Draw(spriteBatch);
+            
+            Cells[index].Draw(spriteBatch);
         }
 
     }

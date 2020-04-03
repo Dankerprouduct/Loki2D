@@ -21,7 +21,7 @@ namespace Loki2D.Core.GameObject
             CanUpdate = true;
         }
 
-        public Entity(int id, string name)
+        public Entity(int id, string name): this()
         {
             Id = id;
             Name = name; 
@@ -36,7 +36,10 @@ namespace Loki2D.Core.GameObject
         {
             foreach (var component in Components)
             {
-                return component is T;
+                if (component.GetType() == typeof(T))
+                {
+                    return true; 
+                }
             }
 
             return false;
