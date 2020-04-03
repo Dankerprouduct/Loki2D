@@ -39,7 +39,7 @@ namespace Loki2D.Core.Scene
         {
             Camera = new Camera(graphicsDevice.Viewport);
 
-            _world = new World(new AABB(Vector2.Zero, Size.ToVector2()));
+            _world = new World(new AABB(Vector2.Zero, new Vector2(Size.X * CellSpacePartition.CellLength, Size.Y * CellSpacePartition.CellLength)));
             _world.Gravity = Vector2.Zero;
 
             CellSpacePartition = new CellSpacePartition(Size.X, Size.Y);
@@ -63,6 +63,14 @@ namespace Loki2D.Core.Scene
             Camera.Update();
             float totalSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _world.Step(totalSeconds);
+
+            for (int y = 0; y < CellSpacePartition.Width; y++)
+            {
+                for (int x = 0; x < CellSpacePartition.Height; x++)
+                {
+                    CellSpacePartition.UpdateCell(x, y, gameTime);
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -18,7 +18,8 @@ namespace Loki2D.Core.Component
 
         public PhysicsComponent(Body body, Entity entity) : base(entity)
         {
-            PhysicsBody = body; 
+            PhysicsBody = body;
+            
             SceneManagement.Instance.CurrentScene.AddBody(body);
             _transformComponent = entity.GetComponent<TransformComponent>();
         }

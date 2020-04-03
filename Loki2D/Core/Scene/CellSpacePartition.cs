@@ -94,7 +94,7 @@ namespace Loki2D.Core.Scene
     {
         public int Width { get; set; }
         public int Height { get; set; }
-        public const float CellWidth = 1024;
+        public const float CellLength = 1024;
 
         public Cell[] Cells;
 
@@ -119,8 +119,8 @@ namespace Loki2D.Core.Scene
         {
             var transform = entity.GetComponent<TransformComponent>().Position;
 
-            var x = (int)(transform.X /= CellWidth);
-            var y = (int)(transform.Y /= CellWidth);
+            var x = (int)(transform.X /= CellLength);
+            var y = (int)(transform.Y /= CellLength);
 
             var index = x + Width * y;
 
@@ -134,8 +134,8 @@ namespace Loki2D.Core.Scene
         {
             var transform = entity.GetComponent<TransformComponent>().Position;
 
-            var x = (int)(transform.X /= CellWidth);
-            var y = (int)(transform.Y /= CellWidth);
+            var x = (int)(transform.X /= CellLength);
+            var y = (int)(transform.Y /= CellLength);
 
             var index = x + Width * y;
 
@@ -145,10 +145,7 @@ namespace Loki2D.Core.Scene
 
         public void UpdateCell(int x, int y, GameTime gameTime)
         {
-            var _x = x /= (int)CellWidth;
-            var _y = y /= (int)CellWidth;
-
-            var index = _x + Width * _y;
+            var index = x + Width * y;
             Cells[index].Update(gameTime);
         }
 
