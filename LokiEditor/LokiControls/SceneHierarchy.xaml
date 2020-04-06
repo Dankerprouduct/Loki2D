@@ -8,10 +8,10 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
-             TextElement.FontSize="20"
+             TextElement.FontSize="30"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
-             Background="{DynamicResource MaterialDesignPaper}"
+             Background="#FF202020"
              FontFamily="{DynamicResource MaterialDesignFont}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -22,36 +22,33 @@
 
         <TextBlock Grid.Row="0" Text="Hierarchy"/>
         <Separator VerticalAlignment="Bottom" Margin="0"/>
-        <TreeView Grid.Row="1" x:Name="TreeView">
-            <TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
+        <TreeView Grid.Row="1" x:Name="TreeView" FontSize="20">
+            <TreeViewItem Header="Player">
+                <TreeViewItem Header="Empty GameObject"/>
             </TreeViewItem>
-            <TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
+            <TreeViewItem Header="TileSet">
+                <TreeViewItem Header="Tile_Variant_01"/>
+                <TreeViewItem Header="Tile_Variant_01"/>
+                <TreeViewItem Header="Tile_Variant_03"/>
+                <TreeViewItem Header="Tile_Variant_03"/>
+                <TreeViewItem Header="Tile_Variant_01"/>
+                <TreeViewItem Header="Tile_Variant_01"/>
+                <TreeViewItem Header="Tile_Variant_01"/>
+                <TreeViewItem Header="Tile_Variant_02"/>
+                <TreeViewItem Header="Tile_Variant_02"/>
+                <TreeViewItem Header="Tile_Variant_02"/>
             </TreeViewItem>
-            <TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-            </TreeViewItem>
-            <TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-            </TreeViewItem>
-            <TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
-                <TreeViewItem></TreeViewItem>
+            <TreeViewItem Header="Firefly Class Ship">
+                <TreeViewItem Header="Tile_Variant_01"/>
+                <TreeViewItem Header="Tile_Variant_01"/>
+                <TreeViewItem Header="Tile_Variant_03"/>
+                <TreeViewItem Header="Tile_Variant_03"/>
+                <TreeViewItem Header="Tile_Variant_01"/>
+                <TreeViewItem Header="Tile_Variant_01"/>
+                <TreeViewItem Header="Tile_Variant_01"/>
+                <TreeViewItem Header="Tile_Variant_02"/>
+                <TreeViewItem Header="Tile_Variant_02"/>
+                <TreeViewItem Header="Tile_Variant_02"/>
             </TreeViewItem>
         </TreeView>
     </Grid>

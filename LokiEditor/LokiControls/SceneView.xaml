@@ -15,6 +15,25 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Game:LokiGame x:Name="LokiGame" Margin="0"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu  Background="#FF202020">
+            <Button Style="{StaticResource MaterialDesignIconButton}" Foreground="White" Margin="0">
+                <materialDesign:PackIcon Kind="ArrowCompass" />
+            </Button>
+            <Button Style="{StaticResource MaterialDesignIconButton}" Foreground="White" Margin="0">
+                <materialDesign:PackIcon Kind="ArrowAll" />
+            </Button>
+            <Button Style="{StaticResource MaterialDesignIconButton}" Foreground="White" Margin="0">
+                <materialDesign:PackIcon Kind="Brush" />
+            </Button>
+            <Button  Style="{StaticResource MaterialDesignIconButton}" Foreground="White" Margin="0">
+                <materialDesign:PackIcon Kind="Magnet" />
+            </Button>
+        </Menu>
+        <Game:LokiGame x:Name="LokiGame" Grid.Row="1" Margin="0"/>
     </Grid>
 </UserControl>
