@@ -14,32 +14,30 @@ namespace Loki2D.Core.Component
     {
         public int RenderLayer { get; set; } = 0;
         public string TextureName { get; set; }
-        public float Scale { get; set; } = 1; 
+        public float Scale { get; set; } = 1;
+        public float Rotation { get; set; } = 0; 
 
-        public RenderComponent(Entity entity) : base(entity)
-        {
-            
-        }
-
-        public RenderComponent(Entity entity, string textureName) : base(entity)
+        public RenderComponent(string textureName)
         {
             TextureName = textureName;
+            Initialize();
         }
-        
+
+        ~RenderComponent()
+        {
+            RenderManager.Instance.UnRegisterComponent(this);
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            RenderManager.Instance.RegisterComponent(this);
+        }
+
         public int CompareTo(RenderComponent other)
         {
             return other.RenderLayer > RenderLayer ? 1 : 0;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(
-                TextureManager.Instance.GetTexture(TextureName),
-                Owner.GetComponent<TransformComponent>().Position,
-                null, Color.White,
-                0f,
-                TextureManager.Instance.GetTexture(TextureName).Bounds.Center.ToVector2(),
-                Scale, SpriteEffects.None, RenderLayer);
-        }
     }
 }

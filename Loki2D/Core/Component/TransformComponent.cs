@@ -11,15 +11,12 @@ namespace Loki2D.Core.Component
     public class TransformComponent:Component
     {
         public Vector2 Position { get; set; }
-
-        public TransformComponent(Entity entity) : base(entity)
+        
+        public TransformComponent(Entity entity, Vector2 position)
         {
+            Position = position;
 
-        }
-
-        public TransformComponent(Entity entity, Vector2 position) : base(entity)
-        {
-            Position = position; 
+            Initialize();
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Loki2D.Systems
 {
@@ -14,5 +16,10 @@ namespace Loki2D.Systems
         {
             Instance = this as T;
         }
+
+        public virtual void Update(GameTime gameTime) { }
+        public virtual void Draw(SpriteBatch spriteBatch) { }
+
+
     }
 }

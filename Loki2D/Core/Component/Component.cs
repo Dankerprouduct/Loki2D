@@ -1,47 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Loki2D.Core.GameObject;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 
 namespace Loki2D.Core.Component
 {
     public class Component
     {
-        public string Name { get; set; }
-        public bool CanDraw { get; set; }
-        public Entity Parent { get; set;}
-        public List<Entity> Children = new List<Entity>();
-        public Entity Owner { get; set; }
+        public Type ComponentType { get; set; }
 
-        public Component(Entity entity)
+        public virtual void Initialize()
         {
-            Owner = entity; 
+            ComponentType = this.GetType();
         }
-
-        public void SetParent(Entity entity)
-        {
-            Parent = entity; 
-        }
-
-        public void AddChild(Entity entity)
-        {
-            Children.Add(entity);
-        }
-
-
-        public virtual void Update(GameTime gameTime)
-        {
-
-        }
-
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-
-        }
-        
     }
 }

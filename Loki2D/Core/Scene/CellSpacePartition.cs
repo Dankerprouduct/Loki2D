@@ -8,6 +8,7 @@ using Loki2D.Core.Component;
 using Loki2D.Core.GameObject;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 
 namespace Loki2D.Core.Scene
 {
@@ -16,8 +17,8 @@ namespace Loki2D.Core.Scene
         public int X { get; set; }
         public int Y { get; set; }
 
-
-        private List<Entity> _entities;
+        public Entity[] Entities => _entities?.ToArray();
+        private List<Entity> _entities { get; set; }
 
         public void Initialize()
         {
@@ -75,11 +76,7 @@ namespace Loki2D.Core.Scene
                 return;
             foreach (var entity in _entities)
             {
-                if (entity.HasComponent<RenderComponent>())
-                {
-                    Console.WriteLine($"drawing {entity.Name}");
-                    entity.GetComponent<RenderComponent>().Draw(spriteBatch);
-                }
+                
             }
         }
 
@@ -95,7 +92,7 @@ namespace Loki2D.Core.Scene
         public int Width { get; set; }
         public int Height { get; set; }
         public const float CellLength = 1024;
-
+            
         public Cell[] Cells;
 
         public CellSpacePartition(int x, int y)
@@ -142,6 +139,11 @@ namespace Loki2D.Core.Scene
             return Cells[index].RemoveEntity(entity);
         }
 
+        public Cell RetrieveCell(int x, int y)
+        {
+            var index = x + Width * y;
+            return Cells[index];
+        }
 
         public void UpdateCell(int x, int y, GameTime gameTime)
         {

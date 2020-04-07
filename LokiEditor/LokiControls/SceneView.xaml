@@ -33,6 +33,7 @@
             <Button  Style="{StaticResource MaterialDesignIconButton}" Foreground="White" Margin="0">
                 <materialDesign:PackIcon Kind="Magnet" />
             </Button>
+            <TextBox Width="300"  materialDesign:HintAssist.Hint="Search for Game Object"/>
         </Menu>
         <Game:LokiGame x:Name="LokiGame" Grid.Row="1" Margin="0"/>
     </Grid>

@@ -14,7 +14,8 @@ namespace Loki2D.Core.GameObject
         public string Name { get; set; }
         public bool CanUpdate { get; set; }
 
-        internal List<Component.Component> Components = new List<Component.Component>();
+        public Component.Component[] Components => _components?.ToArray();
+        internal List<Component.Component> _components = new List<Component.Component>();
 
         public Entity()
         {
@@ -34,7 +35,7 @@ namespace Loki2D.Core.GameObject
         /// <returns></returns>
         public bool HasComponent<T>() where T :Component.Component
         {
-            foreach (var component in Components)
+            foreach (var component in _components)
             {
                 if (component.GetType() == typeof(T))
                 {
@@ -52,7 +53,7 @@ namespace Loki2D.Core.GameObject
         /// <returns></returns>
         public T GetComponent<T>() where T: Component.Component
         {
-            return (T)Components.First(x => x.GetType() == typeof(T));
+            return (T)_components.First(x => x.GetType() == typeof(T));
         }
 
         /// <summary>
@@ -63,26 +64,23 @@ namespace Loki2D.Core.GameObject
         /// <returns></returns>
         public T AddComponent<T>(T component) where T : Component.Component
         {
-            Components.Add(component);
+            _components.Add(component);
             return component;
         }
 
         public virtual void Update(GameTime gameTime)
         {
-            foreach (var components in Components)
+            foreach (var components in _components)
             {
-                components.Update(gameTime);
+
             }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var component in Components)
+            foreach (var component in _components)
             {
-                if (component.CanDraw)
-                {
-                    component.Draw(spriteBatch);
-                }
+
             }
         }
     }

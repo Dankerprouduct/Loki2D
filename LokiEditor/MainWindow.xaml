@@ -41,6 +41,7 @@
             <MenuItem Header="Edit">
                 <MenuItem Header="Game Object"></MenuItem>
                 <MenuItem Header="Scene"></MenuItem>
+                <MenuItem Header="Preferences"></MenuItem>
             </MenuItem>
             <MenuItem >
                 <MenuItem.Header>

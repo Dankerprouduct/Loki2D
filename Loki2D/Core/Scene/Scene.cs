@@ -25,6 +25,9 @@ namespace Loki2D.Core.Scene
 
         public Point Size { get; set; } = new Point(5000,5000);
 
+        // managers
+        private RenderManager _renderManager;
+
         public Scene()
         {
 
@@ -42,7 +45,10 @@ namespace Loki2D.Core.Scene
             _world = new World(new AABB(Vector2.Zero, new Vector2(Size.X * CellSpacePartition.CellLength, Size.Y * CellSpacePartition.CellLength)));
             _world.Gravity = Vector2.Zero;
 
+            _renderManager = new RenderManager();
             CellSpacePartition = new CellSpacePartition(Size.X, Size.Y);
+            
+            
             Console.WriteLine($"Initialized Scene: {Name}");
         }
 
@@ -75,30 +81,7 @@ namespace Loki2D.Core.Scene
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null,null, null, null, Camera.transform);
-
-            //var topLeftX = (int)Camera.TopLeft.X;
-            //var topRightX = (int)Camera.TopRight.X;
-            //var topLeftY = (int) Camera.TopLeft.Y;
-            //var bottomLeftY = (int) Camera.BottomLeft.Y;
-
-            //for (int x = topLeftX; x < (int)(topRightX - topLeftX); x++)
-            //{
-            //    for (int y = topLeftY; y < (int) (bottomLeftY - topLeftY); y++)
-            //    {
-            //        CellSpacePartition.DrawCell(x,y, spriteBatch);
-            //    }
-            //}
-
-            for (int y = 0; y < CellSpacePartition.Width; y++)
-            {
-                for (int x = 0; x < CellSpacePartition.Height; x++)
-                {
-                    CellSpacePartition.DrawCell(x,y,spriteBatch);
-                }
-            }
-
-            spriteBatch.End();
+            _renderManager.Draw(spriteBatch);
         }
     }
 }
