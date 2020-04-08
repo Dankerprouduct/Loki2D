@@ -15,7 +15,12 @@ namespace Loki2D.Core.Component
         public int RenderLayer { get; set; } = 0;
         public string TextureName { get; set; }
         public float Scale { get; set; } = 1;
-        public float Rotation { get; set; } = 0; 
+        public float Rotation { get; set; } = 0;
+
+        public RenderComponent()
+        {
+
+        }
 
         public RenderComponent(string textureName)
         {

@@ -37,6 +37,12 @@ namespace Loki2D.Core.Scene
         {
             Name = name; 
         }
+
+        public Scene(string name, Point size)
+        {
+            Name = name;
+            Size = size;
+        }
         
         public virtual void Initialize(GraphicsDevice graphicsDevice)
         {

@@ -19,27 +19,48 @@ namespace Loki2D.Core.Component
         [JsonIgnore]
         public Body PhysicsBody;
 
+        private float _mass;
         public float Mass
         {
             get => PhysicsBody.Mass;
-            set => value = PhysicsBody.Mass;
+            set => value = _mass;
         }
 
+        private BodyType _bodyType;
         public BodyType BodyType
         {
             get => PhysicsBody.BodyType;
-            set => value = PhysicsBody.BodyType;
+            set
+            {
+                value = _bodyType;
+                if (PhysicsBody != null)
+                    PhysicsBody.BodyType = _bodyType;
+            }
         }
 
 
+        public PhysicsComponent()
+        {
+
+        }
 
         public PhysicsComponent(Body body)
         {
             PhysicsBody = body;
             
-            SceneManagement.Instance.CurrentScene.AddBody(body);
             Initialize();
         }
 
+        public override void Initialize()
+        {
+            base.Initialize();
+            if (PhysicsBody == null)
+            {
+                PhysicsBody = new Body();
+                PhysicsBody.Mass = _mass;
+                PhysicsBody.BodyType = _bodyType;
+            }
+            SceneManagement.Instance.CurrentScene.AddBody(PhysicsBody);
+        }
     }
 }

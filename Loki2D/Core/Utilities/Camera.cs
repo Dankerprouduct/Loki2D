@@ -30,9 +30,9 @@ namespace Loki2D.Core.Utilities
         private float _maxScale = 4;
 
         public bool CamControl = true;
-        public float speed = 60;
+        public float Speed = 60;
         private float originalSpeed = 60;
-        private float _zoomSpeed = .0005f;
+        private float _zoomSpeed = .05f;
         public static Vector2 position;
         private Entity focusedEntity;
 
@@ -117,27 +117,27 @@ namespace Loki2D.Core.Utilities
 
                 if (keyboardState.IsKeyDown(Keys.Up) /*|| keyboardState.IsKeyDown(Keys.W)*/)
                 {
-                    position.Y -= speed;
+                    position.Y -= Speed;
                 }
                 if (keyboardState.IsKeyDown(Keys.Down) /*|| keyboardState.IsKeyDown(Keys.S)*/)
                 {
-                    position.Y += speed;
+                    position.Y += Speed;
                 }
                 if (keyboardState.IsKeyDown(Keys.Right) /*|| keyboardState.IsKeyDown(Keys.D)*/)
                 {
-                    position.X += speed;
+                    position.X += Speed;
                 }
                 if (keyboardState.IsKeyDown(Keys.Left) /*|| keyboardState.IsKeyDown(Keys.A)*/)
                 {
-                    position.X -= speed;
+                    position.X -= Speed;
                 }
                 if (keyboardState.IsKeyDown(Keys.LeftShift))
                 {
-                    speed = (originalSpeed * 3);
+                    Speed = (originalSpeed * 3);
                 }
                 else
                 {
-                    speed = originalSpeed;
+                    Speed = originalSpeed;
                 }
             }
             else
@@ -170,19 +170,19 @@ namespace Loki2D.Core.Utilities
         {
             if (keyboardState.IsKeyDown(Keys.W) /*|| keyboardState.IsKeyDown(Keys.W)*/)
             {
-                position.Y -= speed;
+                position.Y -= Speed;
             }
             if (keyboardState.IsKeyDown(Keys.S) /*|| keyboardState.IsKeyDown(Keys.S)*/)
             {
-                position.Y += speed;
+                position.Y += Speed;
             }
             if (keyboardState.IsKeyDown(Keys.D) /*|| keyboardState.IsKeyDown(Keys.D)*/)
             {
-                position.X += speed;
+                position.X += Speed;
             }
             if (keyboardState.IsKeyDown(Keys.A) /*|| keyboardState.IsKeyDown(Keys.A)*/)
             {
-                position.X -= speed;
+                position.X -= Speed;
             }
         }
 
@@ -264,7 +264,7 @@ namespace Loki2D.Core.Utilities
 
         public void SetMoveSpeed(float speed = 60)
         {
-            this.speed = speed;
+            this.Speed = speed;
             originalSpeed = speed;
         }
 

@@ -13,13 +13,15 @@ namespace Loki2D.Core.GameObject
         public int Id { get; set; }
         public string Name { get; set; }
         public bool CanUpdate { get; set; }
+        public Type EntityType { get; set; }
 
         public Component.Component[] Components => _components?.ToArray();
         internal List<Component.Component> _components = new List<Component.Component>();
-
+        
         public Entity()
         {
             CanUpdate = true;
+            EntityType = GetType();
         }
 
         public Entity(int id, string name): this()
@@ -64,7 +66,10 @@ namespace Loki2D.Core.GameObject
         /// <returns></returns>
         public T AddComponent<T>(T component) where T : Component.Component
         {
+
             _components.Add(component);
+            Console.WriteLine($"added {component.GetType().Name}");
+            Console.WriteLine($"Component count: {_components.Count}");
             return component;
         }
 
