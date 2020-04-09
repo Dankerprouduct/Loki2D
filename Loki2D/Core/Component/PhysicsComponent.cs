@@ -41,7 +41,7 @@ namespace Loki2D.Core.Component
 
         public PhysicsComponent()
         {
-
+            //Initialize();
         }
 
         public PhysicsComponent(Body body)
