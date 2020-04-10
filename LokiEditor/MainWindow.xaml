@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LokiEditor"    
+        xmlns:local="clr-namespace:LokiEditor"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
@@ -14,12 +14,12 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Loki 2D" Height="1080" Width="1920">
+        Title="Loki 2D" Height="720" Width="1519.5">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="300"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
@@ -36,7 +36,7 @@
                     </StackPanel>
                 </MenuItem.Header>
                 <MenuItem Header="Save"></MenuItem>
-                <MenuItem Header="Load"></MenuItem>
+                <MenuItem Header="Load" Click="LoadProjectClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="Edit">
                 <MenuItem Header="Game Object"></MenuItem>
@@ -57,16 +57,17 @@
         <LokiControls:SceneView x:Name="SceneView" Background="Black" Grid.Row="1" Grid.Column="1"/>
         <LokiControls:PropertyControl x:Name="PropertyControl" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" />
 
-        <dragablz:TabablzControl Grid.Row="2" Grid.Column="1" >
+        <dragablz:TabablzControl  Grid.Row="2" Grid.Column="1" >
 
 
             <TabItem IsSelected="True">
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                <TabItem.Header >
+                    <StackPanel Orientation="Horizontal" >
                         <TextBlock Grid.Row="0" Text="Assets" Foreground="White" VerticalAlignment="Center" FontSize="20"/>
                         <materialDesign:PackIcon Kind="BookOpenVariant" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0" Width="25" Height="25"/>
                     </StackPanel>
                 </TabItem.Header>
+                <LokiControls:AssetControl x:Name="AssetControl"/>
             </TabItem>
 
             <TabItem>

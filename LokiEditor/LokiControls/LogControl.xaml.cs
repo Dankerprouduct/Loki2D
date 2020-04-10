@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Loki2D.Core.Utilities;
 
 namespace LokiEditor.LokiControls
 {
@@ -20,9 +21,19 @@ namespace LokiEditor.LokiControls
     /// </summary>
     public partial class LogControl : UserControl
     {
+        private IList<string> logs = new List<string>();
         public LogControl()
         {
             InitializeComponent();
+
+            ListBox.ItemsSource = logs;
+            Debug.Log += LogToConsole;
+        }
+
+        private void LogToConsole(object sender, LogEvent e)
+        {
+            logs.Add(e.Log.ToString());
+            ListBox.Items.Refresh();
         }
     }
 }

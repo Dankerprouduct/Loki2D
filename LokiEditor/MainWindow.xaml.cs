@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LokiEditor.Systems;
+using Microsoft.Win32;
 
 namespace LokiEditor
 {
@@ -20,9 +22,33 @@ namespace LokiEditor
     /// </summary>
     public partial class MainWindow : Window
     {
+        public EventHandler<LoadLokiProjectEvent> NewProjectEvent { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            
+            AssetManagement.Instance = new AssetManagement(this);
+            
+        }
+
+        private void LoadProjectClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Loki Files|*.loki";
+            openFileDialog.Multiselect = false;
+
+            var fileName = "";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                fileName = openFileDialog.FileName;
+                var loadProject = new LoadLokiProjectEvent {FilePath = fileName};
+                NewProjectEvent.Invoke(this, loadProject);
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }
