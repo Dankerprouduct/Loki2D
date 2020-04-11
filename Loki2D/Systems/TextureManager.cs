@@ -38,7 +38,7 @@ namespace Loki2D.Systems
         public void LoadFolder(string folderPath)
         {
 
-            var filePaths = Directory.EnumerateFiles(folderPath, "*.*", SearchOption.AllDirectories).ToArray();
+            var filePaths = Directory.EnumerateFiles(folderPath, "*.png*", SearchOption.AllDirectories).ToArray();
             foreach (var file in filePaths)
             {
                 using (var stream = TitleContainer.OpenStream(file))

@@ -38,7 +38,6 @@ namespace LokiEditor.Systems
 
 
 
-        [SuppressMessage("ReSharper", "LocalizableElement")]
         private void NewProject(object sender, LoadLokiProjectEvent e)
         {
             LokiData data;

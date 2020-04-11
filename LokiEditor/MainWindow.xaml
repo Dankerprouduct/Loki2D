@@ -13,7 +13,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
+        FontFamily="Consolas"
         Title="Loki 2D" Height="720" Width="1519.5">
     <Grid>
         <Grid.RowDefinitions>

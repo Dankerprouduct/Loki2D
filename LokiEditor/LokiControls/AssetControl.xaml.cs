@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -16,6 +17,7 @@ using System.Windows.Shapes;
 using Loki2D.Core.GameObject;
 using Loki2D.Core.Utilities;
 using Loki2D.Systems;
+using LokiEditor.Game;
 using LokiEditor.Systems;
 using Path = System.IO.Path;
 
@@ -27,10 +29,15 @@ namespace LokiEditor.LokiControls
     public partial class AssetControl : UserControl
     {
         public static AssetControl Instance;
+        public ObservableCollection<Asset> Assets { get; set; } = new ObservableCollection<Asset>();
+
         public AssetControl()
         {
             InitializeComponent();
+            AssetList.SelectionMode = SelectionMode.Single;
+            
             Instance = this;
+            AssetList.ItemsSource = Assets;
         }
 
         public void LoadAssets(LokiData lokiData)
@@ -44,8 +51,23 @@ namespace LokiEditor.LokiControls
                 if (type.BaseType == typeof(Entity))
                 {
                     Debug.WriteLog($"FOUND ENTITY: {type.Name}");
+                    Assets.Add(new Asset()
+                    {
+                        Name = type.Name
+                    });
                 }
             }
+
+        }
+
+        private void AssetList_OnSelected(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(e.Source);
+        }
+
+        private void AssetList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Console.WriteLine(e.AddedItems[0]);
         }
     }
 }
