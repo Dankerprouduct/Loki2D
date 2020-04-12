@@ -23,6 +23,11 @@
 
         <Separator VerticalAlignment="Bottom" Margin="0"/>
 
-        <ListBox Grid.Row="1" FontSize="15" x:Name="ListBox"/>
+        <ListBox x:Name="Logs" Grid.Row="1" FontSize="15" 
+                 
+                 materialDesign:ScrollViewerAssist.ShowSeparators="True">
+            
+        </ListBox>
+
     </Grid>
 </UserControl>

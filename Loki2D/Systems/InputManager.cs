@@ -27,6 +27,8 @@ namespace Loki2D.Systems
             OldMouseState = MouseState; 
         }
 
+        
+
         public static bool RightMouseClicked()
         {
             return MouseState.RightButton == ButtonState.Pressed &&
@@ -38,6 +40,17 @@ namespace Loki2D.Systems
             return MouseState.LeftButton == ButtonState.Pressed &&
                    OldMouseState.LeftButton == ButtonState.Released;
         }
+
+        public static bool LeftMouseDown()
+        {
+            return MouseState.LeftButton == ButtonState.Pressed;
+        }
+
+        public static bool LeftMouseUp()
+        {
+            return MouseState.LeftButton == ButtonState.Released;
+        }
+
 
         public static bool KeyPressed(Keys key)
         {

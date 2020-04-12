@@ -21,19 +21,35 @@ namespace LokiEditor.LokiControls
     /// </summary>
     public partial class LogControl : UserControl
     {
-        private IList<string> logs = new List<string>();
+        private IList<Log> logs = new List<Log>();
         public LogControl()
         {
             InitializeComponent();
-
-            ListBox.ItemsSource = logs;
+            
+            Logs.ItemsSource = logs;
             Debug.Logged += LogToConsole;
         }
 
         private void LogToConsole(object sender, LogEvent e)
         {
-            logs.Add(e.Log.ToString());
-            ListBox.Items.Refresh();
+            logs.Add(new Log(e.Log.ToString()));
+            Logs.Items.Refresh();
+        }
+
+    }
+
+    public class Log
+    {
+        public string Text { get; set; }
+
+        public Log(string text)
+        {
+            Text = text;
+        }
+
+        public override string ToString()
+        {
+            return Text;
         }
     }
 }

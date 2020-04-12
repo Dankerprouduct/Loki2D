@@ -53,10 +53,11 @@ namespace LokiEditor.LokiControls
             {
                 if (type.BaseType == typeof(Entity))
                 {
-                    Debug.WriteLog($"FOUND ENTITY: {type.Name}");
+                    Debug.Log($"FOUND ENTITY: {type.Name}");
                     Assets.Add(new Asset()
                     {
-                        Name = type.Name
+                        Name = type.Name,
+                        FullType = type.FullName
                     });
                 }
             }

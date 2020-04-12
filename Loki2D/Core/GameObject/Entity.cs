@@ -67,6 +67,14 @@ namespace Loki2D.Core.GameObject
         public T AddComponent<T>(T component) where T : Component.Component
         {
 
+            for (int i = 0; i < _components.Count; i++)
+            {
+                if (component.GetType() == _components[i].GetType())
+                {
+                    _components.Remove(_components[i]);
+                }
+            }
+
             _components.Add(component);
             Console.WriteLine($"added {component.GetType().Name}");
             Console.WriteLine($"Component count: {_components.Count}");
