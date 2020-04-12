@@ -13,7 +13,7 @@ namespace Loki2D.Core.GameObject
         public int Id { get; set; }
         public string Name { get; set; }
         public bool CanUpdate { get; set; }
-        public Type EntityType { get; set; }
+        public string EntityType { get; set; }
 
         public Component.Component[] Components => _components?.ToArray();
         internal List<Component.Component> _components = new List<Component.Component>();
@@ -21,7 +21,7 @@ namespace Loki2D.Core.GameObject
         public Entity()
         {
             CanUpdate = true;
-            EntityType = GetType();
+            EntityType = GetType().FullName;
         }
 
         public Entity(int id, string name): this()

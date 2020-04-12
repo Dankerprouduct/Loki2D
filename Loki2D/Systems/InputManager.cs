@@ -11,15 +11,32 @@ namespace Loki2D.Systems
     {
         public static KeyboardState KeyboardState { get; set; }
         public static KeyboardState OldKeyboardState { get; set; }
+        public static MouseState MouseState { get; set; }
+        public static MouseState OldMouseState { get; set; }
+
 
         public static void StartCapture()
         {
             KeyboardState = Keyboard.GetState();
+            MouseState = Mouse.GetState();
         }
 
         public static void EndCapture()
         {
             OldKeyboardState = KeyboardState;
+            OldMouseState = MouseState; 
+        }
+
+        public static bool RightMouseClicked()
+        {
+            return MouseState.RightButton == ButtonState.Pressed &&
+                   OldMouseState.RightButton == ButtonState.Released;
+        }
+
+        public static bool LeftMouseClicked()
+        {
+            return MouseState.LeftButton == ButtonState.Pressed &&
+                   OldMouseState.LeftButton == ButtonState.Released;
         }
 
         public static bool KeyPressed(Keys key)

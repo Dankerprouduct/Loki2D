@@ -9,12 +9,12 @@ namespace Loki2D.Core.Utilities
 {
     public static class Debug
     {
-        public static EventHandler<LogEvent> Log; 
+        public static EventHandler<LogEvent> Logged; 
 
-        public static void WriteLog(object log)
+        public static void Log(object log)
         {
             var logEvent = new LogEvent() {Log = log};
-            Log.Invoke(null, logEvent);
+            Logged.Invoke(null, logEvent);
 
             Console.WriteLine(log);
         }

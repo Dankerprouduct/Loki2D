@@ -26,7 +26,7 @@ namespace Loki2D.Systems
 
         public void LoadTexture(string filePath)
         {
-            using (var stream = TitleContainer.OpenStream(filePath))
+            using (var stream = new FileStream(filePath, FileMode.Open))
             {
                 var key = Path.GetFileNameWithoutExtension(filePath);
                 var texture = Texture2D.FromStream(_graphicsDevice,stream);
@@ -41,11 +41,13 @@ namespace Loki2D.Systems
             var filePaths = Directory.EnumerateFiles(folderPath, "*.png*", SearchOption.AllDirectories).ToArray();
             foreach (var file in filePaths)
             {
-                using (var stream = TitleContainer.OpenStream(file))
+                using (var stream = new FileStream(file, FileMode.Open))
                 {
                     var texture = Texture2D.FromStream(_graphicsDevice, stream);
                     var key = Path.GetFileNameWithoutExtension(file);
                     Textures.Add(key, texture);
+
+                    stream.Dispose();
                 }
             }
             

@@ -24,5 +24,52 @@ namespace LokiEditor.LokiControls
         {
             InitializeComponent();
         }
+
+        public enum EditType
+        {
+            Selection,
+            Transform,
+            Brush,
+            Magnet
+        }
+
+        public static EditType CurrentEditType;
+
+        private void SelectionButtonClick(object sender, RoutedEventArgs e)
+        {
+            ClearColors();
+            CurrentEditType = EditType.Selection;
+            SelectionButton.Foreground = Brushes.Green;
+        }
+
+        private void TransformButtonClick(object sender, RoutedEventArgs e)
+        {
+            ClearColors();
+            CurrentEditType = EditType.Transform;
+            TransformButton.Foreground = Brushes.Green;
+        }
+
+        private void BrushButtonClick(object sender, RoutedEventArgs e)
+        {
+            ClearColors();
+            CurrentEditType = EditType.Brush;
+            BrushButton.Foreground = Brushes.Green;
+        }
+
+        private void MagnetButtonClick(object sender, RoutedEventArgs e)
+        {
+            ClearColors();
+            CurrentEditType = EditType.Magnet;
+            MagnetButton.Foreground = Brushes.Green;
+        }
+
+        public void ClearColors()
+        {
+            TransformButton.Foreground = Brushes.White;
+            SelectionButton.Foreground = Brushes.White;
+            TransformButton.Foreground = Brushes.White;
+            BrushButton.Foreground = Brushes.White;
+            MagnetButton.Foreground = Brushes.White;
+        }
     }
 }

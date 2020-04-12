@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Loki2D.Core.Utilities;
 using Loki2D.Systems;
+using LokiEditor.Game;
 using LokiEditor.LokiControls;
 using Newtonsoft.Json;
 
@@ -50,6 +51,9 @@ namespace LokiEditor.Systems
             }
             
             AssetControl.Instance.LoadAssets(LokiData);
+
+            LokiGame.Instance.LoadScene("C:\\Users\\danke\\source\\repos\\Game4\\Game4\\bin\\Windows\\x86\\Debug\\testScene.json",
+                AssetControl.Instance.LoadedAssembly);
         }
 
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Loki2D.Core.GameObject;
@@ -41,7 +42,7 @@ namespace Loki2D.Core.Scene
             CurrentScene.Initialize(_graphicsDevice);
         }
 
-        public void LoadScene(string path)
+        public void LoadScene(string path, Assembly assembly = null)
         {
             Scene scene = null;
             string json = "";
@@ -81,6 +82,11 @@ namespace Loki2D.Core.Scene
                     Console.WriteLine(entity["Name"]);
 
                     var entityType = Type.GetType((string)entity["EntityType"]);
+                    if (assembly != null)
+                    {
+                        var rawEntityType = (string) entity["EntityType"];
+                        entityType = assembly.GetType(rawEntityType, true);
+                    }
 
                     var newEntity = Activator.CreateInstance(entityType) as Entity;
 
@@ -88,6 +94,11 @@ namespace Loki2D.Core.Scene
                     {
 
                         var componentType = Type.GetType((string)component["ComponentType"]);
+                        if (assembly != null)
+                            componentType = assembly.GetType((string) component["ComponentType"]);
+                        if(componentType == null)
+                            componentType = Type.GetType((string)component["ComponentType"]);
+
                         var newComponent = Activator.CreateInstance(componentType) as Component.Component;
 
                         Console.WriteLine("adding: " + componentType.Name);

@@ -50,5 +50,10 @@ namespace LokiEditor
                 return;
             }
         }
+
+        private void CloseApplicationClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

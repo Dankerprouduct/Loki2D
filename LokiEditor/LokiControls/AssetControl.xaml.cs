@@ -30,7 +30,9 @@ namespace LokiEditor.LokiControls
     {
         public static AssetControl Instance;
         public ObservableCollection<Asset> Assets { get; set; } = new ObservableCollection<Asset>();
+        public Assembly LoadedAssembly; 
 
+        public Asset SelectedAsset { get; set; }
         public AssetControl()
         {
             InitializeComponent();
@@ -43,9 +45,10 @@ namespace LokiEditor.LokiControls
         public void LoadAssets(LokiData lokiData)
         {
             var path = Path.GetDirectoryName(AssetManagement.Instance.LokiFilePath);
-            path = Path.Combine(path, lokiData.Project);
-            var assembly = Assembly.LoadFile(path);
-
+            var assemblyPath = Path.Combine(path, lokiData.Project);
+            var assembly = Assembly.LoadFile(assemblyPath);
+            LoadedAssembly = assembly;
+            // load entity types
             foreach (var type in assembly.GetTypes())
             {
                 if (type.BaseType == typeof(Entity))
@@ -58,16 +61,21 @@ namespace LokiEditor.LokiControls
                 }
             }
 
+            // load images
+            TextureManager.Instance.LoadFolder(Path.Combine(path, lokiData.Content));
+
+
         }
 
         private void AssetList_OnSelected(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(e.Source);
         }
 
         private void AssetList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Console.WriteLine(e.AddedItems[0]);
+            var asset = (Asset) e.AddedItems[0];
+            Console.WriteLine(asset);
+            SelectedAsset = asset;
         }
     }
 }

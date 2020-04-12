@@ -13,11 +13,11 @@ namespace Loki2D.Core.Component
 {
     public class Component
     {
-        public Type ComponentType { get; set; }
+        public string ComponentType { get; set; }
 
         public virtual void Initialize()
         {
-            ComponentType = this.GetType();
+            ComponentType = this.GetType().FullName;
         }
     }
 }

@@ -36,7 +36,9 @@
                     </StackPanel>
                 </MenuItem.Header>
                 <MenuItem Header="Save"></MenuItem>
-                <MenuItem Header="Load" Click="LoadProjectClick"></MenuItem>
+                <MenuItem Header="Load" Click="LoadProjectClick"/>
+                <Separator/>
+                <MenuItem Header="Exit" Click="CloseApplicationClick"/>
             </MenuItem>
             <MenuItem Header="Edit">
                 <MenuItem Header="Game Object"></MenuItem>

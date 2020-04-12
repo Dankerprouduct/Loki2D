@@ -1,4 +1,4 @@
-﻿<UserControl xmlns:Game="clr-namespace:LokiEditor.Game"  x:Class="LokiEditor.LokiControls.SceneView"
+﻿ <UserControl xmlns:Game="clr-namespace:LokiEditor.Game"  x:Class="LokiEditor.LokiControls.SceneView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -20,20 +20,21 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Menu  Background="#FF202020">
-            <Button Style="{StaticResource MaterialDesignIconButton}" Foreground="White" Margin="0">
+        <Menu  Background="#FF202020" >
+            <Button x:Name="SelectionButton" Click="SelectionButtonClick" Background="Transparent" BorderThickness="0" Foreground="White" Margin="0">
                 <materialDesign:PackIcon Kind="ArrowCompass" />
             </Button>
-            <Button Style="{StaticResource MaterialDesignIconButton}" Foreground="White" Margin="0">
+            <Button x:Name="TransformButton" Click="TransformButtonClick" Background="Transparent"  BorderThickness="0" Foreground="White" Margin="0">
                 <materialDesign:PackIcon Kind="ArrowAll" />
             </Button>
-            <Button Style="{StaticResource MaterialDesignIconButton}" Foreground="White" Margin="0">
+            <Button x:Name="BrushButton" Click="BrushButtonClick" Background="Transparent"  BorderThickness="0" Foreground="White" Margin="0">
                 <materialDesign:PackIcon Kind="Brush" />
             </Button>
-            <Button  Style="{StaticResource MaterialDesignIconButton}" Foreground="White" Margin="0">
+            <Button x:Name="MagnetButton" Click="MagnetButtonClick" Background="Transparent"  BorderThickness="0" Foreground="White" Margin="0">
                 <materialDesign:PackIcon Kind="Magnet" />
             </Button>
             <TextBox Width="300"  materialDesign:HintAssist.Hint="Search for Game Object"/>
+            
         </Menu>
         <Game:LokiGame x:Name="LokiGame" Grid.Row="1" Margin="0"/>
     </Grid>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Loki2D.Core.Component;
 using Loki2D.Core.GameObject;
 using Loki2D.Core.Scene;
+using Loki2D.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -15,10 +16,6 @@ namespace Loki2D.Core.Utilities
     public class Camera
     {
         public static Camera Instance;
-        KeyboardState keyboardState;
-        KeyboardState oldKeyboardState;
-        MouseState mouseState;
-        MouseState oldMouseState;
 
         public Matrix transform;
 
@@ -59,14 +56,12 @@ namespace Loki2D.Core.Utilities
 
         public void Update()
         {
-            keyboardState = Keyboard.GetState();
-            mouseState = Mouse.GetState();
-
+            
             UpdateCameraBoundaries();
 
             if (Scrolling)
             {
-                if (mouseState.ScrollWheelValue > oldMouseState.ScrollWheelValue)
+                if (InputManager.MouseState.ScrollWheelValue > InputManager.OldMouseState.ScrollWheelValue)
                 {
                     if (!CamControl)
                     {
@@ -78,7 +73,7 @@ namespace Loki2D.Core.Utilities
                     }
                 }
 
-                if (mouseState.ScrollWheelValue < oldMouseState.ScrollWheelValue)
+                if (InputManager.MouseState.ScrollWheelValue < InputManager.OldMouseState.ScrollWheelValue)
                 {
                     if (!CamControl)
                     {
@@ -104,7 +99,7 @@ namespace Loki2D.Core.Utilities
 
 
 
-            if (keyboardState.IsKeyDown(Keys.F1) && oldKeyboardState.IsKeyUp(Keys.F1) && focusedEntity != null)
+            if (InputManager.KeyPressed(Keys.F1) && focusedEntity != null)
             {
                 CamControl = !CamControl;
             }
@@ -113,25 +108,24 @@ namespace Loki2D.Core.Utilities
             {
                 center = position;
                 lerpedCenter = Vector2.Lerp(lerpedCenter, center, .5f);
-                keyboardState = Keyboard.GetState();
 
-                if (keyboardState.IsKeyDown(Keys.Up) /*|| keyboardState.IsKeyDown(Keys.W)*/)
+                if (InputManager.KeyDown(Keys.Up)) /*|| keyboardState.IsKeyDown(Keys.W)*/
                 {
                     position.Y -= Speed;
                 }
-                if (keyboardState.IsKeyDown(Keys.Down) /*|| keyboardState.IsKeyDown(Keys.S)*/)
+                if (InputManager.KeyDown(Keys.Down) /*|| keyboardState.IsKeyDown(Keys.S)*/)
                 {
                     position.Y += Speed;
                 }
-                if (keyboardState.IsKeyDown(Keys.Right) /*|| keyboardState.IsKeyDown(Keys.D)*/)
+                if (InputManager.KeyDown(Keys.Right) /*|| keyboardState.IsKeyDown(Keys.D)*/)
                 {
                     position.X += Speed;
                 }
-                if (keyboardState.IsKeyDown(Keys.Left) /*|| keyboardState.IsKeyDown(Keys.A)*/)
+                if (InputManager.KeyDown(Keys.Left) /*|| keyboardState.IsKeyDown(Keys.A)*/)
                 {
                     position.X -= Speed;
                 }
-                if (keyboardState.IsKeyDown(Keys.LeftShift))
+                if (InputManager.KeyDown(Keys.LeftShift))
                 {
                     Speed = (originalSpeed * 3);
                 }
@@ -162,25 +156,23 @@ namespace Loki2D.Core.Utilities
                 Matrix.CreateScale(new Vector3(ZoomScale, ZoomScale, 1)) *
                 Matrix.CreateTranslation(new Vector3(viewPort.Width * 0.5f, viewPort.Height * 0.5f, 0));
 
-            oldMouseState = mouseState;
-            oldKeyboardState = keyboardState;
         }
 
         public void WSADMovement()
         {
-            if (keyboardState.IsKeyDown(Keys.W) /*|| keyboardState.IsKeyDown(Keys.W)*/)
+            if (InputManager.KeyDown(Keys.W) /*|| keyboardState.IsKeyDown(Keys.W)*/)
             {
                 position.Y -= Speed;
             }
-            if (keyboardState.IsKeyDown(Keys.S) /*|| keyboardState.IsKeyDown(Keys.S)*/)
+            if (InputManager.KeyDown(Keys.S) /*|| keyboardState.IsKeyDown(Keys.S)*/)
             {
                 position.Y += Speed;
             }
-            if (keyboardState.IsKeyDown(Keys.D) /*|| keyboardState.IsKeyDown(Keys.D)*/)
+            if (InputManager.KeyDown(Keys.D) /*|| keyboardState.IsKeyDown(Keys.D)*/)
             {
                 position.X += Speed;
             }
-            if (keyboardState.IsKeyDown(Keys.A) /*|| keyboardState.IsKeyDown(Keys.A)*/)
+            if (InputManager.KeyDown(Keys.A) /*|| keyboardState.IsKeyDown(Keys.A)*/)
             {
                 position.X -= Speed;
             }

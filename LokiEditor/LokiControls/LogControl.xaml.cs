@@ -27,7 +27,7 @@ namespace LokiEditor.LokiControls
             InitializeComponent();
 
             ListBox.ItemsSource = logs;
-            Debug.Log += LogToConsole;
+            Debug.Logged += LogToConsole;
         }
 
         private void LogToConsole(object sender, LogEvent e)
