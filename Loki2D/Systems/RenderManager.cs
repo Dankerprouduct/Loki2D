@@ -50,9 +50,16 @@ namespace Loki2D.Systems
                         
                         spriteBatch.Draw(texture, position,
                             null, Color.White, entity.GetComponent<RenderComponent>().Rotation, 
-                            new Vector2(texture.Width /2, texture.Height /2), 1, SpriteEffects.None, entity.GetComponent<RenderComponent>().RenderLayer);
+                            new Vector2(texture.Width /2, texture.Height /2), 1, 
+                            SpriteEffects.None, entity.GetComponent<RenderComponent>().RenderLayer);
+
                     }
                 }
+            }
+
+            if (SceneManagement.Instance.DrawDebug)
+            {
+                Debug.DrawDebug(spriteBatch);
             }
 
             spriteBatch.End();

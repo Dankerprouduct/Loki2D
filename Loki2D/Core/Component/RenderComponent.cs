@@ -39,6 +39,11 @@ namespace Loki2D.Core.Component
             RenderManager.Instance.RegisterComponent(this);
         }
 
+        public Texture2D GetTexture()
+        {
+            return TextureManager.Instance.GetTexture(TextureName);
+        }
+
         public int CompareTo(RenderComponent other)
         {
             return other.RenderLayer > RenderLayer ? 1 : 0;

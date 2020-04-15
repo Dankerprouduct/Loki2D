@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using Loki2D.Core.Component;
 using Loki2D.Core.GameObject;
+using Loki2D.Core.Utilities;
+using Loki2D.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
@@ -45,9 +48,51 @@ namespace Loki2D.Core.Scene
             return false;
         }
 
+        public Entity GetEntity(Vector2 position)
+        {
+            if (_entities == null) return null;
+
+            foreach (var entity in _entities)
+            {
+                var texture = entity.GetComponent<RenderComponent>().GetTexture();
+                var vector2 = entity.GetComponent<TransformComponent>().Position;
+
+                var width = (int)texture.Width;
+                var height = (int)texture.Height;
+
+                var vX = (int)(vector2.X - (width / 2));
+                var vY = (int)(vector2.Y - (height / 2));
+
+                var rect = new Rectangle(vX, vY, width, height);
+                
+                if (rect.Contains(position.ToPoint()))
+                {
+                    return entity;
+                }
+
+            }
+            return null;
+        }
+
+        public Entity GetEntity(Entity entity)
+        {
+            foreach (var e in _entities)
+            {
+                if (e == entity)
+                    return e;
+            }
+
+            return null;
+        }
+
         public bool RemoveEntity(Entity entity)
         {
-            if (!_entities.Contains(entity))
+            if (_entities == null)
+            {
+                return false;
+            }
+
+            if (_entities.Contains(entity))
             {
                 _entities.Remove(entity);
                 return true;
@@ -89,11 +134,20 @@ namespace Loki2D.Core.Scene
 
     public class CellSpacePartition
     {
+        struct EntityChange
+        {
+            public int X { get; set; }
+            public int Y { get; set; }
+            public Entity Entity { get; set; }
+        }
+
         public int Width { get; set; }
         public int Height { get; set; }
         public const float CellLength = 1024;
             
         public Cell[] Cells;
+        private List<EntityChange> EntityChangeQueue = new List<EntityChange>();
+
 
         public CellSpacePartition(int x, int y)
         {
@@ -116,8 +170,8 @@ namespace Loki2D.Core.Scene
         {
             var transform = entity.GetComponent<TransformComponent>().Position;
 
-            var x = (int)(transform.X /= CellLength);
-            var y = (int)(transform.Y /= CellLength);
+            var x = (int)(transform.X / CellLength);
+            var y = (int)(transform.Y / CellLength);
 
             var index = x + Width * y;
 
@@ -127,16 +181,66 @@ namespace Loki2D.Core.Scene
             return Cells[index].AddEntity(entity);
         }
 
+        public Entity GetEntity(Vector2 position)
+        {
+            var x = (int)(position.X / CellLength);
+            var y = (int)(position.Y / CellLength);
+
+            var index = x + Width * y;
+
+            if (index >= 0 && index <= CellLength)
+            {
+                return Cells[index].GetEntity(position);
+            }
+
+            return null;
+        }
+        
+        public void ChangeEntityCell(int index, int newIndex, Entity entity)
+        {
+
+            EntityChangeQueue.Add(new EntityChange()
+            {
+                X = index,
+                Y = newIndex,
+                Entity = entity
+            });
+        }
+
+        public void ExecuteChangeQueue()
+        {
+            for (int i = 0; i < EntityChangeQueue.Count; i++)
+            {
+                var item = EntityChangeQueue[i];
+
+                var e = Cells[item.X].RemoveEntity(item.Entity);
+                if (e)
+                {
+                    Cells[item.Y].AddEntity(item.Entity);
+                }
+                EntityChangeQueue.RemoveAt(i);
+            }
+        }
+
         public bool RemoveEntity(Entity entity)
         {
             var transform = entity.GetComponent<TransformComponent>().Position;
 
-            var x = (int)(transform.X /= CellLength);
-            var y = (int)(transform.Y /= CellLength);
+            var x = (int)(transform.X / CellLength);
+            var y = (int)(transform.Y / CellLength);
 
             var index = x + Width * y;
 
             return Cells[index].RemoveEntity(entity);
+        }
+        
+        public int PositionToIndex(Vector2 position)
+        {
+            var x = (int)(position.X / CellLength);
+            var y = (int)(position.Y / CellLength);
+
+            var index = x + Width * y;
+            return index; 
         }
 
         public Cell RetrieveCell(int x, int y)
@@ -149,14 +253,15 @@ namespace Loki2D.Core.Scene
         {
             var index = x + Width * y;
             Cells[index].Update(gameTime);
+            ExecuteChangeQueue();
         }
 
         public void UpdateCell(int index, GameTime gameTime)
         {
             Cells[index].Update(gameTime);
+            ExecuteChangeQueue();
         }
-
-
+        
         public void DrawCell(int x, int y, SpriteBatch spriteBatch)
         {
             var index = x + Width * y;

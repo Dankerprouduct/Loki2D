@@ -102,11 +102,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Actions\BrushCommand.cs" />
+    <Compile Include="Actions\Command.cs" />
+    <Compile Include="Actions\DeleteCommand.cs" />
+    <Compile Include="Actions\TransformCommand.cs" />
+    <Compile Include="Actions\SpawnCommand.cs" />
     <Compile Include="Game\Asset.cs" />
     <Compile Include="LokiControls\AssetControl.xaml.cs">
       <DependentUpon>AssetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Systems\AssetManagement.cs" />
+    <Compile Include="Systems\CommandManager.cs" />
     <Page Include="LokiControls\AssetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

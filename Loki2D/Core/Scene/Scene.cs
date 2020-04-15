@@ -25,6 +25,7 @@ namespace Loki2D.Core.Scene
 
         public Point Size { get; set; } = new Point(5000,5000);
 
+        public GraphicsDevice GraphicsDevice { get; set; }
         // managers
         private RenderManager _renderManager;
 
@@ -46,6 +47,8 @@ namespace Loki2D.Core.Scene
         
         public virtual void Initialize(GraphicsDevice graphicsDevice)
         {
+            GraphicsDevice = graphicsDevice;
+
             Camera = new Camera(graphicsDevice.Viewport);
 
             _world = new World(new AABB(Vector2.Zero, new Vector2(Size.X * CellSpacePartition.CellLength, Size.Y * CellSpacePartition.CellLength)));
@@ -63,6 +66,17 @@ namespace Loki2D.Core.Scene
         public bool AddEntity(Entity entity)
         {
             return CellSpacePartition.AddEntity(entity);
+        }
+
+        public Entity GetEntity(Vector2 position)
+        {
+            return CellSpacePartition.GetEntity(position);
+        }
+
+
+        public void RemoveEntity(Entity entity)
+        {
+
         }
 
         public void AddBody(Body body)
@@ -88,6 +102,8 @@ namespace Loki2D.Core.Scene
         public void Draw(SpriteBatch spriteBatch)
         {
             _renderManager.Draw(spriteBatch);
+
+            
         }
     }
 }

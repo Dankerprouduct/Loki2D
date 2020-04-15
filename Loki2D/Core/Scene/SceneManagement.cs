@@ -20,6 +20,7 @@ namespace Loki2D.Core.Scene
         public static SceneManagement Instance;
         private GraphicsDevice _graphicsDevice;
         public Scene CurrentScene { get; private set; }
+        public bool DrawDebug { get; set; } = true;
 
         private SceneManagement()
         {

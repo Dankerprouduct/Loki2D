@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Loki2D.Core.Component;
+using Loki2D.Core.Scene;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Debug = Loki2D.Core.Utilities.Debug;
 
 namespace Loki2D.Core.GameObject
 {
@@ -14,6 +18,7 @@ namespace Loki2D.Core.GameObject
         public string Name { get; set; }
         public bool CanUpdate { get; set; }
         public string EntityType { get; set; }
+        public int Index;
 
         public Component.Component[] Components => _components?.ToArray();
         internal List<Component.Component> _components = new List<Component.Component>();
@@ -83,10 +88,18 @@ namespace Loki2D.Core.GameObject
 
         public virtual void Update(GameTime gameTime)
         {
-            foreach (var components in _components)
-            {
+            
+            var currentIndex = SceneManagement.Instance.CurrentScene.CellSpacePartition.PositionToIndex(
+                GetComponent<TransformComponent>().Position);
 
+            if (Index != currentIndex)
+            {
+                SceneManagement.Instance.CurrentScene.CellSpacePartition.ChangeEntityCell(Index, currentIndex, this);
+                
+                Debug.Log($"Entity {Name} moved from {Index} to {currentIndex}");
+                Index = currentIndex;
             }
+
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
