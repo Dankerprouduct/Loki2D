@@ -25,7 +25,7 @@ namespace Loki2D.Core.Utilities
         public static void Log(object log)
         {
             var logEvent = new LogEvent() {Log = log};
-            Logged.Invoke(null, logEvent);
+            Logged?.Invoke(null, logEvent);
 
             Console.WriteLine(log);
         }

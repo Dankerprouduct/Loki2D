@@ -41,6 +41,7 @@ namespace Loki2D.Core.Scene
             {
                 _entities.Add(entity);
 
+                _entities = _entities.OrderBy(e => e.GetComponent<RenderComponent>().RenderLayer).ToList();
                 Console.WriteLine($"added entity to {X} {Y}");
                 return true;
             }
@@ -143,7 +144,7 @@ namespace Loki2D.Core.Scene
 
         public int Width { get; set; }
         public int Height { get; set; }
-        public const float CellLength = 1024;
+        public const float CellLength = 2048;
             
         public Cell[] Cells;
         private List<EntityChange> EntityChangeQueue = new List<EntityChange>();
