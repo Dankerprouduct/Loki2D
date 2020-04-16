@@ -51,7 +51,10 @@ namespace Loki2D.Core.Scene
 
         public Entity GetEntity(Vector2 position)
         {
+
             if (_entities == null) return null;
+
+            Entity highestEntity = null;
 
             foreach (var entity in _entities)
             {
@@ -68,11 +71,23 @@ namespace Loki2D.Core.Scene
                 
                 if (rect.Contains(position.ToPoint()))
                 {
-                    return entity;
+                    if (highestEntity == null)
+                    {
+                        highestEntity = entity;
+                    }
+                    else
+                    {
+                        if (entity.GetComponent<RenderComponent>().RenderLayer >
+                            highestEntity.GetComponent<RenderComponent>().RenderLayer)
+                        {
+                            highestEntity = entity;
+                        }
+                    }
+
                 }
 
             }
-            return null;
+            return highestEntity;
         }
 
         public Entity GetEntity(Entity entity)

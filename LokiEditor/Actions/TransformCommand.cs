@@ -25,10 +25,12 @@ namespace LokiEditor.Actions
             var position = Vector2.Transform(InputManager.MouseState.Position.ToVector2(),
                 Matrix.Invert(SceneManagement.Instance.CurrentScene.Camera.transform));
 
-            Debug.Log(position);
             var entity = SceneManagement.Instance.CurrentScene.GetEntity(position);
+
+
             if (entity != null)
             {
+                PropertyControl.Instance.SetInspector(entity);
                 Debug.Log($"Selected: {entity.Name} - {DateTime.Now}");
                 _selected = true;
                 _selectedEntity = entity;
@@ -65,6 +67,7 @@ namespace LokiEditor.Actions
             if (InputManager.LeftMouseUp() && _selected)
             {
                 _selected = false;
+                PropertyControl.Instance.SetInspector(_selectedEntity);
                 return false;
             }
 

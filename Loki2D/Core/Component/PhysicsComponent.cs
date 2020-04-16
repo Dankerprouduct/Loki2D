@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Loki2D.Core.Attributes;
 using Loki2D.Core.GameObject;
 using Loki2D.Core.Scene;
 using Microsoft.Xna.Framework;
@@ -20,6 +21,8 @@ namespace Loki2D.Core.Component
         public Body PhysicsBody;
 
         private float _mass;
+
+        [EditorInspectable]
         public float Mass
         {
             get => PhysicsBody.Mass;
@@ -27,6 +30,8 @@ namespace Loki2D.Core.Component
         }
 
         private BodyType _bodyType;
+
+        [EditorInspectable]
         public BodyType BodyType
         {
             get => PhysicsBody.BodyType;

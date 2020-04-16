@@ -49,7 +49,7 @@ namespace Loki2D.Systems
                         var position = entity.GetComponent<TransformComponent>().Position; 
                         
                         spriteBatch.Draw(texture, position,
-                            null, Color.White, entity.GetComponent<RenderComponent>().Rotation, 
+                            null, Color.White, MathHelper.ToRadians(entity.GetComponent<RenderComponent>().Rotation), 
                             new Vector2(texture.Width /2, texture.Height /2), 1, 
                             SpriteEffects.None, entity.GetComponent<RenderComponent>().RenderLayer);
 

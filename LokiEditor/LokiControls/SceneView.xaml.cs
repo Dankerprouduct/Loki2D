@@ -27,7 +27,7 @@ namespace LokiEditor.LokiControls
 
         public enum EditType
         {
-            Selection,
+            Select,
             Transform,
             Brush,
             Magnet
@@ -38,7 +38,7 @@ namespace LokiEditor.LokiControls
         private void SelectionButtonClick(object sender, RoutedEventArgs e)
         {
             ClearColors();
-            CurrentEditType = EditType.Selection;
+            CurrentEditType = EditType.Select;
             SelectionButton.Foreground = Brushes.Green;
         }
 

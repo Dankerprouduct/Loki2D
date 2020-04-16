@@ -58,21 +58,28 @@ namespace LokiEditor.Game
 
             if (InputManager.LeftMouseDown() && command == null)
             {
+                // Brush
                 if (SceneView.CurrentEditType == SceneView.EditType.Brush)
                 {
                     command = new BrushCommand();
                     command.Enter();
                 }
-            }
 
-            if (InputManager.LeftMouseDown() && command == null)
-            {
+                // Transform
                 if (SceneView.CurrentEditType == SceneView.EditType.Transform)
                 {
                     command = new TransformCommand();
                     command.Enter();
                 }
+
+                // Select
+                if (SceneView.CurrentEditType == SceneView.EditType.Select)
+                {
+                    command = new SelectCommand();
+                    command.Enter();
+                }
             }
+
 
             if (command != null)
             {

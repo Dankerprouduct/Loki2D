@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Loki2D.Core.Attributes;
+using Loki2D.Core.GameObject;
+using Underline = MaterialDesignThemes.Wpf.Underline;
 
 namespace LokiEditor.LokiControls
 {
@@ -20,9 +23,108 @@ namespace LokiEditor.LokiControls
     /// </summary>
     public partial class PropertyControl : UserControl
     {
+        public static PropertyControl Instance;
         public PropertyControl()
         {
             InitializeComponent();
+            Instance = this; 
+        }
+
+        public void SetInspector(Entity entity)
+        {
+            ContentGrid.Children.Clear();
+            NamePanel.Children.Clear();
+            
+            var entityName = new TextBlock();
+            entityName.Text = "Name:";
+            entityName.FontSize = 15;
+            entityName.HorizontalAlignment = HorizontalAlignment.Left;
+            entityName.VerticalAlignment = VerticalAlignment.Bottom;
+            entityName.Margin = new Thickness(5,0,0,0);
+
+            var nameTextBox = new TextBox();
+            nameTextBox.FontSize = 15;
+            nameTextBox.HorizontalAlignment = HorizontalAlignment.Right;
+            nameTextBox.Margin = new Thickness(0,0,30,0);
+
+            var nameBinding = new Binding("Name");
+            nameBinding.Source = entity;
+            nameTextBox.SetBinding(TextBox.TextProperty, nameBinding);
+
+            var nameGrid = new Grid();
+            nameGrid.ColumnDefinitions.Add(new ColumnDefinition()
+            {
+                Width = new GridLength(1, GridUnitType.Auto)
+            });
+            nameGrid.ColumnDefinitions.Add(new ColumnDefinition()
+            {
+                Width = new GridLength(1, GridUnitType.Star)
+            });
+            nameGrid.Margin = new Thickness(0,0,0,10);
+            nameGrid.Children.Add(entityName);
+            nameGrid.Children.Add(nameTextBox);
+
+            Grid.SetColumn(entityName, 0);
+            Grid.SetColumn(nameTextBox, 1);
+
+            NamePanel.Children.Add(nameGrid);
+            NamePanel.Margin = new Thickness(0,15,0,0);
+
+
+            foreach (var component in entity.Components)
+            {
+                var componentName = new TextBlock();
+                componentName.Margin = new Thickness(5,0,0,0);
+                componentName.FontSize = 20;
+                componentName.Text = component.GetType().Name;
+                componentName.TextDecorations = TextDecorations.Underline;
+
+                ContentGrid.Children.Add(componentName);
+
+
+
+                foreach (var property in component.GetType().GetProperties())
+                {
+                    var canEdit = Attribute.IsDefined(property, typeof(EditorInspectable));
+                    if (!canEdit) continue;
+
+                    var propertyGrid = new Grid();
+                    propertyGrid.ColumnDefinitions.Add(new ColumnDefinition()
+                    {
+                        Width = new GridLength(1, GridUnitType.Auto)
+                    });
+                    propertyGrid.ColumnDefinitions.Add(new ColumnDefinition()
+                    {
+                        Width = new GridLength(1, GridUnitType.Star)
+                    });
+
+
+                    var propertyName = new TextBlock();
+                    propertyName.FontSize = 15;
+                    propertyName.Text = property.Name;
+                    propertyName.VerticalAlignment = VerticalAlignment.Bottom;
+                    propertyName.Margin = new Thickness(25,0,0,5);
+
+
+                    var propertyTextBox = new TextBox();
+                    propertyTextBox.FontSize = 15;
+                    propertyTextBox.VerticalAlignment = VerticalAlignment.Bottom;
+                    propertyTextBox.HorizontalAlignment = HorizontalAlignment.Right;
+                    propertyTextBox.Margin = new Thickness(0, 5, 20, 5);
+
+                    var valueBinding = new Binding(propertyName.Text);
+                    valueBinding.Source = component;
+                    propertyTextBox.SetBinding(TextBox.TextProperty, valueBinding);
+                    
+
+                    propertyGrid.Children.Add(propertyName);
+                    propertyGrid.Children.Add(propertyTextBox);
+                    Grid.SetColumn(propertyName, 0);
+                    Grid.SetColumn(propertyTextBox, 1);
+
+                    ContentGrid.Children.Add(propertyGrid);
+                }
+            }
         }
     }
 }

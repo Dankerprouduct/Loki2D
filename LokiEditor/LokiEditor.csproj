@@ -104,9 +104,8 @@
     </ApplicationDefinition>
     <Compile Include="Actions\BrushCommand.cs" />
     <Compile Include="Actions\Command.cs" />
-    <Compile Include="Actions\DeleteCommand.cs" />
+    <Compile Include="Actions\SelectCommand.cs" />
     <Compile Include="Actions\TransformCommand.cs" />
-    <Compile Include="Actions\SpawnCommand.cs" />
     <Compile Include="Game\Asset.cs" />
     <Compile Include="LokiControls\AssetControl.xaml.cs">
       <DependentUpon>AssetControl.xaml</DependentUpon>

@@ -42,6 +42,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Core\Attributes\EditorInspectable.cs" />
     <Compile Include="Core\Component\Component.cs" />
     <Compile Include="Core\Component\PhysicsComponent.cs" />
     <Compile Include="Core\Component\RenderComponent.cs" />

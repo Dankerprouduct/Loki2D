@@ -15,7 +15,7 @@ namespace LokiEditor.Actions
 
         public virtual bool Update()
         {
-            return true;
+            return false;
 
         }
         public virtual void Exit() { }

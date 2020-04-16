@@ -24,7 +24,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="325"/>
         </Grid.ColumnDefinitions>
 
         <Menu Grid.Row="0" Grid.ColumnSpan="3">
@@ -57,7 +57,7 @@
 
         <LokiControls:SceneHierarchy x:Name="SceneHierarchy" Grid.Row="1" Grid.RowSpan="2"/>
         <LokiControls:SceneView x:Name="SceneView" Background="Black" Grid.Row="1" Grid.Column="1"/>
-        <LokiControls:PropertyControl x:Name="PropertyControl" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" />
+        <LokiControls:PropertyControl x:Name="PropertyControl" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"/>
 
         <dragablz:TabablzControl  Grid.Row="2" Grid.Column="1" >
 

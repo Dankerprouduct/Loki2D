@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LokiEditor.Actions
+namespace Loki2D.Core.Attributes
 {
-    public class DeleteCommand : Command
+    [AttributeUsage(AttributeTargets.Property)]
+    public class EditorInspectable: Attribute
     {
 
     }

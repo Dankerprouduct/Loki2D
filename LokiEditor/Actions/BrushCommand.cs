@@ -63,6 +63,7 @@ namespace LokiEditor.Actions
             if (InputManager.LeftMouseUp() && _selected)
             {
                 _selected = false;
+                PropertyControl.Instance.SetInspector(_selectedEntity);
                 return false;
             }
 
