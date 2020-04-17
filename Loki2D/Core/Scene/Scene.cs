@@ -25,6 +25,7 @@ namespace Loki2D.Core.Scene
 
         public Point Size { get; set; } = new Point(5000,5000);
 
+
         public GraphicsDevice GraphicsDevice { get; set; }
         // managers
         private RenderManager _renderManager;
@@ -61,8 +62,6 @@ namespace Loki2D.Core.Scene
             Console.WriteLine($"Initialized Scene: {Name}");
         }
 
-
-
         public bool AddEntity(Entity entity)
         {
             return CellSpacePartition.AddEntity(entity);
@@ -72,6 +71,8 @@ namespace Loki2D.Core.Scene
         {
             return CellSpacePartition.GetEntity(position);
         }
+
+
 
 
         public void RemoveEntity(Entity entity)

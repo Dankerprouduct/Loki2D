@@ -67,6 +67,9 @@ namespace LokiEditor.Actions
                 return false;
             }
 
+            if (_selectedEntity == null)
+                return false;
+
             return true;
         }
 

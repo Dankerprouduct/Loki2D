@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace Loki2D.Core.Component
 {
+    [EditorInspectable("Transform Component")]
     public class TransformComponent:Component
     {
         [EditorInspectable]

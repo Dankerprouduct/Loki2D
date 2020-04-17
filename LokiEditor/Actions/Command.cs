@@ -8,16 +8,17 @@ namespace LokiEditor.Actions
 {
     public class Command
     {
-        public virtual void Execute() { }
-        public virtual void Undo() { }
         
         public virtual void Enter() { }
 
         public virtual bool Update()
         {
             return false;
-
         }
+
         public virtual void Exit() { }
+
+
+        public virtual void Undo() { }
     }
 }

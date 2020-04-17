@@ -44,6 +44,36 @@ namespace Loki2D.Core.Scene
             CurrentScene.Initialize(_graphicsDevice);
         }
 
+        public void SaveScene(Scene scene = null, string fileName = null)
+        {
+            if (scene == null)
+            {
+                var sceneData = JsonConvert.SerializeObject(SceneManagement.Instance.CurrentScene, Formatting.Indented);
+
+                if (fileName == null)
+                {
+                    fileName = CurrentScene.Name;
+                }
+                using (StreamWriter streamWriter = new StreamWriter(fileName))
+                {
+                    streamWriter.Write(sceneData);
+                }
+            }
+            else
+            {
+                var sceneData = JsonConvert.SerializeObject(scene, Formatting.Indented);
+
+                if (fileName == null)
+                {
+                    fileName = CurrentScene.Name;
+                }
+                using (StreamWriter streamWriter = new StreamWriter(fileName))
+                {
+                    streamWriter.Write(sceneData);
+                }
+            }
+        }
+
         public void LoadScene(string path, Assembly assembly = null)
         {
             Scene scene = null;

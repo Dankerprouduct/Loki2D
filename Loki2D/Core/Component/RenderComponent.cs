@@ -11,12 +11,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Loki2D.Core.Component
 {
+    [EditorInspectable("Render Component")]
     public class RenderComponent: Component, IComparable<RenderComponent>
     {
         [EditorInspectable]
         public int RenderLayer { get; set; } = 0;
 
-        [EditorInspectable]
+        [EditorInspectable("Texture Name")]
         public string TextureName { get; set; }
 
         [EditorInspectable]

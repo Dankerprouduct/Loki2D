@@ -21,7 +21,6 @@ namespace LokiEditor.Systems
 
         public void Execute(Command command)
         {
-            command.Execute();
             Commands.Add(command);
         }
 

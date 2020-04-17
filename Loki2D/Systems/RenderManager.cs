@@ -31,7 +31,7 @@ namespace Loki2D.Systems
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, SceneManagement.Instance.CurrentScene.Camera.transform);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, SceneManagement.Instance.CurrentScene.Camera.transform);
 
 
             for (int y = 0; y < SceneManagement.Instance.CurrentScene.CellSpacePartition.Width; y++)

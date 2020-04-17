@@ -15,14 +15,18 @@ namespace LokiEditor.Actions
     {
         public override void Enter()
         {
-            var position = Vector2.Transform(InputManager.MouseState.Position.ToVector2(),
-                Matrix.Invert(SceneManagement.Instance.CurrentScene.Camera.transform));
-            var entity = SceneManagement.Instance.CurrentScene.GetEntity(position);
-
-            if (entity != null)
+            Task.Run(() =>
             {
-                PropertyControl.Instance.SetInspector(entity);
-            }
+                var position = Vector2.Transform(InputManager.MouseState.Position.ToVector2(),
+                    Matrix.Invert(SceneManagement.Instance.CurrentScene.Camera.transform));
+                var entity = SceneManagement.Instance.CurrentScene.GetEntity(position);
+
+                if (entity != null)
+                {
+                    Task.Run(() => { PropertyControl.Instance.SetInspector(entity); });
+                }
+            });
+
         }
     }
 }

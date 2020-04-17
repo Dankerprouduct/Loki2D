@@ -6,9 +6,19 @@ using System.Threading.Tasks;
 
 namespace Loki2D.Core.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.All)]
     public class EditorInspectable: Attribute
     {
+        public string DisplayName { get; set; }
 
+        public EditorInspectable()
+        {
+
+        }
+
+        public EditorInspectable(string displayName)
+        {
+            DisplayName = displayName;
+        }
     }
 }

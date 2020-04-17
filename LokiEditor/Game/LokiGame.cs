@@ -54,8 +54,19 @@ namespace LokiEditor.Game
         {
             InputManager.MouseState = _mouse.GetState();
             InputManager.KeyboardState = _keyboard.GetState();
-            
 
+            if (SceneManagement.Instance.CurrentScene != null)
+            {
+                UpdateEditor();
+            }
+
+            SceneManagement.Instance.Update(gameTime);
+            SceneManagement.Instance.CurrentScene?.Camera.WSADMovement();
+            InputManager.EndCapture();
+        }
+
+        public void UpdateEditor()
+        {
             if (InputManager.LeftMouseDown() && command == null)
             {
                 // Brush
@@ -89,11 +100,6 @@ namespace LokiEditor.Game
                     command = null;
                 }
             }
-
-
-            SceneManagement.Instance.Update(gameTime);
-            SceneManagement.Instance.CurrentScene?.Camera.WSADMovement();
-            InputManager.EndCapture();
         }
 
         protected override void Draw(GameTime time)

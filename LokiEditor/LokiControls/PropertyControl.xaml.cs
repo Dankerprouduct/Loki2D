@@ -32,99 +32,121 @@ namespace LokiEditor.LokiControls
 
         public void SetInspector(Entity entity)
         {
-            ContentGrid.Children.Clear();
-            NamePanel.Children.Clear();
-            
-            var entityName = new TextBlock();
-            entityName.Text = "Name:";
-            entityName.FontSize = 15;
-            entityName.HorizontalAlignment = HorizontalAlignment.Left;
-            entityName.VerticalAlignment = VerticalAlignment.Bottom;
-            entityName.Margin = new Thickness(5,0,0,0);
-
-            var nameTextBox = new TextBox();
-            nameTextBox.FontSize = 15;
-            nameTextBox.HorizontalAlignment = HorizontalAlignment.Right;
-            nameTextBox.Margin = new Thickness(0,0,30,0);
-
-            var nameBinding = new Binding("Name");
-            nameBinding.Source = entity;
-            nameTextBox.SetBinding(TextBox.TextProperty, nameBinding);
-
-            var nameGrid = new Grid();
-            nameGrid.ColumnDefinitions.Add(new ColumnDefinition()
+            this.Dispatcher.Invoke(() =>
             {
-                Width = new GridLength(1, GridUnitType.Auto)
-            });
-            nameGrid.ColumnDefinitions.Add(new ColumnDefinition()
-            {
-                Width = new GridLength(1, GridUnitType.Star)
-            });
-            nameGrid.Margin = new Thickness(0,0,0,10);
-            nameGrid.Children.Add(entityName);
-            nameGrid.Children.Add(nameTextBox);
+                ContentGrid.Children.Clear();
+                NamePanel.Children.Clear();
 
-            Grid.SetColumn(entityName, 0);
-            Grid.SetColumn(nameTextBox, 1);
+                var entityName = new TextBlock();
+                entityName.Text = "Name:";
+                entityName.FontSize = 15;
+                entityName.HorizontalAlignment = HorizontalAlignment.Left;
+                entityName.VerticalAlignment = VerticalAlignment.Bottom;
+                entityName.Margin = new Thickness(5, 0, 0, 0);
 
-            NamePanel.Children.Add(nameGrid);
-            NamePanel.Margin = new Thickness(0,15,0,0);
+                var nameTextBox = new TextBox();
+                nameTextBox.FontSize = 15;
+                nameTextBox.HorizontalAlignment = HorizontalAlignment.Right;
+                nameTextBox.Margin = new Thickness(0, 0, 30, 0);
 
+                var nameBinding = new Binding("Name");
+                nameBinding.Source = entity;
+                nameTextBox.SetBinding(TextBox.TextProperty, nameBinding);
 
-            foreach (var component in entity.Components)
-            {
-                var componentName = new TextBlock();
-                componentName.Margin = new Thickness(5,0,0,0);
-                componentName.FontSize = 20;
-                componentName.Text = component.GetType().Name;
-                componentName.TextDecorations = TextDecorations.Underline;
-
-                ContentGrid.Children.Add(componentName);
-
-
-
-                foreach (var property in component.GetType().GetProperties())
+                var nameGrid = new Grid();
+                nameGrid.ColumnDefinitions.Add(new ColumnDefinition()
                 {
-                    var canEdit = Attribute.IsDefined(property, typeof(EditorInspectable));
-                    if (!canEdit) continue;
+                    Width = new GridLength(1, GridUnitType.Auto)
+                });
+                nameGrid.ColumnDefinitions.Add(new ColumnDefinition()
+                {
+                    Width = new GridLength(1, GridUnitType.Star)
+                });
+                nameGrid.Margin = new Thickness(0, 0, 0, 10);
+                nameGrid.Children.Add(entityName);
+                nameGrid.Children.Add(nameTextBox);
 
-                    var propertyGrid = new Grid();
-                    propertyGrid.ColumnDefinitions.Add(new ColumnDefinition()
+                Grid.SetColumn(entityName, 0);
+                Grid.SetColumn(nameTextBox, 1);
+
+                NamePanel.Children.Add(nameGrid);
+                NamePanel.Margin = new Thickness(0, 15, 0, 0);
+
+
+                foreach (var component in entity.Components)
+                {
+                    var componentName = new TextBlock();
+                    componentName.Margin = new Thickness(5, 0, 0, 0);
+                    componentName.FontSize = 20;
+                    componentName.Text = component.GetType().Name;
+
+                    var componentAttributes = component.GetType().GetCustomAttributes(typeof(EditorInspectable), true);
+                    foreach (var componentAttribute in componentAttributes)
                     {
-                        Width = new GridLength(1, GridUnitType.Auto)
-                    });
-                    propertyGrid.ColumnDefinitions.Add(new ColumnDefinition()
+                        var attribute = ((EditorInspectable)componentAttribute);
+                        if (attribute.DisplayName != null)
+                        {
+                            componentName.Text = attribute.DisplayName;
+                        }
+                    }
+
+                    componentName.TextDecorations = TextDecorations.Underline;
+
+                    ContentGrid.Children.Add(componentName);
+
+
+
+                    foreach (var property in component.GetType().GetProperties())
                     {
-                        Width = new GridLength(1, GridUnitType.Star)
-                    });
+                        var canEdit = Attribute.IsDefined(property, typeof(EditorInspectable));
+                        if (!canEdit) continue;
+
+                        var propertyGrid = new Grid();
+                        propertyGrid.ColumnDefinitions.Add(new ColumnDefinition()
+                        {
+                            Width = new GridLength(1, GridUnitType.Auto)
+                        });
+                        propertyGrid.ColumnDefinitions.Add(new ColumnDefinition()
+                        {
+                            Width = new GridLength(1, GridUnitType.Star)
+                        });
 
 
-                    var propertyName = new TextBlock();
-                    propertyName.FontSize = 15;
-                    propertyName.Text = property.Name;
-                    propertyName.VerticalAlignment = VerticalAlignment.Bottom;
-                    propertyName.Margin = new Thickness(25,0,0,5);
+                        var propertyName = new TextBlock();
+                        propertyName.FontSize = 15;
+                        propertyName.Text = property.Name;
+                        var attribute = Attribute.GetCustomAttribute(property, typeof(EditorInspectable)) as EditorInspectable;
+                        if (attribute.DisplayName != null)
+                        {
+                            propertyName.Text = attribute.DisplayName;
+                        }
 
 
-                    var propertyTextBox = new TextBox();
-                    propertyTextBox.FontSize = 15;
-                    propertyTextBox.VerticalAlignment = VerticalAlignment.Bottom;
-                    propertyTextBox.HorizontalAlignment = HorizontalAlignment.Right;
-                    propertyTextBox.Margin = new Thickness(0, 5, 20, 5);
+                        propertyName.VerticalAlignment = VerticalAlignment.Bottom;
+                        propertyName.Margin = new Thickness(25, 0, 0, 5);
 
-                    var valueBinding = new Binding(propertyName.Text);
-                    valueBinding.Source = component;
-                    propertyTextBox.SetBinding(TextBox.TextProperty, valueBinding);
-                    
 
-                    propertyGrid.Children.Add(propertyName);
-                    propertyGrid.Children.Add(propertyTextBox);
-                    Grid.SetColumn(propertyName, 0);
-                    Grid.SetColumn(propertyTextBox, 1);
+                        var propertyTextBox = new TextBox();
+                        propertyTextBox.FontSize = 15;
+                        propertyTextBox.VerticalAlignment = VerticalAlignment.Bottom;
+                        propertyTextBox.HorizontalAlignment = HorizontalAlignment.Right;
+                        propertyTextBox.Margin = new Thickness(0, 5, 20, 5);
 
-                    ContentGrid.Children.Add(propertyGrid);
+                        var valueBinding = new Binding(property.Name);
+                        valueBinding.Source = component;
+                        propertyTextBox.SetBinding(TextBox.TextProperty, valueBinding);
+
+
+                        propertyGrid.Children.Add(propertyName);
+                        propertyGrid.Children.Add(propertyTextBox);
+                        Grid.SetColumn(propertyName, 0);
+                        Grid.SetColumn(propertyTextBox, 1);
+
+                        ContentGrid.Children.Add(propertyGrid);
+                    }
                 }
-            }
+            });
+
         }
     }
 }

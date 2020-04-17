@@ -84,14 +84,14 @@
         </dragablz:TabablzControl>
 
 
-        <GridSplitter Grid.Row="1" Width="2"></GridSplitter>
-        <GridSplitter Grid.Row="1" Grid.Column="1" Width="2"></GridSplitter>
+        <GridSplitter Grid.Row="1" Width="5"></GridSplitter>
+        <GridSplitter Grid.Row="1" Grid.Column="1" Width="5"></GridSplitter>
 
         <GridSplitter   Grid.Row="2" Grid.Column="1" 
                         VerticalAlignment="Top"
                         HorizontalAlignment="Stretch"
                         ResizeDirection="Rows"
-                        Height="2"/>
+                        Height="5"/>
     </Grid>
 
 </Window>

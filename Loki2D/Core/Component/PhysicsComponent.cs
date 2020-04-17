@@ -13,6 +13,7 @@ using tainicom.Aether.Physics2D.Dynamics;
 
 namespace Loki2D.Core.Component
 {
+    [EditorInspectable("Physics Component")]
     public class PhysicsComponent: Component
     {
 
