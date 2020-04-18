@@ -22,13 +22,13 @@ namespace LokiEditor
     /// </summary>
     public partial class MainWindow : Window
     {
-        public EventHandler<LoadLokiProjectEvent> NewProjectEvent { get; set; }
+        public static EventHandler<LoadLokiProjectEvent> NewProjectEvent { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            
-            AssetManagement.Instance = new AssetManagement(this);
+
+            AssetManagement.Instance = new AssetManagement();
             
         }
 

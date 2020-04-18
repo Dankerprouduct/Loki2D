@@ -7,6 +7,7 @@ using Loki2D.Core.Component;
 using Loki2D.Core.GameObject;
 using Loki2D.Core.Scene;
 using Loki2D.Systems;
+using LokiEditor.Game;
 using LokiEditor.LokiControls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -34,6 +35,11 @@ namespace LokiEditor.Actions
                 _selectedEntity = entity;
                 _selected = true;
                 SceneManagement.Instance.CurrentScene.AddEntity(entity);
+                var addedEntityArgs = new AddedEntityArgs()
+                {
+                    AddedEntity = entity
+                };
+                LokiGame.AddedEntityHandler?.Invoke(this, addedEntityArgs);
             }
 
             base.Enter();

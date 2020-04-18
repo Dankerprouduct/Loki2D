@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Loki2D.Core.Attributes;
 using Loki2D.Core.GameObject;
+using LokiEditor.Game;
 using Underline = MaterialDesignThemes.Wpf.Underline;
 
 namespace LokiEditor.LokiControls
@@ -48,6 +49,12 @@ namespace LokiEditor.LokiControls
                 nameTextBox.FontSize = 15;
                 nameTextBox.HorizontalAlignment = HorizontalAlignment.Right;
                 nameTextBox.Margin = new Thickness(0, 0, 30, 0);
+                nameTextBox.LostFocus += (sender, args) =>
+                {
+                    var editEvent = new EditedEntityArgs();
+                    editEvent.EditedEntity = entity;
+                    LokiGame.EditedEntityHandler?.Invoke(this, editEvent);
+                };
 
                 var nameBinding = new Binding("Name");
                 nameBinding.Source = entity;
@@ -131,6 +138,12 @@ namespace LokiEditor.LokiControls
                         propertyTextBox.VerticalAlignment = VerticalAlignment.Bottom;
                         propertyTextBox.HorizontalAlignment = HorizontalAlignment.Right;
                         propertyTextBox.Margin = new Thickness(0, 5, 20, 5);
+                        propertyTextBox.TextChanged += (sender, args) =>
+                        {
+                            var editEvent = new EditedEntityArgs();
+                            editEvent.EditedEntity = entity;
+                            LokiGame.EditedEntityHandler?.Invoke(this, editEvent);
+                        };
 
                         var valueBinding = new Binding(property.Name);
                         valueBinding.Source = component;

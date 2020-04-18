@@ -27,6 +27,10 @@ namespace LokiEditor.Game
         private WpfMouse _mouse;
         public static LokiGame Instance;
 
+        public static EventHandler<LoadedSceneArgs> SceneLoadedHandler; 
+        public static EventHandler<EditedEntityArgs> EditedEntityHandler; 
+        public static EventHandler<AddedEntityArgs> AddedEntityHandler; 
+
         SpriteBatch spriteBatch;
 
         protected override void Initialize()
@@ -47,6 +51,10 @@ namespace LokiEditor.Game
         public void LoadScene(string filePath, Assembly assembly)
         {
             SceneManagement.Instance.LoadScene(filePath, assembly);
+            SceneLoadedHandler?.Invoke(this, new LoadedSceneArgs()
+            {
+                CellSpacePartition = SceneManagement.Instance.CurrentScene.CellSpacePartition
+            });
         }
 
         private Command command;
@@ -108,5 +116,25 @@ namespace LokiEditor.Game
 
             SceneManagement.Instance.Draw(spriteBatch);
         }
+    }
+
+    public class LoadedSceneArgs : EventArgs
+    {
+        public CellSpacePartition CellSpacePartition { get; set; }
+    }
+
+    public class EditedEntityArgs : EventArgs
+    {
+        public Entity EditedEntity { get; set; }
+    }
+
+    public class AddedEntityArgs : EventArgs
+    {
+        public Entity AddedEntity { get; set; }
+    }
+
+    public class RemovedEntityArgs : EventArgs
+    {
+        public Entity RemovedEntity { get; set; }
     }
 }

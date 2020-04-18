@@ -22,7 +22,7 @@
 
         <TextBlock Grid.Row="0" Text="Hierarchy"/>
         <Separator VerticalAlignment="Bottom" Margin="0"/>
-        <TreeView Grid.Row="1" x:Name="TreeView" FontSize="20">
+        <TreeView Grid.Row="1" x:Name="TreeView" FontSize="20" ItemsSource="{Binding Entities}">
         </TreeView>
     </Grid>
 </UserControl>

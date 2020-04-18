@@ -109,5 +109,10 @@ namespace Loki2D.Core.GameObject
 
             }
         }
+
+        public override string ToString()
+        {
+            return Name ?? GetType().Name;
+        }
     }
 }

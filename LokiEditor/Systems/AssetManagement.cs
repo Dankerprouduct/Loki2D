@@ -19,15 +19,11 @@ namespace LokiEditor.Systems
         public static LokiData LokiData { get; set; }
         public string LokiFilePath { get; set; }
 
+
         public AssetManagement()
         {
             Instance = this;
-        }
-
-        public AssetManagement(MainWindow window)
-        {
-            Instance = this;
-            window.NewProjectEvent += NewProject;
+            MainWindow.NewProjectEvent += NewProject;
         }
 
         public AssetManagement(string lokiPath)
