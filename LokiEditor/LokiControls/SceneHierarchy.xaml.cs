@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Loki2D.Core.GameObject;
+using Loki2D.Core.Utilities;
 using LokiEditor.Game;
 
 namespace LokiEditor.LokiControls
@@ -37,6 +39,7 @@ namespace LokiEditor.LokiControls
 
             EntitySceneList = new EntitySceneList();
 
+            
             TreeView.ItemsSource = EntitySceneList;
         }
 
@@ -52,8 +55,10 @@ namespace LokiEditor.LokiControls
 
         private void OnEditedEntity(object sender, EditedEntityArgs e)
         {
-            var index = EntitySceneList.IndexOf(e.EditedEntity);
-            
+            //Debug.Log("Edited entity");
+            //EntitySceneList.Remove(e.EditedEntity);
+            //EntitySceneList.Add(e.EditedEntity);
+            //EntitySceneList.Update(e.EditedEntity);
         }
         
         private void LoadHierarchy(object sender, LoadedSceneArgs e)
@@ -77,6 +82,15 @@ namespace LokiEditor.LokiControls
         public EntitySceneList()
         {
 
+        }
+
+        public void Update(Entity entity)
+        {
+            foreach (var item in Items)
+            {
+                if (item == entity)
+                    item.Name = entity.Name;
+            }
         }
 
     }

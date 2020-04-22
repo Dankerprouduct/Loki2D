@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Loki2D.Core.Attributes;
 using Loki2D.Core.GameObject;
 using LokiEditor.Game;
@@ -31,8 +32,10 @@ namespace LokiEditor.LokiControls
             Instance = this; 
         }
 
+        private bool _loading;
         public void SetInspector(Entity entity)
         {
+            _loading = true; 
             this.Dispatcher.Invoke(() =>
             {
                 ContentGrid.Children.Clear();
@@ -49,10 +52,11 @@ namespace LokiEditor.LokiControls
                 nameTextBox.FontSize = 15;
                 nameTextBox.HorizontalAlignment = HorizontalAlignment.Right;
                 nameTextBox.Margin = new Thickness(0, 0, 30, 0);
-                nameTextBox.LostFocus += (sender, args) =>
+                nameTextBox.TextChanged += (sender, args) =>
                 {
                     var editEvent = new EditedEntityArgs();
                     editEvent.EditedEntity = entity;
+                    
                     LokiGame.EditedEntityHandler?.Invoke(this, editEvent);
                 };
 
@@ -142,6 +146,7 @@ namespace LokiEditor.LokiControls
                         {
                             var editEvent = new EditedEntityArgs();
                             editEvent.EditedEntity = entity;
+
                             LokiGame.EditedEntityHandler?.Invoke(this, editEvent);
                         };
 
@@ -158,8 +163,9 @@ namespace LokiEditor.LokiControls
                         ContentGrid.Children.Add(propertyGrid);
                     }
                 }
-            });
+            }, DispatcherPriority.Background);
 
+            _loading = false;
         }
     }
 }

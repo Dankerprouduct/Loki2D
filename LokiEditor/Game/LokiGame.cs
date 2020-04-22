@@ -75,6 +75,16 @@ namespace LokiEditor.Game
 
         public void UpdateEditor()
         {
+            if (InputManager.LeftMouseClicked() && command == null)
+            {
+                // Select
+                if (SceneView.CurrentEditType == SceneView.EditType.Select)
+                {
+                    command = new SelectCommand();
+                    command.Enter();
+                }
+            }
+
             if (InputManager.LeftMouseDown() && command == null)
             {
                 // Brush
@@ -91,12 +101,6 @@ namespace LokiEditor.Game
                     command.Enter();
                 }
 
-                // Select
-                if (SceneView.CurrentEditType == SceneView.EditType.Select)
-                {
-                    command = new SelectCommand();
-                    command.Enter();
-                }
             }
 
 

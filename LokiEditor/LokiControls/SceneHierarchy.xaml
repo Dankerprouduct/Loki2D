@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:LokiEditor.LokiControls"
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:gameObject="clr-namespace:Loki2D.Core.GameObject;assembly=Loki2D"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="30"
@@ -14,6 +15,14 @@
              Background="#FF202020"
              FontFamily="Consolas"
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <HierarchicalDataTemplate x:Key="TreeViewTemplate" 
+                                  ItemsSource="{Binding Entity}" >
+            <TextBlock Text="{Binding Name}"/>
+        </HierarchicalDataTemplate>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -22,7 +31,11 @@
 
         <TextBlock Grid.Row="0" Text="Hierarchy"/>
         <Separator VerticalAlignment="Bottom" Margin="0"/>
-        <TreeView Grid.Row="1" x:Name="TreeView" FontSize="20" ItemsSource="{Binding Entities}">
+
+        
+        <TreeView Grid.Row="1" x:Name="TreeView" FontSize="20" 
+                  ItemsSource="{Binding Entities}"
+                  ItemTemplate="{StaticResource TreeViewTemplate}">
         </TreeView>
     </Grid>
 </UserControl>

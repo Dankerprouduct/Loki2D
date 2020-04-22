@@ -24,9 +24,16 @@
         <Separator VerticalAlignment="Bottom" Margin="0"/>
 
         <ListBox x:Name="Logs" Grid.Row="1" FontSize="15" 
-                 
                  materialDesign:ScrollViewerAssist.ShowSeparators="True">
-            
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Time}"/>
+                        <TextBlock Text="{Binding Text}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
 
     </Grid>

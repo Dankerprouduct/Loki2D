@@ -33,7 +33,7 @@ namespace LokiEditor.LokiControls
         private void LogToConsole(object sender, LogEvent e)
         {
             logs.Add(new Log(e.Log.ToString()));
-            Logs.Items.Refresh();
+            //Logs.Items.Refresh();
         }
 
     }
@@ -42,9 +42,17 @@ namespace LokiEditor.LokiControls
     {
         public string Text { get; set; }
 
+        private string _time;
+        public string Time
+        {
+            get { return $"[{_time}] "; }
+            set => value = _time;
+        }
+
         public Log(string text)
         {
             Text = text;
+            _time = DateTime.Now.ToString("t");
         }
 
         public override string ToString()

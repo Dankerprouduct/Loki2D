@@ -68,7 +68,7 @@ namespace Loki2D.Core.Scene
                 var vY = (int)(vector2.Y - (height / 2));
 
                 var rect = new Rectangle(vX, vY, width, height);
-                
+
                 if (rect.Contains(position.ToPoint()))
                 {
                     if (highestEntity == null)
@@ -85,8 +85,8 @@ namespace Loki2D.Core.Scene
                     }
 
                 }
-
             }
+
             return highestEntity;
         }
 
@@ -199,6 +199,7 @@ namespace Loki2D.Core.Scene
 
         public Entity GetEntity(Vector2 position)
         {
+
             var x = (int)(position.X / CellLength);
             var y = (int)(position.Y / CellLength);
 
