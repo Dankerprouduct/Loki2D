@@ -48,8 +48,6 @@ namespace LokiEditor.Systems
             
             AssetControl.Instance.LoadAssets(LokiData);
 
-            LokiGame.Instance.LoadScene("C:\\Users\\danke\\source\\repos\\Game4\\Game4\\bin\\Windows\\x86\\Debug\\testScene.json",
-                AssetControl.Instance.LoadedAssembly);
         }
 
     }

@@ -36,8 +36,11 @@
                         <materialDesign:PackIcon Kind="File" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0" Width="18" Height="18"/>
                     </StackPanel>
                 </MenuItem.Header>
-                <MenuItem Header="Save"></MenuItem>
-                <MenuItem Header="Load" Click="LoadProjectClick"/>
+                <MenuItem Header="Save" Click="SaveSceneClick"></MenuItem>
+                <MenuItem Header="Load Project" Click="LoadProjectClick"/>
+                <Separator/>
+                <MenuItem x:Name="LoadSceneButton" Header="Load Scene" Click="LoadScene"/>
+                <MenuItem x:Name="NewSceneButton" Header="New Scene"/>
                 <Separator/>
                 <MenuItem Header="Exit" Click="CloseApplicationClick"/>
             </MenuItem>
