@@ -33,7 +33,9 @@ namespace LokiEditor
 
             AssetManagement.Instance = new AssetManagement();
             LoadSceneButton.IsEnabled = false;
-            NewSceneButton.IsEnabled = false; 
+            NewSceneButton.IsEnabled = false;
+
+            SaveSceneButton.IsEnabled = true;
 
         }
 
@@ -52,6 +54,7 @@ namespace LokiEditor
 
                 LoadSceneButton.IsEnabled = true;
                 NewSceneButton.IsEnabled = true;
+                SaveSceneButton.IsEnabled = true; 
             }
             else
             {
