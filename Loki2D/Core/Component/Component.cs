@@ -15,9 +15,21 @@ namespace Loki2D.Core.Component
     {
         public string ComponentType { get; set; }
 
+        [JsonIgnore]
+        public string Name { get; set; }
+
         public virtual void Initialize()
         {
             ComponentType = this.GetType().FullName;
+            Name = this.GetType().Name;
+        }
+
+        public override string ToString()
+        {
+            var name = this.GetType().Name;
+            var a = System.Text.RegularExpressions.Regex
+                .Replace(name, "([A-Z])", " $1", System.Text.RegularExpressions.RegexOptions.Compiled).Trim();
+            return a;
         }
     }
 }

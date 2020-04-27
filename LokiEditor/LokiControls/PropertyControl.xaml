@@ -24,6 +24,7 @@
         <TextBlock Text="Inspector" Grid.Row="0" Margin="5" Grid.ColumnSpan="2"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Button
+                Click="EditEntity"
                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                 ToolTip="Delete Entity"
                 Grid.Row="0" HorizontalAlignment="Right"
@@ -35,6 +36,7 @@
                     Height="24"
                     Width="24" />
             </Button>
+
             <Button
                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                 ToolTip="Delete Entity"

@@ -16,6 +16,7 @@ using System.Windows.Threading;
 using Loki2D.Core.Attributes;
 using Loki2D.Core.GameObject;
 using LokiEditor.Game;
+using LokiEditor.Windows;
 using Underline = MaterialDesignThemes.Wpf.Underline;
 
 namespace LokiEditor.LokiControls
@@ -33,8 +34,12 @@ namespace LokiEditor.LokiControls
         }
 
         private bool _loading;
+        private Entity _entity;
+
         public void SetInspector(Entity entity)
         {
+            _entity = entity;
+
             _loading = true; 
             this.Dispatcher.Invoke(() =>
             {
@@ -166,6 +171,15 @@ namespace LokiEditor.LokiControls
             }, DispatcherPriority.Background);
 
             _loading = false;
+        }
+
+        private void EditEntity(object sender, RoutedEventArgs e)
+        {
+            if (_entity != null)
+            {
+                var editor = new EntityEditor(_entity);
+                editor.Show();
+            }
         }
     }
 }
