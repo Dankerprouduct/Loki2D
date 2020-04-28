@@ -10,6 +10,7 @@ using Loki2D.Core.Utilities;
 using Loki2D.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 using tainicom.Aether.Physics2D.Collision;
 using tainicom.Aether.Physics2D.Dynamics;
 
@@ -25,7 +26,7 @@ namespace Loki2D.Core.Scene
 
         public Point Size { get; set; } = new Point(5000,5000);
 
-
+        [JsonIgnore]
         public GraphicsDevice GraphicsDevice { get; set; }
         // managers
         private RenderManager _renderManager;

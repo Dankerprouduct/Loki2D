@@ -32,7 +32,7 @@
             <MenuItem>
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock VerticalAlignment="Center" Text="File" Foreground="White" FontSize="15"></TextBlock>
+                        <TextBlock VerticalAlignment="Center" x:Name="FileMenuText" Text="File" Foreground="White" FontSize="15"></TextBlock>
                         <materialDesign:PackIcon Kind="File" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0" Width="18" Height="18"/>
                     </StackPanel>
                 </MenuItem.Header>

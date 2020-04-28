@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,6 +18,7 @@ using LokiEditor.Game;
 using LokiEditor.LokiControls;
 using LokiEditor.Systems;
 using Microsoft.Win32;
+using Path = System.IO.Path;
 
 namespace LokiEditor
 {
@@ -54,7 +56,10 @@ namespace LokiEditor
 
                 LoadSceneButton.IsEnabled = true;
                 NewSceneButton.IsEnabled = true;
-                SaveSceneButton.IsEnabled = true; 
+                SaveSceneButton.IsEnabled = true;
+
+
+                FileMenuText.Text = Path.GetFileNameWithoutExtension(AssetManagement.LokiData.Project);
             }
             else
             {
