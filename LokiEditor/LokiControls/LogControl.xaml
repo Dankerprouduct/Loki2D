@@ -23,18 +23,20 @@
 
         <Separator VerticalAlignment="Bottom" Margin="0"/>
 
-        <ListBox x:Name="Logs" Grid.Row="1" FontSize="15" 
-                 materialDesign:ScrollViewerAssist.ShowSeparators="True">
+        <ScrollViewer x:Name="LogScrollViewer"  Grid.Row="1" CanContentScroll="True">
+            <ListBox x:Name="Logs" FontSize="15" ScrollViewer.CanContentScroll="True">
 
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Time}"/>
-                        <TextBlock Text="{Binding Text}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Time}"/>
+                            <TextBlock Text="{Binding Text}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+        
 
     </Grid>
 </UserControl>

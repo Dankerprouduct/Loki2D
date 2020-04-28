@@ -33,6 +33,7 @@ namespace LokiEditor.Windows
             InitializeComponent();
             _entity = entity;
 
+            EntityNameTextbox.Text = entity.Name;
             PopulateComponents(entity);
             Components.SelectionChanged += Components_OnSelected;
         }
@@ -46,7 +47,7 @@ namespace LokiEditor.Windows
         {
             var component = (Component)e.AddedItems[0];
             ComponentGrid.Children.Clear();
-
+            
             foreach (var property in component.GetType().GetProperties())
             {
                 var canEdit = Attribute.IsDefined(property, typeof(EditorInspectable));

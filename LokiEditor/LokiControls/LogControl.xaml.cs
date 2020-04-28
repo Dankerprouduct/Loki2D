@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace LokiEditor.LokiControls
     /// </summary>
     public partial class LogControl : UserControl
     {
-        private IList<Log> logs = new List<Log>();
+        private ObservableCollection<Log> logs = new ObservableCollection<Log>();
         public LogControl()
         {
             InitializeComponent();
@@ -33,6 +34,7 @@ namespace LokiEditor.LokiControls
         private void LogToConsole(object sender, LogEvent e)
         {
             logs.Add(new Log(e.Log.ToString()));
+            LogScrollViewer.ScrollToBottom();
             //Logs.Items.Refresh();
         }
 

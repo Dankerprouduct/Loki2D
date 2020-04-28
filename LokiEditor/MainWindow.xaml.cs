@@ -88,6 +88,9 @@ namespace LokiEditor
 
         private void SaveSceneClick(object sender, RoutedEventArgs e)
         {
+            if(SceneManagement.Instance.CurrentScene == null)
+                return;
+
             if (SceneManagement.Instance.CurrentScene.Name != null)
             {
                 SceneManagement.Instance.SaveScene();

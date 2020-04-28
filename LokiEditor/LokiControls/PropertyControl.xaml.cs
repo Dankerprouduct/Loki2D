@@ -166,8 +166,20 @@ namespace LokiEditor.LokiControls
                         Grid.SetColumn(propertyTextBox, 1);
 
                         ContentGrid.Children.Add(propertyGrid);
+
                     }
                 }
+
+
+                Color color = (Color)ColorConverter.ConvertFromString("#FF505050");
+                var button = new Button();
+                button.Content = "Add Component";
+                button.FontWeight = FontWeights.Bold;
+                button.Margin = new Thickness(5);
+
+                button.Foreground = Brushes.White;
+                button.Background = new SolidColorBrush(color);
+                ContentGrid.Children.Add(button);
             }, DispatcherPriority.Background);
 
             _loading = false;

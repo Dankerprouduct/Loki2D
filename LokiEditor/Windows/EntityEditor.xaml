@@ -67,7 +67,7 @@
 
             <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
                 <TextBlock VerticalAlignment="Center" Text="Entity Name"/>
-                <TextBox Text="Entity Name" Margin="20,0,0,0"/>
+                <TextBox x:Name="EntityNameTextbox" Text="Entity Name" Margin="20,0,0,0"/>
             </StackPanel>
 
             <ScrollViewer Grid.Row="1">
