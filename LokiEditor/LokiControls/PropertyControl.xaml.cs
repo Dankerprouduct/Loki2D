@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -172,14 +173,20 @@ namespace LokiEditor.LokiControls
 
 
                 Color color = (Color)ColorConverter.ConvertFromString("#FF505050");
+
                 var button = new Button();
                 button.Content = "Add Component";
                 button.FontWeight = FontWeights.Bold;
-                button.Margin = new Thickness(5);
 
                 button.Foreground = Brushes.White;
                 button.Background = new SolidColorBrush(color);
+
+                button.ContextMenu = new ComponentsMenu();
+                button.Click += (sender, args) => { button.ContextMenu.IsOpen = true; };
+
                 ContentGrid.Children.Add(button);
+
+
             }, DispatcherPriority.Background);
 
             _loading = false;
@@ -192,6 +199,32 @@ namespace LokiEditor.LokiControls
                 var editor = new EntityEditor(_entity);
                 editor.Show();
             }
+        }
+    }
+
+    public class ComponentsMenu : ContextMenu
+    {
+        public ComponentsMenu()
+        {
+            var tests = new ObservableCollection<string>()
+            {
+                "test 1",
+                "test 2",
+                "test 3",
+                "test 4",
+                "test 5"
+            };
+
+            var engineComponents = new MenuItem();
+            engineComponents.Header = "Engine Components";
+
+            var gameComponents = new MenuItem();
+            gameComponents.Header = "Local Components";
+
+            Items.Add(engineComponents);
+            Items.Add(gameComponents);
+
+
         }
     }
 }

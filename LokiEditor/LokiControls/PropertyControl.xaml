@@ -56,6 +56,7 @@
         <StackPanel Grid.Row="1" x:Name="NamePanel"/>
         <ScrollViewer x:Name="ScrollViewer" Grid.Row="2">
             <StackPanel x:Name="ContentGrid">
+               
             </StackPanel>
         </ScrollViewer>
     </Grid>
