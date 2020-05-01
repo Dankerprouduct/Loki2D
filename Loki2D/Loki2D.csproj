@@ -55,7 +55,9 @@
     <Compile Include="Core\Scene\SceneManagement.cs" />
     <Compile Include="Core\Utilities\Camera.cs" />
     <Compile Include="Core\Utilities\Debug.cs" />
+    <Compile Include="Core\Utilities\Extensions.cs" />
     <Compile Include="Core\Utilities\JsonHelper.cs" />
+    <Compile Include="Core\Utilities\MathUtils.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

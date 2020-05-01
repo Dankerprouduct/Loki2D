@@ -81,8 +81,6 @@ namespace Loki2D.Core.GameObject
             }
 
             _components.Add(component);
-            Console.WriteLine($"added {component.GetType().Name}");
-            Console.WriteLine($"Component count: {_components.Count}");
             return component;
         }
 
@@ -96,7 +94,6 @@ namespace Loki2D.Core.GameObject
             {
                 SceneManagement.Instance.CurrentScene.CellSpacePartition.ChangeEntityCell(Index, currentIndex, this);
                 
-                Debug.Log($"Entity {Name} moved from {Index} to {currentIndex}");
                 Index = currentIndex;
             }
 

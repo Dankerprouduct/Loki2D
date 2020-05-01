@@ -31,7 +31,7 @@ namespace Loki2D.Systems
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, SceneManagement.Instance.CurrentScene.Camera.transform);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, SceneManagement.Instance.CurrentScene.Camera.transform);
 
 
             for (int y = 0; y < SceneManagement.Instance.CurrentScene.CellSpacePartition.Width; y++)
@@ -50,7 +50,7 @@ namespace Loki2D.Systems
                         
                         spriteBatch.Draw(texture, position,
                             null, Color.White, MathHelper.ToRadians(entity.GetComponent<RenderComponent>().Rotation), 
-                            new Vector2(texture.Width /2, texture.Height /2), 1, 
+                            new Vector2(texture.Width /2, texture.Height /2), entity.GetComponent<RenderComponent>().Scale, 
                             SpriteEffects.None, entity.GetComponent<RenderComponent>().RenderLayer);
 
                     }

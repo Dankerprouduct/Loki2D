@@ -42,7 +42,6 @@ namespace Loki2D.Core.Scene
                 _entities.Add(entity);
 
                 _entities = _entities.OrderBy(e => e.GetComponent<RenderComponent>().RenderLayer).ToList();
-                Console.WriteLine($"added entity to {X} {Y}");
                 return true;
             }
 
@@ -182,6 +181,14 @@ namespace Loki2D.Core.Scene
             }
         }
 
+        public void ResetCells()
+        {
+            for (int i = 0; i < Cells.Length; i++)
+            {
+                Cells[i] = new Cell();
+            }
+        }
+
         public bool AddEntity(Entity entity)
         {
             var transform = entity.GetComponent<TransformComponent>().Position;
@@ -193,7 +200,7 @@ namespace Loki2D.Core.Scene
 
             Cells[index].X = x;
             Cells[index].Y = y;  
-            Console.WriteLine($"Adding entity to cell {x} {y} {index}");
+            //Console.WriteLine($"Adding entity to cell {x} {y} {index}");
             return Cells[index].AddEntity(entity);
         }
 
