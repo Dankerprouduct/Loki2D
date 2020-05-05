@@ -248,14 +248,7 @@ namespace Loki2D.Core.Scene
 
         public bool RemoveEntity(Entity entity)
         {
-            var transform = entity.GetComponent<TransformComponent>().Position;
-
-            var x = (int)(transform.X / CellLength);
-            var y = (int)(transform.Y / CellLength);
-
-            var index = x + Width * y;
-
-            return Cells[index].RemoveEntity(entity);
+            return Cells[entity.Index].RemoveEntity(entity);
         }
         
         public int PositionToIndex(Vector2 position)

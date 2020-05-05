@@ -200,6 +200,14 @@ namespace LokiEditor.LokiControls
                 editor.Show();
             }
         }
+
+        private void DeleteEntity(object sender, RoutedEventArgs e)
+        {
+            if (_entity != null)
+            {
+
+            }
+        }
     }
 
     public class ComponentsMenu : ContextMenu

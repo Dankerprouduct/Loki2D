@@ -78,7 +78,7 @@ namespace Loki2D.Core.Scene
 
         public void RemoveEntity(Entity entity)
         {
-
+            CellSpacePartition.RemoveEntity(entity);
         }
 
         public void AddBody(Body body)

@@ -39,6 +39,7 @@
 
             <Button
                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                Click="DeleteEntity"
                 ToolTip="Delete Entity"
                 Grid.Row="0" HorizontalAlignment="Right"
                 Background="Transparent"

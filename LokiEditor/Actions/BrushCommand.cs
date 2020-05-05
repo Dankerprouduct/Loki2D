@@ -18,6 +18,7 @@ namespace LokiEditor.Actions
     {
         private Entity _selectedEntity;
         private bool _selected;
+        private static bool _orthographic;
 
         public override void Enter()
         {
@@ -59,8 +60,18 @@ namespace LokiEditor.Actions
 
                 if (InputManager.KeyDown(Keys.LeftShift))
                 {
-                    position.X = ((float)Math.Round(position.X / width) * width);
-                    position.Y = ((float)Math.Round(position.Y / height) * height);
+                    if (_orthographic)
+                    {
+                        position.X = ((float)Math.Round(position.X / width) * width);
+                        position.Y = ((float)Math.Round(position.Y / height) * height);
+                    }
+                    else
+                    {
+                        var mapX = ((float)Math.Round(position.X / width));
+                        var mapY = ((float)Math.Round(position.Y / height));
+                        position.X = (mapX - mapY) * (width / 2);
+                        position.Y = (mapX + mapY * (height / 2));
+                    }
                 }
 
                 _selectedEntity.GetComponent<TransformComponent>().Position = position;

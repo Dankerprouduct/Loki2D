@@ -99,6 +99,11 @@ namespace Loki2D.Core.GameObject
 
         }
 
+        public void Destroy()
+        {
+            SceneManagement.Instance.CurrentScene.RemoveEntity(this);
+        }
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             foreach (var component in _components)

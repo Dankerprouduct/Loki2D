@@ -19,6 +19,7 @@ namespace LokiEditor.Actions
     {
         private Entity _selectedEntity;
         private bool _selected;
+        private static bool _orthographic = true;
 
         public override void Enter()
         {
@@ -46,6 +47,12 @@ namespace LokiEditor.Actions
         {
             if (!_selected) return false;
 
+            if (InputManager.KeyPressed(Keys.O))
+            {
+                _orthographic = !_orthographic; 
+
+            }
+
             if (InputManager.LeftMouseDown() && _selected)
             {
                 var position = Vector2.Transform(InputManager.MouseState.Position.ToVector2(),
@@ -57,8 +64,20 @@ namespace LokiEditor.Actions
 
                 if (InputManager.KeyDown(Keys.LeftShift))
                 {
-                    position.X = ((float)Math.Round(position.X / width) * width);
-                    position.Y = ((float)Math.Round(position.Y / height) * height);
+                    if (_orthographic)
+                    {
+                        Debug.Log("Orthographic");
+                        position.X = ((float) Math.Round(position.X / width) * width);
+                        position.Y = ((float) Math.Round(position.Y / height) * height);
+                    }
+                    else
+                    {
+                        Debug.Log("Isometric");
+                        var mapX = ((float) Math.Round(position.X / width));
+                        var mapY = ((float) Math.Round(position.Y / height));
+                        position.X = (mapX - mapY) * (width / 2);
+                        position.Y = (mapX + mapY * (height / 2));
+                    }
                 }
                 
                 _selectedEntity.GetComponent<TransformComponent>().Position = position;
