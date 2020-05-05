@@ -11,6 +11,7 @@ using Loki2D.Core.Scene;
 using Loki2D.Systems;
 using LokiEditor.Actions;
 using LokiEditor.LokiControls;
+using LokiEditor.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -44,9 +45,15 @@ namespace LokiEditor.Game
 
             SceneManagement.Instance = new SceneManagement(GraphicsDevice);
             TextureManager.Instance = new TextureManager(GraphicsDevice);
-
+            MainWindow.NewProjectEvent += NewProject;
             base.Initialize();
         }
+
+        private void NewProject(object sender, LoadLokiProjectEvent e)
+        {
+            SceneManagement.Instance.LoadScene(new Scene("Untitled", new Point(10,10)));
+        }
+
 
         public void LoadScene(string filePath, Assembly assembly)
         {

@@ -203,10 +203,7 @@ namespace LokiEditor.LokiControls
 
         private void DeleteEntity(object sender, RoutedEventArgs e)
         {
-            if (_entity != null)
-            {
-
-            }
+            _entity?.Destroy();
         }
     }
 
