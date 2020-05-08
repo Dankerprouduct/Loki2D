@@ -18,7 +18,7 @@ namespace LokiEditor.Actions
     {
         private Entity _selectedEntity;
         private bool _selected;
-        private static bool _orthographic;
+        private static bool _orthographic = true;
 
         public override void Enter()
         {

@@ -49,7 +49,7 @@ namespace LokiEditor.Actions
 
             if (InputManager.KeyPressed(Keys.O))
             {
-                _orthographic = !_orthographic; 
+                //_orthographic = !_orthographic; 
 
             }
 
