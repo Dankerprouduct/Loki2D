@@ -57,7 +57,7 @@ namespace Loki2D.GUI
         /// Position of Element
         /// </summary>
         public Point Position { get; set; }
-        
+
         /// <summary>
         /// Disables drawing
         /// </summary>
@@ -65,7 +65,7 @@ namespace Loki2D.GUI
         {
             CanDraw = false;
         }
-
+       
         /// <summary>
         /// Enables drawing
         /// </summary>
