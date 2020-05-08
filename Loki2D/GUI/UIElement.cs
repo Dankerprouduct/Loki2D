@@ -59,6 +59,11 @@ namespace Loki2D.GUI
         public Point Position { get; set; }
 
         /// <summary>
+        /// Parent UI Element
+        /// </summary>
+        public UIElement Parent;
+
+        /// <summary>
         /// Disables drawing
         /// </summary>
         public void Hide()
@@ -126,5 +131,22 @@ namespace Loki2D.GUI
             Position = point; 
         }
 
+        /// <summary>
+        /// sets the parent 
+        /// </summary>
+        /// <param name="element"></param>
+        public void SetParent(UIElement element)
+        {
+            Parent = element;
+        }
+
+        /// <summary>
+        /// Clears the parent element
+        /// </summary>
+        /// <param name="element"></param>
+        public void ClearParent(UIElement element)
+        {
+            Parent = null;
+        }
     }
 }
