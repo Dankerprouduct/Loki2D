@@ -58,7 +58,7 @@ namespace LokiEditor.LokiControls
             //Debug.Log("Edited entity");
             //EntitySceneList.Remove(e.EditedEntity);
             //EntitySceneList.Add(e.EditedEntity);
-            //EntitySceneList.Update(e.EditedEntity);
+            //EntitySceneList.CanUpdate(e.EditedEntity);
         }
         
         private void LoadHierarchy(object sender, LoadedSceneArgs e)

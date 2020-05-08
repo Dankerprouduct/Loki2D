@@ -48,7 +48,7 @@ namespace Loki2D.Core.Utilities
             Scrolling = true;
         }
 
-        [System.Obsolete("Use Update() instead", true)]
+        [System.Obsolete("Use CanUpdate() instead", true)]
         public void Update(GameTime gameTime)
         {
 
