@@ -59,6 +59,9 @@
     <Compile Include="Core\Utilities\JsonHelper.cs" />
     <Compile Include="Core\Utilities\MathUtils.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GUI\UIElement.cs" />
+    <Compile Include="GUI\UIGraphicElement.cs" />
+    <Compile Include="GUI\UITextElement.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\InputManager.cs" />
@@ -95,7 +98,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GUI\" />
     <Folder Include="Resource\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
