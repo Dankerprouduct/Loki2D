@@ -44,6 +44,8 @@ namespace LokiEditor.LokiControls
 
         public void LoadAssets(LokiData lokiData)
         {
+            // clears assets before adding them back to the list
+            Assets.Clear();
             var path = Path.GetDirectoryName(AssetManagement.Instance.LokiFilePath);
             var assemblyPath = Path.Combine(path, lokiData.Project);
             var assembly = Assembly.LoadFile(assemblyPath);
