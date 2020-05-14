@@ -67,7 +67,7 @@ namespace Loki2D.Core.Scene
                 {
                     fileName = CurrentScene.Name;
                 }
-                using (StreamWriter streamWriter = new StreamWriter(fileName))
+                using (StreamWriter streamWriter = new StreamWriter(fileName ))
                 {
                     streamWriter.Write(sceneData);
                 }

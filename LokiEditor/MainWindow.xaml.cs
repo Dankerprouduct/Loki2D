@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Loki2D.Core.Scene;
+using Loki2D.Core.Utilities;
 using LokiEditor.Game;
 using LokiEditor.LokiControls;
 using LokiEditor.Systems;
@@ -95,6 +96,20 @@ namespace LokiEditor
         {
             if(SceneManagement.Instance.CurrentScene == null)
                 return;
+
+            if (SceneManagement.Instance.CurrentScene.Name != null)
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Loki Scene Files|*.sloki";
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    Debug.Log($"Saved {saveFileDialog.FileName}");
+                    SceneManagement.Instance.CurrentScene.Name = Path.GetFileNameWithoutExtension(saveFileDialog.FileName);
+                    SceneManagement.Instance.SaveScene(
+                        SceneManagement.Instance.CurrentScene,
+                        saveFileDialog.FileName);
+                }
+            }
 
             if (SceneManagement.Instance.CurrentScene.Name != null)
             {

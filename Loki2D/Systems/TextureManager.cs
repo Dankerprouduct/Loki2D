@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Debug = Loki2D.Core.Utilities.Debug;
 
 namespace Loki2D.Systems
 {
@@ -45,9 +47,15 @@ namespace Loki2D.Systems
                 {
                     var texture = Texture2D.FromStream(_graphicsDevice, stream);
                     var key = Path.GetFileNameWithoutExtension(file);
-                    Textures.Add(key, texture);
-
                     stream.Dispose();
+                    try
+                    {
+                        Textures.Add(key, texture);
+                    }
+                    catch (ArgumentException exception)
+                    {
+                        Debug.Log($"Texture {texture} has already been added!");
+                    }
                 }
             }
             
