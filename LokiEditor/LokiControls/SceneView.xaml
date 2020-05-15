@@ -37,5 +37,7 @@
             
         </Menu>
         <Game:LokiGame x:Name="LokiGame" Grid.Row="1" Margin="0"/>
+
+        <!--<TextBlock Grid.Row="1" Margin="10" FontFamily="Calibri" Text="Debug" x:Name="DebugText" FontSize="15"/>-->
     </Grid>
 </UserControl>

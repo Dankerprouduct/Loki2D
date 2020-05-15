@@ -20,9 +20,11 @@ namespace LokiEditor.LokiControls
     /// </summary>
     public partial class SceneView : UserControl
     {
+        public static SceneView Instance;
         public SceneView()
         {
             InitializeComponent();
+            Instance = this;
         }
 
         public enum EditType
@@ -70,6 +72,11 @@ namespace LokiEditor.LokiControls
             TransformButton.Foreground = Brushes.White;
             BrushButton.Foreground = Brushes.White;
             MagnetButton.Foreground = Brushes.White;
+        }
+
+        public void SetDebugText(string text)
+        {
+            //DebugText.Text = text; 
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Loki2D.Core.Component;
@@ -74,6 +75,16 @@ namespace LokiEditor.Game
             {
                 UpdateEditor();
             }
+
+            var scene = SceneManagement.Instance.CurrentScene;
+
+            if (SceneManagement.Instance.CurrentScene != null)
+            {
+                var mousePosition = Vector2.Transform(InputManager.MouseState.Position.ToVector2(),
+                    Matrix.Invert(SceneManagement.Instance.CurrentScene.Camera.transform));
+                SceneView.Instance.SetDebugText($"Mouse Position: {mousePosition.ToString()}");
+            }
+
 
             SceneManagement.Instance.Update(gameTime);
             SceneManagement.Instance.CurrentScene?.Camera.WSADMovement();

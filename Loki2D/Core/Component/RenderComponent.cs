@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Loki2D.Core.Attributes;
 using Loki2D.Core.GameObject;
+using Loki2D.Core.Shaders;
 using Loki2D.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -26,6 +27,8 @@ namespace Loki2D.Core.Component
         [EditorInspectable]
         public float Rotation { get; set; } = 0;
 
+        public Material Material;
+
         public RenderComponent()
         {
 
@@ -40,6 +43,11 @@ namespace Loki2D.Core.Component
         ~RenderComponent()
         {
             RenderManager.Instance.UnRegisterComponent(this);
+        }
+
+        public void SetMaterial(Material material)
+        {
+            Material = material;
         }
 
         public override void Initialize()

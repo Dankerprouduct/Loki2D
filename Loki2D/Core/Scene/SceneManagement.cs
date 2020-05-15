@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Loki2D.Core.GameObject;
 using Loki2D.Core.Utilities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -19,18 +20,28 @@ namespace Loki2D.Core.Scene
     public class SceneManagement
     {
         public static SceneManagement Instance;
-        private GraphicsDevice _graphicsDevice;
+        public GraphicsDevice GraphicsDevice;
+        public ContentManager Content;
         public Scene CurrentScene { get; private set; }
         public bool DrawDebug { get; set; } = true;
+
 
         private SceneManagement()
         {
             Instance = this; 
         }
 
+        public SceneManagement(GraphicsDevice graphicsDevice, ContentManager content)
+        {
+            Instance = this;
+
+            GraphicsDevice = graphicsDevice;
+            Content = content;
+        }
+
         public SceneManagement(GraphicsDevice graphicsDevice)
         {
-            _graphicsDevice = graphicsDevice;
+            GraphicsDevice = graphicsDevice;
         }
 
         /// <summary>
@@ -41,7 +52,7 @@ namespace Loki2D.Core.Scene
         public void LoadScene(Scene scene)
         {
             CurrentScene = scene; 
-            CurrentScene.Initialize(_graphicsDevice);
+            CurrentScene.Initialize(GraphicsDevice);
         }
 
         public void SaveScene(Scene scene = null, string fileName = null)

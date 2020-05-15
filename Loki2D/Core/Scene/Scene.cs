@@ -25,7 +25,7 @@ namespace Loki2D.Core.Scene
         public Camera Camera { get; set; }
 
         public Point Size { get; set; } = new Point(5000,5000);
-
+        public bool DeferredDraw = false; 
         [JsonIgnore]
         public GraphicsDevice GraphicsDevice { get; set; }
         // managers
@@ -103,9 +103,15 @@ namespace Loki2D.Core.Scene
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _renderManager.Draw(spriteBatch);
+            if (!DeferredDraw)
+            {
+                _renderManager.Draw(spriteBatch);
+            }
+            else
+            {
+                _renderManager.DeferredDraw(spriteBatch);
+            }
 
-            
         }
     }
 }

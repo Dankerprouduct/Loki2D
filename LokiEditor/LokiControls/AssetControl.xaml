@@ -43,6 +43,7 @@
                             <ContextMenu>
                                 <MenuItem Header="Delete"/>
                                 <MenuItem Header="Rename"/>
+                                <MenuItem Header="Edit" Click="EditPrefab"/>
                             </ContextMenu>
                         </StackPanel.ContextMenu>
                     </StackPanel>

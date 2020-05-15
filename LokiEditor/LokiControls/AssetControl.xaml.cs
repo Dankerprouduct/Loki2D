@@ -85,5 +85,10 @@ namespace LokiEditor.LokiControls
             Console.WriteLine(asset);
             SelectedAsset = asset;
         }
+
+        private void EditPrefab(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

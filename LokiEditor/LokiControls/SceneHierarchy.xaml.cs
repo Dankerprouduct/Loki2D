@@ -36,6 +36,7 @@ namespace LokiEditor.LokiControls
 
 
             TreeView.SelectedItemChanged += SelectedItem;
+            
 
             EntitySceneList = new EntitySceneList();
 

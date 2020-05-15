@@ -14,7 +14,7 @@ namespace Loki2D.GUI
     public class UIElement
     {
         /// <summary>
-        /// Color Tint
+        /// LightColor Tint
         /// </summary>
         public Color Color { get; set; }
         

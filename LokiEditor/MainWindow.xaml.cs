@@ -83,7 +83,7 @@ namespace LokiEditor
             if (openFileDialog.ShowDialog() == true)
             {
                 fileName = openFileDialog.FileName;
-
+                
                 LokiGame.Instance.LoadScene(fileName, AssetControl.Instance.LoadedAssembly);
             }
             else
