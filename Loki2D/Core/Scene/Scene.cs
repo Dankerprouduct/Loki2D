@@ -110,6 +110,8 @@ namespace Loki2D.Core.Scene
             else
             {
                 _renderManager.DeferredDraw(spriteBatch);
+
+                _renderManager.DrawDebugRenderTargets(spriteBatch);
             }
 
         }

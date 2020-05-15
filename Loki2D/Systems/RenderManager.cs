@@ -23,16 +23,22 @@ namespace Loki2D.Systems
 
         public RenderTarget2D DiffuseTarget;
         public RenderTarget2D NormalTarget;
-        public RenderTarget2D LightsTarget;
         public RenderTarget2D ShadowTarget;
 
         public VertexPositionColorTexture[] Quad;
         public VertexBuffer VertexBuffer;
         private Effect _lightEffect;
         private Effect _lightCombinedEffect;
+        private Effect CombinedEffect; 
 
         public List<Light> Lights = new List<Light>();
-        private Color _ambientLight = new Color(.1f, .1f, .1f, 1);
+        public Color AmbientColor = new Color(.3f, .3f, .3f, 1);
+        public float AmbientStrength = 1;
+        public float ShadowStrength = 1; 
+
+
+
+        private Color _ambientLight = new Color(1f, 1f, 1f, 1);
         private float _specularStrength = 1.0f;
 
         private EffectTechnique _lightEffectTechniquePointLight;
@@ -44,15 +50,7 @@ namespace Loki2D.Systems
         private EffectParameter _lightEffectParameterScreenWidth;
         private EffectParameter _lightEffectParameterScreenHeight;
         private EffectParameter _lightEffectParameterNormapMap;
-
-        private EffectTechnique _lightCombinedEffectTechnique;
-        private EffectParameter _lightCombinedEffectParamAmbient;
-        private EffectParameter _lightCombinedEffectParamLightAmbient;
-        private EffectParameter _lightCombinedEffectParamAmbientColor;
-        private EffectParameter _lightCombinedEffectParamColorMap;
-        private EffectParameter _lightCombinedEffectParamShadowMap;
-        private EffectParameter _lightCombinedEffectParamNormalMap;
-
+        
         public GraphicsDevice GraphicsDevice;
         public RenderManager()
         {
@@ -62,7 +60,7 @@ namespace Loki2D.Systems
             var height = GraphicsDevice.PresentationParameters.BackBufferHeight;
             DiffuseTarget = new RenderTarget2D(GraphicsDevice, width, height);
             NormalTarget = new RenderTarget2D(GraphicsDevice, width, height);
-            LightsTarget = new RenderTarget2D(GraphicsDevice, width, height);
+            ShadowTarget = new RenderTarget2D(GraphicsDevice, width, height);
 
             Quad = new VertexPositionColorTexture[4];
             Quad[0] = new VertexPositionColorTexture(new Vector3(-1, 1, 0), Color.White, new Vector2(0, 0));
@@ -72,35 +70,25 @@ namespace Loki2D.Systems
             VertexBuffer = new VertexBuffer(GraphicsDevice, typeof(VertexPositionColorTexture), Quad.Length, BufferUsage.None);
             VertexBuffer.SetData(Quad);
 
-            if (SceneManagement.Instance.CurrentScene.DeferredDraw)
-            {
-                ContentManager Content = SceneManagement.Instance.Content; //  TODO: PASS THIS IN 
-                File.WriteAllBytes("Content\\DeferredCombined.fx", Properties.Resources.DeferredCombined);
-                File.WriteAllBytes("Content\\MultiTarget.fx", Properties.Resources.MultiTarget);
+            ContentManager Content = SceneManagement.Instance.Content; //  TODO: PASS THIS IN 
+            File.WriteAllBytes("Content\\DeferredCombined.fx", Properties.Resources.DeferredCombined);
+            File.WriteAllBytes("Content\\MultiTarget.fx", Properties.Resources.MultiTarget);
 
 
-                _lightCombinedEffect = Content.Load<Effect>("DeferredCombined");
+            _lightCombinedEffect = Content.Load<Effect>("DeferredCombined");
 
-                _lightEffect = Content.Load<Effect>("MultiTarget");
+            _lightEffect = Content.Load<Effect>("MultiTarget");
+            CombinedEffect = Content.Load<Effect>("testCombine"); 
 
-                _lightEffectTechniquePointLight = _lightEffect.Techniques["DeferredPointLight"];
-                _lightEffectParameterConeDirection = _lightEffect.Parameters["coneDirection"];
-                _lightEffectParameterLightColor = _lightEffect.Parameters["lightColor"];
-                _lightEffectParameterLightDecay = _lightEffect.Parameters["lightDecay"];
-                _lightEffectParameterNormapMap = _lightEffect.Parameters["NormalMap"];
-                _lightEffectParameterPosition = _lightEffect.Parameters["lightPosition"];
-                _lightEffectParameterScreenHeight = _lightEffect.Parameters["screenHeight"];
-                _lightEffectParameterScreenWidth = _lightEffect.Parameters["screenWidth"];
-                _lightEffectParameterStrength = _lightEffect.Parameters["lightStrength"];
-
-                _lightCombinedEffectTechnique = _lightCombinedEffect.Techniques["DeferredCombined2"];
-                _lightCombinedEffectParamAmbient = _lightCombinedEffect.Parameters["ambient"];
-                _lightCombinedEffectParamLightAmbient = _lightCombinedEffect.Parameters["lightAmbient"];
-                _lightCombinedEffectParamAmbientColor = _lightCombinedEffect.Parameters["ambientColor"];
-                _lightCombinedEffectParamColorMap = _lightCombinedEffect.Parameters["ColorMap"];
-                _lightCombinedEffectParamShadowMap = _lightCombinedEffect.Parameters["ShadingMap"];
-                _lightCombinedEffectParamNormalMap = _lightCombinedEffect.Parameters["NormalMap"];
-            }
+            _lightEffectTechniquePointLight = _lightEffect.Techniques["DeferredPointLight"];
+            _lightEffectParameterConeDirection = _lightEffect.Parameters["coneDirection"];
+            _lightEffectParameterLightColor = _lightEffect.Parameters["lightColor"];
+            _lightEffectParameterLightDecay = _lightEffect.Parameters["lightDecay"];
+            _lightEffectParameterNormapMap = _lightEffect.Parameters["NormalMap"];
+            _lightEffectParameterPosition = _lightEffect.Parameters["lightPosition"];
+            _lightEffectParameterScreenHeight = _lightEffect.Parameters["screenHeight"];
+            _lightEffectParameterScreenWidth = _lightEffect.Parameters["screenWidth"];
+            _lightEffectParameterStrength = _lightEffect.Parameters["lightStrength"];
 
         }
         
@@ -132,17 +120,14 @@ namespace Loki2D.Systems
                         var renderComponent = entity.GetComponent<RenderComponent>();
                         var material = renderComponent.Material;
 
-                        if (material == null)
-                        {
-                            var texture =
-                                TextureManager.Instance.GetTexture(renderComponent.TextureName);
-                            var position = entity.GetComponent<TransformComponent>().Position;
+                        var texture =
+                            TextureManager.Instance.GetTexture(renderComponent.TextureName);
+                        var position = entity.GetComponent<TransformComponent>().Position;
 
-                            spriteBatch.Draw(texture, position,
-                                null, Color.White, MathHelper.ToRadians(renderComponent.Rotation),
-                                new Vector2(texture.Width / 2, texture.Height / 2), renderComponent.Scale,
-                                SpriteEffects.None, renderComponent.RenderLayer);
-                        }
+                        spriteBatch.Draw(texture, position,
+                            null, Color.White, MathHelper.ToRadians(renderComponent.Rotation),
+                            new Vector2(texture.Width / 2, texture.Height / 2), renderComponent.Scale,
+                            SpriteEffects.None, renderComponent.RenderLayer);
                     }
                 }
             }
@@ -187,21 +172,31 @@ namespace Loki2D.Systems
             // draw combined
             DrawCombinedMaps(spriteBatch);
 
+
         }
 
         private void DrawCombinedMaps(SpriteBatch spriteBatch)
         {
-            _lightCombinedEffect.CurrentTechnique = _lightCombinedEffectTechnique;
-            _lightCombinedEffectParamAmbient.SetValue(1f);
-            _lightCombinedEffectParamLightAmbient.SetValue(4f);
-            _lightCombinedEffectParamAmbientColor.SetValue(_ambientLight.ToVector4());
-            _lightCombinedEffectParamColorMap.SetValue(DiffuseTarget);
-            _lightCombinedEffectParamShadowMap.SetValue(ShadowTarget);
-            _lightCombinedEffectParamNormalMap.SetValue(NormalTarget);
+            //_lightCombinedEffectParamAmbient.SetValue(1f);
+            //_lightCombinedEffectParamLightAmbient.SetValue(4f);
+
+            //_lightCombinedEffectParamAmbientColor.SetValue(_ambientLight.ToVector4());
+
+            CombinedEffect.CurrentTechnique = CombinedEffect.Techniques["Combine"];
+            CombinedEffect.Parameters["DiffuseTexture"].SetValue(DiffuseTarget);
+            CombinedEffect.Parameters["ShadowTexture"].SetValue(ShadowTarget);
+            CombinedEffect.Parameters["AmbientColor"].SetValue(AmbientColor.ToVector4());
+            CombinedEffect.Parameters["AmbientStrength"].SetValue(AmbientStrength);
+            CombinedEffect.Parameters["ShadowStrength"].SetValue(ShadowStrength);
+
+            //_lightCombinedEffect.Parameters["ColorMap"].SetValue(DiffuseTarget);
+            //_lightCombinedEffect.Parameters["ShadingMap"].SetValue(ShadowTarget);
+            //_lightCombinedEffect.Parameters["NormalMap"].SetValue(NormalTarget);
+
             _lightCombinedEffect.CurrentTechnique.Passes[0].Apply();
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, _lightCombinedEffect);
-            spriteBatch.Draw(DiffuseTarget, new Rectangle(0,0, 100,100), Color.White);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, CombinedEffect);
+            spriteBatch.Draw(DiffuseTarget, Vector2.Zero, Color.White);
             spriteBatch.End();
         }
 
@@ -280,7 +275,7 @@ namespace Loki2D.Systems
                 GraphicsDevice.SetVertexBuffer(VertexBuffer);
 
                 // Draw all the light sources
-                _lightEffectParameterStrength.SetValue(light.ActualPower);
+                _lightEffectParameterStrength.SetValue((float)light.ActualPower);
                 _lightEffectParameterPosition.SetValue(light.Position);
                 _lightEffectParameterLightColor.SetValue(light.Color);
                 _lightEffectParameterLightDecay.SetValue((float)light.LightDecay); // Value between 0.00 and 2.00   
@@ -309,6 +304,40 @@ namespace Loki2D.Systems
             GraphicsDevice.SetRenderTarget(null);
 
             return ShadowTarget;
+        }
+
+        public void DrawDebugRenderTargets(SpriteBatch spriteBatch)
+        {
+            // Draw some debug textures
+            spriteBatch.Begin();
+
+            Rectangle size = new Rectangle(0, 0, DiffuseTarget.Width / 4, DiffuseTarget.Height / 4);
+            var position = new Vector2(0, GraphicsDevice.Viewport.Height - size.Height);
+            spriteBatch.Draw(
+                DiffuseTarget,
+                new Rectangle(
+                    (int)position.X, (int)0,
+                    size.Width,
+                    size.Height),
+                Color.White);
+
+            spriteBatch.Draw(
+                NormalTarget,
+                new Rectangle(
+                    (int)position.X , (int)size.Height,
+                    size.Width,
+                    size.Height),
+                Color.White);
+
+            spriteBatch.Draw(
+                ShadowTarget,
+                new Rectangle(
+                    (int)position.X, (int)size.Height * 2,
+                    size.Width,
+                    size.Height),
+                Color.White);
+
+            spriteBatch.End();
         }
 
         public static BlendState BlendBlack = new BlendState()

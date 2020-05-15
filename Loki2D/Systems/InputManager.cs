@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Loki2D.Core.Scene;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace Loki2D.Systems
@@ -27,6 +29,12 @@ namespace Loki2D.Systems
             OldMouseState = MouseState; 
         }
 
+        public static Vector2 GetMouseWorldPosition()
+        {
+            var position = Vector2.Transform(MouseState.Position.ToVector2(),
+                Matrix.Invert(SceneManagement.Instance.CurrentScene.Camera.transform));
+            return position;
+        }
         
 
         public static bool RightMouseClicked()
