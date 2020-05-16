@@ -50,7 +50,11 @@ namespace Loki2D.Systems
         private EffectParameter _lightEffectParameterScreenWidth;
         private EffectParameter _lightEffectParameterScreenHeight;
         private EffectParameter _lightEffectParameterNormapMap;
-        
+
+        private EffectTechnique _lightEffectTechniqueSpotLight;
+        private EffectParameter _lightEffectParameterConeAngle;
+        private EffectParameter _lightEffectParameterConeDecay;
+
         public GraphicsDevice GraphicsDevice;
         public RenderManager()
         {
@@ -78,7 +82,6 @@ namespace Loki2D.Systems
             CombinedEffect = Content.Load<Effect>("testCombine"); 
 
             _lightEffectTechniquePointLight = _lightEffect.Techniques["DeferredPointLight"];
-            _lightEffectParameterConeDirection = _lightEffect.Parameters["coneDirection"];
             _lightEffectParameterLightColor = _lightEffect.Parameters["lightColor"];
             _lightEffectParameterLightDecay = _lightEffect.Parameters["lightDecay"];
             _lightEffectParameterNormapMap = _lightEffect.Parameters["NormalMap"];
@@ -86,6 +89,13 @@ namespace Loki2D.Systems
             _lightEffectParameterScreenHeight = _lightEffect.Parameters["screenHeight"];
             _lightEffectParameterScreenWidth = _lightEffect.Parameters["screenWidth"];
             _lightEffectParameterStrength = _lightEffect.Parameters["lightStrength"];
+
+
+            _lightEffectParameterConeDirection = _lightEffect.Parameters["coneDirection"];
+            _lightEffectParameterConeAngle = _lightEffect.Parameters["coneAngle"];
+            _lightEffectParameterConeDecay = _lightEffect.Parameters["coneDecay"];
+
+            _lightEffectTechniqueSpotLight = _lightEffect.Techniques["DeferredSpotLight"];
 
         }
         
@@ -269,11 +279,17 @@ namespace Loki2D.Systems
                 _lightEffectParameterLightColor.SetValue(light.Color);
                 _lightEffectParameterLightDecay.SetValue((float)light.LightDecay ); // Value between 0.00 and 2.00   
                 _lightEffect.Parameters["specularStrength"].SetValue((float)SpecularStrength);
-                _lightEffect.Parameters["Direction"].SetValue(light.Direction);
 
                 if (light.LightType == LightType.Point)
                 {
                     _lightEffect.CurrentTechnique = _lightEffectTechniquePointLight;
+                }
+                else
+                {
+                    _lightEffect.CurrentTechnique = _lightEffectTechniqueSpotLight;
+                    _lightEffectParameterConeAngle.SetValue(((SpotLight)light).SpotAngle);
+                    _lightEffectParameterConeDecay.SetValue(((SpotLight)light).SpotDecayExponent);
+                    _lightEffectParameterConeDirection.SetValue(((SpotLight)light).Direction);
                 }
 
                 _lightEffectParameterScreenWidth.SetValue((float)GraphicsDevice.Viewport.Width);

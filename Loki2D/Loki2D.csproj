@@ -58,6 +58,7 @@
     <Compile Include="Core\Shaders\Light.cs" />
     <Compile Include="Core\Shaders\Material.cs" />
     <Compile Include="Core\Shaders\PointLight.cs" />
+    <Compile Include="Core\Shaders\SpotLight.cs" />
     <Compile Include="Core\Utilities\Camera.cs" />
     <Compile Include="Core\Utilities\Debug.cs" />
     <Compile Include="Core\Utilities\Extensions.cs" />

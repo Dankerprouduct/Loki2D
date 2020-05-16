@@ -10,7 +10,8 @@ namespace Loki2D.Core.Shaders
 {
     public enum LightType
     {
-        Point
+        Point,
+        Spot
     }
 
     public abstract class Light
