@@ -53,6 +53,11 @@ namespace Loki2D.Core.GameObject
             return false;
         }
 
+        public virtual void Init()
+        {
+
+        }
+
         /// <summary>
         /// returns the first component of the same type
         /// </summary>

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Loki2D.Core.Component;
 using Loki2D.Core.GameObject;
 using Loki2D.Core.Utilities;
 using Microsoft.Xna.Framework;
@@ -158,8 +159,10 @@ namespace Loki2D.Core.Scene
                         newEntity.AddComponent(newComponent);
                     }
                     Console.WriteLine($"Component Count: {newEntity.Components.Length}");
-                    CurrentScene.AddEntity(newEntity);
 
+                    newEntity.Init();
+                    newScene.AddEntity(newEntity);
+                    Console.WriteLine($"added entity @ {newEntity.GetComponent<TransformComponent>().Position}");
 
                     Console.WriteLine("---------------------");
                 }

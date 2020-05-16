@@ -39,7 +39,7 @@ namespace Loki2D.Systems
 
 
         private Color _ambientLight = new Color(1f, 1f, 1f, 1);
-        private float _specularStrength = 2.0f;
+        public float SpecularStrength = 2.0f;
 
         private EffectTechnique _lightEffectTechniquePointLight;
         private EffectParameter _lightEffectParameterStrength;
@@ -101,6 +101,7 @@ namespace Loki2D.Systems
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, SceneManagement.Instance.CurrentScene.Camera.transform);
             
 
@@ -169,28 +170,16 @@ namespace Loki2D.Systems
             // draw combined
             DrawCombinedMaps(spriteBatch);
 
-
         }
 
         private void DrawCombinedMaps(SpriteBatch spriteBatch)
         {
-            //_lightCombinedEffectParamAmbient.SetValue(1f);
-            //_lightCombinedEffectParamLightAmbient.SetValue(4f);
-
-            //_lightCombinedEffectParamAmbientColor.SetValue(_ambientLight.ToVector4());
-
             CombinedEffect.CurrentTechnique = CombinedEffect.Techniques["Combine"];
             CombinedEffect.Parameters["DiffuseTexture"].SetValue(DiffuseTarget);
             CombinedEffect.Parameters["ShadowTexture"].SetValue(ShadowTarget);
             CombinedEffect.Parameters["AmbientColor"].SetValue(AmbientColor.ToVector4());
             CombinedEffect.Parameters["AmbientStrength"].SetValue(AmbientStrength);
             CombinedEffect.Parameters["ShadowStrength"].SetValue(ShadowStrength);
-
-            //_lightCombinedEffect.Parameters["ColorMap"].SetValue(DiffuseTarget);
-            //_lightCombinedEffect.Parameters["ShadingMap"].SetValue(ShadowTarget);
-            //_lightCombinedEffect.Parameters["NormalMap"].SetValue(NormalTarget);
-
-            _lightCombinedEffect.CurrentTechnique.Passes[0].Apply();
 
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, CombinedEffect);
             spriteBatch.Draw(DiffuseTarget, Vector2.Zero, Color.White);
@@ -246,13 +235,16 @@ namespace Loki2D.Systems
                         var renderComponent = entity.GetComponent<RenderComponent>();
                         var material = renderComponent.Material;
 
-                        var texture = material.GetNormal();
-                        var position = entity.GetComponent<TransformComponent>().Position;
+                        if (material != null)
+                        {
+                            var texture = material.GetNormal();
+                            var position = entity.GetComponent<TransformComponent>().Position;
 
-                        spriteBatch.Draw(texture, position,
-                            null, Color.White, MathHelper.ToRadians(renderComponent.Rotation),
-                            new Vector2(texture.Width / 2, texture.Height / 2), renderComponent.Scale,
-                            SpriteEffects.None, renderComponent.RenderLayer);
+                            spriteBatch.Draw(texture, position,
+                                null, Color.White, MathHelper.ToRadians(renderComponent.Rotation),
+                                new Vector2(texture.Width / 2, texture.Height / 2), renderComponent.Scale,
+                                SpriteEffects.None, renderComponent.RenderLayer);
+                        }
                     }
                 }
             }
@@ -273,10 +265,11 @@ namespace Loki2D.Systems
 
                 // Draw all the light sources
                 _lightEffectParameterStrength.SetValue((float)light.ActualPower);
-                _lightEffectParameterPosition.SetValue(light.Position);
+                _lightEffectParameterPosition.SetValue(Vector3.Transform(light.Position, SceneManagement.Instance.CurrentScene.Camera.transform));
                 _lightEffectParameterLightColor.SetValue(light.Color);
-                _lightEffectParameterLightDecay.SetValue((float)light.LightDecay); // Value between 0.00 and 2.00   
-                _lightEffect.Parameters["specularStrength"].SetValue((float)_specularStrength);
+                _lightEffectParameterLightDecay.SetValue((float)light.LightDecay ); // Value between 0.00 and 2.00   
+                _lightEffect.Parameters["specularStrength"].SetValue((float)SpecularStrength);
+                _lightEffect.Parameters["Direction"].SetValue(light.Direction);
 
                 if (light.LightType == LightType.Point)
                 {
@@ -288,12 +281,14 @@ namespace Loki2D.Systems
                 _lightEffect.Parameters["ambientColor"].SetValue(_ambientLight.ToVector4());
                 _lightEffectParameterNormapMap.SetValue(NormalTarget);
                 _lightEffect.Parameters["ColorMap"].SetValue(DiffuseTarget);
+                _lightEffect.Parameters["Translation"].SetValue(Matrix.Invert(SceneManagement.Instance.CurrentScene.Camera.transform));
                 _lightEffect.CurrentTechnique.Passes[0].Apply();
 
                 // Add Belding (Black background)
                 GraphicsDevice.BlendState = BlendBlack;
 
                 // Draw some magic
+
                 GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleStrip, Quad, 0, 2);
             }
 

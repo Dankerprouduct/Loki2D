@@ -133,6 +133,7 @@ namespace Loki2D.Core.Utilities
                 {
                     Speed = originalSpeed;
                 }
+
             }
             else
             {

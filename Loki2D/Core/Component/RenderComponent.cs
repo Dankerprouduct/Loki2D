@@ -9,6 +9,7 @@ using Loki2D.Core.Shaders;
 using Loki2D.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 
 namespace Loki2D.Core.Component
 {
@@ -27,7 +28,8 @@ namespace Loki2D.Core.Component
         [EditorInspectable]
         public float Rotation { get; set; } = 0;
 
-        public Material Material;
+        [JsonIgnore]
+        public Material Material { get; set; }
 
         public RenderComponent()
         {
