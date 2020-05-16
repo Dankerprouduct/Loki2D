@@ -14,6 +14,7 @@ using LokiEditor.Actions;
 using LokiEditor.LokiControls;
 using LokiEditor.Systems;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Framework.WpfInterop;
@@ -43,8 +44,11 @@ namespace LokiEditor.Game
 
             _keyboard = new WpfKeyboard(this);
             _mouse = new WpfMouse(this);
+            
+            Content = new ContentManager(this.Services);
+            Content.RootDirectory = "Content"; 
 
-            SceneManagement.Instance = new SceneManagement(GraphicsDevice);
+            SceneManagement.Instance = new SceneManagement(GraphicsDevice, Content);
             TextureManager.Instance = new TextureManager(GraphicsDevice);
             MainWindow.NewProjectEvent += NewProject;
             base.Initialize();

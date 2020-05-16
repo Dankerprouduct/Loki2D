@@ -39,7 +39,7 @@ namespace Loki2D.Systems
 
 
         private Color _ambientLight = new Color(1f, 1f, 1f, 1);
-        private float _specularStrength = 1.0f;
+        private float _specularStrength = 2.0f;
 
         private EffectTechnique _lightEffectTechniquePointLight;
         private EffectParameter _lightEffectParameterStrength;
@@ -73,10 +73,7 @@ namespace Loki2D.Systems
             ContentManager Content = SceneManagement.Instance.Content; //  TODO: PASS THIS IN 
             File.WriteAllBytes("Content\\DeferredCombined.fx", Properties.Resources.DeferredCombined);
             File.WriteAllBytes("Content\\MultiTarget.fx", Properties.Resources.MultiTarget);
-
-
-            _lightCombinedEffect = Content.Load<Effect>("DeferredCombined");
-
+            
             _lightEffect = Content.Load<Effect>("MultiTarget");
             CombinedEffect = Content.Load<Effect>("testCombine"); 
 
@@ -316,7 +313,7 @@ namespace Loki2D.Systems
             spriteBatch.Draw(
                 DiffuseTarget,
                 new Rectangle(
-                    (int)position.X, (int)0,
+                    (int)0, (int)position.Y,
                     size.Width,
                     size.Height),
                 Color.White);
@@ -324,7 +321,7 @@ namespace Loki2D.Systems
             spriteBatch.Draw(
                 NormalTarget,
                 new Rectangle(
-                    (int)position.X , (int)size.Height,
+                    (int)size.Width, (int)position.Y,
                     size.Width,
                     size.Height),
                 Color.White);
@@ -332,7 +329,7 @@ namespace Loki2D.Systems
             spriteBatch.Draw(
                 ShadowTarget,
                 new Rectangle(
-                    (int)position.X, (int)size.Height * 2,
+                    (int)size.Width * 2, (int)position.Y,
                     size.Width,
                     size.Height),
                 Color.White);

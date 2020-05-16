@@ -13,17 +13,11 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../Game4/Game4/Content/DeferredCombined.fx
+#begin MultiTarget.fx
 /importer:EffectImporter
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
-/build:../../../Game4/Game4/Content/DeferredCombined.fx;DeferredCombined.fx
-
-#begin ../../../Game4/Game4/Content/MultiTarget.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:../../../Game4/Game4/Content/MultiTarget.fx;MultiTarget.fx
+/build:MultiTarget.fx
 
 #begin testCombine.fx
 /importer:EffectImporter
