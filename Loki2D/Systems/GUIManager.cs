@@ -16,9 +16,14 @@ namespace Loki2D.Systems
         /// </summary>
         private List<UIElement> _uiElements;
 
+        private List<UIElement> _elementsToAdd;
+        private List<UIElement> _elementsToRemove; 
+
         public GUIManager()
         {
-
+            _uiElements = new List<UIElement>();
+            _elementsToAdd = new List<UIElement>();
+            _elementsToRemove = new List<UIElement>();
         }
 
         /// <summary>
@@ -27,7 +32,7 @@ namespace Loki2D.Systems
         /// <param name="uiElement"></param>
         public void AddElement(UIElement uiElement)
         {
-            _uiElements.Add(uiElement);
+            _elementsToAdd.Add(uiElement);
         }
 
         /// <summary>
@@ -38,12 +43,29 @@ namespace Loki2D.Systems
         {
             if (_uiElements.Contains(uiElement))
             {
-                RemoveElement(uiElement);
+                _elementsToRemove.Add(uiElement);
             }
         }
 
         public override void Update(GameTime gameTime)
         {
+            //adding new elements;
+            for (int i = 0; i < _elementsToAdd.Count; i++)
+            {
+                var element = _elementsToAdd[i];
+                _uiElements.Add(element);
+                _elementsToAdd.Remove(element);
+            }
+
+            // removing queued elements
+            for (int i = 0; i < _elementsToRemove.Count; i++)
+            {
+                var element = _elementsToRemove[i];
+                _uiElements.Remove(element);
+                _elementsToRemove.Remove(element);
+            }
+
+
             foreach (var element in _uiElements)
             {
                 if (element.CanUpdate)

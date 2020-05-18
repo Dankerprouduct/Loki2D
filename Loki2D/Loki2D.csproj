@@ -75,6 +75,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Systems\GUIManager.cs" />
     <Compile Include="Systems\InputManager.cs" />
     <Compile Include="Systems\LokiData.cs" />
     <Compile Include="Systems\RenderManager.cs" />
