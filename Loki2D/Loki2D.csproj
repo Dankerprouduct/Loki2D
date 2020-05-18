@@ -98,6 +98,9 @@
     <Reference Include="NLua, Version=1.4.30.0, Culture=neutral, PublicKeyToken=6a194c04b9c89217, processorArchitecture=MSIL">
       <HintPath>..\packages\NLua.1.4.30\lib\net45\NLua.dll</HintPath>
     </Reference>
+    <Reference Include="SpriteFontPlus, Version=0.8.0.37, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpriteFontPlus.0.8.0.37\lib\net45\SpriteFontPlus.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
   </ItemGroup>
