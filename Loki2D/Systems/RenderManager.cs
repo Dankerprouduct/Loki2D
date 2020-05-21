@@ -75,8 +75,8 @@ namespace Loki2D.Systems
             VertexBuffer.SetData(Quad);
 
             ContentManager Content = SceneManagement.Instance.Content; //  TODO: PASS THIS IN 
-            File.WriteAllBytes("Content\\DeferredCombined.fx", Properties.Resources.DeferredCombined);
-            File.WriteAllBytes("Content\\MultiTarget.fx", Properties.Resources.MultiTarget);
+            //File.WriteAllBytes("Content\\DeferredCombined.fx", Properties.Resources.DeferredCombined);
+            //File.WriteAllBytes("Content\\MultiTarget.fx", Properties.Resources.MultiTarget);
             
             _lightEffect = Content.Load<Effect>("MultiTarget");
             CombinedEffect = Content.Load<Effect>("testCombine"); 

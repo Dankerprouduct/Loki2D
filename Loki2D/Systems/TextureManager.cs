@@ -39,7 +39,10 @@ namespace Loki2D.Systems
 
         public void LoadFolder(string folderPath)
         {
-
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath); 
+            }
             var filePaths = Directory.EnumerateFiles(folderPath, "*.png*", SearchOption.AllDirectories).ToArray();
             foreach (var file in filePaths)
             {
