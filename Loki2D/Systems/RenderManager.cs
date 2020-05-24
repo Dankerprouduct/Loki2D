@@ -55,6 +55,8 @@ namespace Loki2D.Systems
         private EffectParameter _lightEffectParameterConeAngle;
         private EffectParameter _lightEffectParameterConeDecay;
 
+        private Color _graphicsColor;
+
         public GraphicsDevice GraphicsDevice;
         public RenderManager()
         {
@@ -98,7 +100,12 @@ namespace Loki2D.Systems
             _lightEffectTechniqueSpotLight = _lightEffect.Techniques["DeferredSpotLight"];
 
         }
-        
+
+        public void SetScreenColor(Color color)
+        {
+            _graphicsColor = color; 
+        }
+
         public void RegisterComponent(RenderComponent renderComponent)
         {
 
@@ -111,7 +118,7 @@ namespace Loki2D.Systems
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(_graphicsColor);
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, SceneManagement.Instance.CurrentScene.Camera.transform);
             
 
