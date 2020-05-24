@@ -55,7 +55,7 @@ namespace Loki2D.Systems
         private EffectParameter _lightEffectParameterConeAngle;
         private EffectParameter _lightEffectParameterConeDecay;
 
-        private Color _graphicsColor;
+        private Color _graphicsColor = Color.Black;
 
         public GraphicsDevice GraphicsDevice;
         public RenderManager()
