@@ -35,9 +35,7 @@ namespace Loki2D.Systems
         public Color AmbientColor = new Color(.3f, .3f, .3f, 1);
         public float AmbientStrength = 1;
         public float ShadowStrength = 1; 
-
-
-
+        
         private Color _ambientLight = new Color(1f, 1f, 1f, 1);
         public float SpecularStrength = 2.0f;
 
@@ -56,7 +54,7 @@ namespace Loki2D.Systems
         private EffectParameter _lightEffectParameterConeDecay;
 
         private Color _graphicsColor = Color.Black;
-
+        
         public GraphicsDevice GraphicsDevice;
         public RenderManager()
         {
