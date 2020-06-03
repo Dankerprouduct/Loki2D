@@ -204,7 +204,7 @@ namespace Loki2D.Systems
 
         public void DrawDiffuse(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, SceneManagement.Instance.CurrentScene.Camera.transform);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, SceneManagement.Instance.CurrentScene.Camera.transform);
 
             for (int y = 0; y < SceneManagement.Instance.CurrentScene.CellSpacePartition.Width; y++)
             {
@@ -235,7 +235,7 @@ namespace Loki2D.Systems
 
         public void DrawNormal(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, SceneManagement.Instance.CurrentScene.Camera.transform);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, SceneManagement.Instance.CurrentScene.Camera.transform);
 
             for (int y = 0; y < SceneManagement.Instance.CurrentScene.CellSpacePartition.Width; y++)
             {
