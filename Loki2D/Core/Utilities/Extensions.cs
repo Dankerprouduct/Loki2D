@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Loki2D.Core.Utilities.Math;
+using Loki2D.Core.Utilities.MathHelper;
 
 namespace Loki2D.Core.Utilities
 {
