@@ -63,7 +63,8 @@
     <Compile Include="Core\Utilities\Debug.cs" />
     <Compile Include="Core\Utilities\Extensions.cs" />
     <Compile Include="Core\Utilities\JsonHelper.cs" />
-    <Compile Include="Core\Utilities\MathUtils.cs" />
+    <Compile Include="Core\Utilities\Math\MathUtils.cs" />
+    <Compile Include="Core\Utilities\Math\Perlin.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GUI\UIElement.cs" />
     <Compile Include="GUI\UIGraphicElement.cs" />
