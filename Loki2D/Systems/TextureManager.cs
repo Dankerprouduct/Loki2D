@@ -37,6 +37,20 @@ namespace Loki2D.Systems
             }
         }
 
+        /// <summary>
+        /// returns the center of an image
+        /// </summary>
+        /// <param name="texture"></param>
+        /// <returns></returns>
+        public static Vector2 CenterOfImage(Texture2D texture)
+        {
+            return new Vector2(texture.Width / 2, texture.Height / 2);
+        }
+
+        /// <summary>
+        /// Loads selected folder 
+        /// </summary>
+        /// <param name="folderPath"></param>
         public void LoadFolder(string folderPath)
         {
             if (!Directory.Exists(folderPath))
