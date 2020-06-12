@@ -176,10 +176,6 @@ namespace Loki2D.GUI
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-
-
-            
-
             if (Parent == null)
             {
                 spriteBatch.Draw(TextureManager.Pixel, new Rectangle(Position, new Point(Width, Height)),
