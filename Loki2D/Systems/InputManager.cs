@@ -35,6 +35,11 @@ namespace Loki2D.Systems
                 Matrix.Invert(SceneManagement.Instance.CurrentScene.Camera.transform));
             return position;
         }
+
+        public static Vector2 GetMousePosition()
+        {
+            return MouseState.Position.ToVector2();
+        }
         
 
         public static bool RightMouseClicked()
