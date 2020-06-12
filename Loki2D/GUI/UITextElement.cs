@@ -20,6 +20,10 @@ namespace Loki2D.GUI
 
         public SpriteFont Font { get; set; }
 
+        public float TextScale { get; set; } = 1;
+
+        private Vector2 _textSize; 
+
         /// <summary>
         /// Sets the display text.
         /// </summary>
@@ -27,6 +31,10 @@ namespace Loki2D.GUI
         public void SetText(string text)
         {
             Text = text;
+            if(Font == null)
+                throw new Exception("No font set for UITextElement");
+            _textSize = Font.MeasureString(Text);
+
         }
 
         public void SetFont(SpriteFont font)
@@ -49,7 +57,7 @@ namespace Loki2D.GUI
             }
             else
             {
-                spriteBatch.DrawString(Font, Text, Position.ToVector2() + Parent.Position.ToVector2(), Color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(Font, Text, Position.ToVector2() + Parent.Position.ToVector2(), Color, 0f, Vector2.Zero, TextScale, SpriteEffects.None, 0f);
             }
 
             // draw children
