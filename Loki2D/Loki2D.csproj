@@ -134,7 +134,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Content\DeferredCombined.fx" />
+    <EmbeddedResource Include="Content\DeferredCombined.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Content\MultiTarget.fx" />
     <Content Include="Icon.ico" />
     <EmbeddedResource Include="Properties\Resources.resx">
