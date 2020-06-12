@@ -60,7 +60,7 @@ namespace Loki2D.GUI
         /// </summary>
         public float ScaleY { get; set; } = 1;
 
-
+        public EventHandler<UIClickEventArgs> Clicked; 
 
         /// <summary>
         /// Position of Element
@@ -177,8 +177,30 @@ namespace Loki2D.GUI
 
         public virtual void Update(GameTime gameTime)
         {
-            // update children
-            
+            foreach (var child in Children)
+            {
+                child.Update(gameTime);
+            }
+
+            // no parent
+            if (Parent == null)
+            {
+                var boundsRect = new Rectangle(Position, new Point(Width, Height));
+                if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
+                    InputManager.LeftMouseClicked())
+                {
+                    Clicked?.Invoke(this, new UIClickEventArgs(this));
+                }
+            }
+            else
+            {
+                var boundsRect = new Rectangle(Position + Parent.Position, new Point(Width, Height));
+                if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
+                    InputManager.LeftMouseClicked())
+                {
+                    Clicked?.Invoke(this, new UIClickEventArgs(this));
+                }
+            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
