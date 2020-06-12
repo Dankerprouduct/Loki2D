@@ -43,7 +43,20 @@ namespace Loki2D.GUI
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
+            if (Parent == null)
+            {
+                spriteBatch.DrawString(Font, Text, Position.ToVector2(), Color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            }
+            else
+            {
+                spriteBatch.DrawString(Font, Text, Position.ToVector2() + Parent.Position.ToVector2(), Color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            }
+
+            // draw children
+            foreach (var child in Children)
+            {
+                child.Draw(spriteBatch);
+            }
         }
     }
 }
