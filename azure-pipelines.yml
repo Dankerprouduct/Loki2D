@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/Loki2D/*.csproj'
+  solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   monoGameVersion: 'v3.7.1' 
   buildConfiguration: 'Release'
