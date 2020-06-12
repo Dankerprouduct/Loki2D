@@ -16,9 +16,12 @@ namespace Loki2D.Systems
         public Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
 
         private GraphicsDevice _graphicsDevice;
+        public static Texture2D Pixel;
+
         public TextureManager(GraphicsDevice graphicsDevice)
         {
             _graphicsDevice = graphicsDevice;
+            Pixel = new Texture2D(graphicsDevice, 1, 1);
         }
 
         public Texture2D GetTexture(string key)

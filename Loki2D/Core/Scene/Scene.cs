@@ -23,6 +23,7 @@ namespace Loki2D.Core.Scene
 
         public CellSpacePartition CellSpacePartition { get; set; }
         public Camera Camera { get; set; }
+        public GUIManager GuiManager; 
 
         public Point Size { get; set; } = new Point(5000,5000);
         public bool DeferredDraw = false; 
@@ -53,12 +54,12 @@ namespace Loki2D.Core.Scene
 
             Camera = new Camera(graphicsDevice.Viewport);
 
-            _world = new World(new AABB(Vector2.Zero, new Vector2(Size.X * CellSpacePartition.CellLength, Size.Y * CellSpacePartition.CellLength)));
-            _world.Gravity = Vector2.Zero;
+            _world = new World();
+            
 
             _renderManager = new RenderManager();
             CellSpacePartition = new CellSpacePartition(Size.X, Size.Y);
-            
+            GuiManager = new GUIManager();
             
             Console.WriteLine($"Initialized Scene: {Name}");
         }
@@ -89,13 +90,19 @@ namespace Loki2D.Core.Scene
         public void AddBody(Body body)
         {
             _world.Add(body);
+            Console.WriteLine("Added body");
         }
 
         public void Update(GameTime gameTime)
         {
+            GuiManager.Update(gameTime);
             Camera.Update();
             float totalSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            _world.Step(totalSeconds);
+
+            for (int i = 0; i < 5; i++)
+            {
+                _world.Step(totalSeconds);
+            }
 
             for (int y = 0; y < CellSpacePartition.Width; y++)
             {
@@ -119,6 +126,11 @@ namespace Loki2D.Core.Scene
                 _renderManager.DrawDebugRenderTargets(spriteBatch);
             }
 
+            // gui
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
+
+            GuiManager.Draw(spriteBatch);
+            spriteBatch.End();
         }
     }
 }

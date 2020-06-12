@@ -70,7 +70,7 @@ namespace Loki2D.Systems
             {
                 if (element.CanUpdate)
                 {
-
+                    element.Update(gameTime);
                 }
             }
             base.Update(gameTime);
@@ -82,7 +82,7 @@ namespace Loki2D.Systems
             {
                 if (element.CanDraw)
                 {
-
+                    element.Draw(spriteBatch);
                 }
             }
             base.Draw(spriteBatch);

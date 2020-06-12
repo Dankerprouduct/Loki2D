@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Loki2D.Systems;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using tainicom.Aether.Physics2D.Dynamics;
 
 namespace Loki2D.GUI
@@ -62,6 +64,11 @@ namespace Loki2D.GUI
         /// Parent UI Element
         /// </summary>
         public UIElement Parent;
+
+        /// <summary>
+        /// Children ui elements
+        /// </summary>
+        public List<UIElement> Children = new List<UIElement>();
 
         /// <summary>
         /// Disables drawing
@@ -146,7 +153,46 @@ namespace Loki2D.GUI
         /// <param name="element"></param>
         public void ClearParent(UIElement element)
         {
+            Parent.Children.Remove(this);
             Parent = null;
+        }
+
+        /// <summary>
+        /// Adds element as child object
+        /// </summary>
+        /// <param name="element"></param>
+        public void AddChild(UIElement element)
+        {
+            element.SetParent(this);
+            Children.Add(element);
+        }
+
+        public virtual void Update(GameTime gameTime)
+        {
+            // update children
+            
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+           
+
+            if (Parent != null)
+            {
+                spriteBatch.Draw(TextureManager.Pixel, new Rectangle(Position, new Point(Width, Height)),
+                    null, Color);
+            }
+            else
+            {
+                spriteBatch.Draw(TextureManager.Pixel, new Rectangle(Position + Parent.Position, new Point(Width, Height)),
+                    null, Color);
+            }
+
+            // draw children
+            foreach (var child in Children)
+            {
+                child.Draw(spriteBatch);
+            }
         }
     }
 }
