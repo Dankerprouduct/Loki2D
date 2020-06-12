@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Loki2D.Core.Utilities.MathHelper;
+using Microsoft.Xna.Framework;
 
 namespace Loki2D.Core.Utilities
 {
@@ -38,6 +39,18 @@ namespace Loki2D.Core.Utilities
             }
 
             return list;
+        }
+
+        /// <summary>
+        /// Returns the half vector
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <returns></returns>
+        public static Vector2 Half(this Vector2 vector)
+        {
+            var x = vector.X / 2;
+            var y = vector.Y / 2;
+            return new Vector2(x,y);
         }
     }
 }
