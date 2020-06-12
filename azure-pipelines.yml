@@ -17,11 +17,7 @@ variables:
 
 
 steps:
-- task: NuGetToolInstaller@1
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
 
 - script: |
     powershell -Command "(New-Object System.Net.WebClient).DownloadFile('https://github.com/MonoGame/MonoGame/releases/download/$(monoGameVersion)/MonoGameSetup.exe', '.\MonoGameSetup.exe')"
@@ -40,7 +36,12 @@ steps:
     xcopy .\tmp\Assemblies "%PROGRAMFILES(X86)%\MonoGame\v3.0\Assemblies" /E /Y
   displayName: 'Install MonoGame $(monoGameVersion)'
 
+- task: NuGetToolInstaller@1
 
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+    
 - task: VSBuild@1
   inputs:
     solution:  '$(solution)'
