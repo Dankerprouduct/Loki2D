@@ -46,6 +46,11 @@ namespace Loki2D.GUI
         public int Height { get; set; }
 
         /// <summary>
+        /// The rotation of the element
+        /// </summary>
+        public float Rotation { get; set; } = 0;
+
+        /// <summary>
         /// Element Scale X
         /// </summary>
         public float ScaleX { get; set; } = 1;
