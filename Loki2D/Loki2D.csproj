@@ -82,7 +82,7 @@
     <Compile Include="Systems\RenderManager.cs" />
     <Compile Include="Systems\TextureManager.cs" />
     <Compile Include="Systems\SystemManager.cs" />
-    <Compile Include="Systems\Timer.cs" />
+    <Compile Include="Core\Utilities\Timer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Aether.Physics2D, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
