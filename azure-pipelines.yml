@@ -59,7 +59,7 @@ steps:
   inputs:
     forceReinstallCredentialProvider: true
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
     packagesToPack: '**/*.csproj'
@@ -68,9 +68,9 @@ steps:
     minorVersion: '0'
     patchVersion: '0'
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: 'c61dc58a-1f32-46be-90b8-e31af58e803e/304a3823-408b-451b-854a-a009c1732992'
