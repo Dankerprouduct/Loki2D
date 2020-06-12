@@ -63,6 +63,11 @@ namespace Loki2D.Core.Scene
             Console.WriteLine($"Initialized Scene: {Name}");
         }
 
+        public World GetPhysicsWorld()
+        {
+            return _world;
+        }
+
         public bool AddEntity(Entity entity)
         {
             return CellSpacePartition.AddEntity(entity);
