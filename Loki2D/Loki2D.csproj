@@ -137,7 +137,9 @@
     <EmbeddedResource Include="Content\DeferredCombined.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Content\MultiTarget.fx" />
+    <EmbeddedResource Include="Content\MultiTarget.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Icon.ico" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
