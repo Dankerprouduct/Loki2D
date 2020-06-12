@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Loki2D.Core.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -22,7 +23,8 @@ namespace Loki2D.GUI
 
         public float TextScale { get; set; } = 1;
 
-        private Vector2 _textSize; 
+        private Vector2 _textSize;
+        private Vector2 _halfSize;
 
         /// <summary>
         /// Sets the display text.
@@ -34,6 +36,7 @@ namespace Loki2D.GUI
             if(Font == null)
                 throw new Exception("No font set for UITextElement");
             _textSize = Font.MeasureString(Text);
+            _halfSize = _textSize.Half();
 
         }
 
@@ -53,11 +56,14 @@ namespace Loki2D.GUI
         {
             if (Parent == null)
             {
-                spriteBatch.DrawString(Font, Text, Position.ToVector2(), Color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(Font, Text, Position.ToVector2(),
+                    Color, 0f,
+                    _halfSize, TextScale,
+                    SpriteEffects.None, 0f);
             }
             else
             {
-                spriteBatch.DrawString(Font, Text, Position.ToVector2() + Parent.Position.ToVector2(), Color, 0f, Vector2.Zero, TextScale, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(Font, Text, Position.ToVector2() + Parent.Position.ToVector2(), Color, 0f, _halfSize, TextScale, SpriteEffects.None, 0f);
             }
 
             // draw children
