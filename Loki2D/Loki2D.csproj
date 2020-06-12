@@ -66,6 +66,7 @@
     <Compile Include="Core\Utilities\MathHelper\MathUtils.cs" />
     <Compile Include="Core\Utilities\MathHelper\Perlin.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GUI\UIClickEventArgs.cs" />
     <Compile Include="GUI\UIElement.cs" />
     <Compile Include="GUI\UIGraphicElement.cs" />
     <Compile Include="GUI\UITextElement.cs" />

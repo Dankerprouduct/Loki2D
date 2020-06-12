@@ -60,6 +60,8 @@ namespace Loki2D.GUI
         /// </summary>
         public float ScaleY { get; set; } = 1;
 
+
+
         /// <summary>
         /// Position of Element
         /// </summary>
