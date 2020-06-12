@@ -60,7 +60,8 @@ namespace Loki2D.GUI
         /// </summary>
         public float ScaleY { get; set; } = 1;
 
-        public EventHandler<UIClickEventArgs> Clicked; 
+        public EventHandler<UIClickEventArgs> LeftClicked; 
+        public EventHandler<UIClickEventArgs> RightClicked; 
 
         /// <summary>
         /// Position of Element
@@ -189,7 +190,12 @@ namespace Loki2D.GUI
                 if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
                     InputManager.LeftMouseClicked())
                 {
-                    Clicked?.Invoke(this, new UIClickEventArgs(this));
+                    LeftClicked?.Invoke(this, new UIClickEventArgs(this));
+                }
+                if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
+                    InputManager.RightMouseClicked())
+                {
+                    RightClicked?.Invoke(this, new UIClickEventArgs(this));
                 }
             }
             else
@@ -198,7 +204,12 @@ namespace Loki2D.GUI
                 if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
                     InputManager.LeftMouseClicked())
                 {
-                    Clicked?.Invoke(this, new UIClickEventArgs(this));
+                    LeftClicked?.Invoke(this, new UIClickEventArgs(this));
+                }
+                if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
+                    InputManager.RightMouseClicked())
+                {
+                    RightClicked?.Invoke(this, new UIClickEventArgs(this));
                 }
             }
         }
