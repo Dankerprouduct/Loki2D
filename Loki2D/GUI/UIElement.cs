@@ -28,12 +28,12 @@ namespace Loki2D.GUI
         /// <summary>
         /// Enables updates
         /// </summary>
-        public bool CanUpdate { get; set; }
-        
+        public bool CanUpdate { get; set; } = true;
+
         /// <summary>
         /// Enables Drawing
         /// </summary>
-        public bool CanDraw { get; set; }
+        public bool CanDraw { get; set; } = true;
 
         /// <summary>
         /// Element Width
@@ -145,6 +145,7 @@ namespace Loki2D.GUI
         public void SetParent(UIElement element)
         {
             Parent = element;
+            Parent.Children.Add(this);
         }
 
         /// <summary>
@@ -175,9 +176,11 @@ namespace Loki2D.GUI
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-           
 
-            if (Parent != null)
+
+            
+
+            if (Parent == null)
             {
                 spriteBatch.Draw(TextureManager.Pixel, new Rectangle(Position, new Point(Width, Height)),
                     null, Color);
@@ -193,6 +196,7 @@ namespace Loki2D.GUI
             {
                 child.Draw(spriteBatch);
             }
+
         }
     }
 }
