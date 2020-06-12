@@ -16,11 +16,11 @@ namespace Loki2D.Core.Utilities
         /// <returns></returns>
         public static Color RandomColor(this Random random)
         {
-            var r = random.Next(0, 255);
-            var g = random.Next(0, 255);
-            var b = random.Next(0, 255);
+            var r = (float)random.Next(0, 255);
+            var g = (float)random.Next(0, 255);
+            var b = (float)random.Next(0, 255);
 
-            return new Color(new Vector3(r,g,b));
+            return new Color(new Vector3(r/255,g/255,b/255));
         }
 
         /// <summary>
