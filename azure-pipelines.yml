@@ -43,7 +43,7 @@ steps:
 
 - task: VSBuild@1
   inputs:
-    solution: '$(solution)'
+    solution:  '**/Loki2D/*.csproj'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
