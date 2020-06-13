@@ -17,6 +17,9 @@ namespace Loki2D.Core.GameObject
         public int Id { get; set; }
         public string Name { get; set; }
         public bool CanUpdate { get; set; }
+
+        public bool IgnoreUpdatePartition { get; set; }
+        
         public string EntityType { get; set; }
         public int Index;
 
