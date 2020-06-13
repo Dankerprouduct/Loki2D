@@ -36,18 +36,36 @@ namespace Loki2D.Core.GameObject
         /// </summary>
         public bool AlwaysUpdate { get; set; }
         
+        /// <summary>
+        /// The type associated with this entity
+        /// </summary>
         public string EntityType { get; set; }
+
+        /// <summary>
+        /// The cell partition index
+        /// </summary>
         public int Index;
 
+        /// <summary>
+        /// The Components owned by this entity
+        /// </summary>
         public Component.Component[] Components => _components?.ToArray();
         internal List<Component.Component> _components = new List<Component.Component>();
         
+        /// <summary>
+        /// Base class for all entities
+        /// </summary>
         public Entity()
         {
             CanUpdate = true;
             EntityType = GetType().FullName;
         }
 
+        /// <summary>
+        /// Base class for all entities
+        /// </summary>
+        /// <param name="id">The entity Id</param>
+        /// <param name="name">The entity name</param>
         public Entity(int id, string name): this()
         {
             Id = id;
@@ -72,6 +90,9 @@ namespace Loki2D.Core.GameObject
             return false;
         }
 
+        /// <summary>
+        /// Called every time this entity is loaded
+        /// </summary>
         public virtual void Init()
         {
 
@@ -108,6 +129,10 @@ namespace Loki2D.Core.GameObject
             return component;
         }
 
+        /// <summary>
+        /// Called every frame
+        /// </summary>
+        /// <param name="gameTime"></param>
         public virtual void Update(GameTime gameTime)
         {
             
@@ -123,11 +148,18 @@ namespace Loki2D.Core.GameObject
 
         }
 
+        /// <summary>
+        /// Removes this entity from the scene. 
+        /// </summary>
         public void Destroy()
         {
             SceneManagement.Instance.CurrentScene.RemoveEntity(this);
         }
 
+        /// <summary>
+        /// Called every frame. NOT CURRENTLY IN USE
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             foreach (var component in _components)
@@ -136,6 +168,10 @@ namespace Loki2D.Core.GameObject
             }
         }
 
+        /// <summary>
+        /// Returns the name of this entity
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return Name ?? GetType().Name;
