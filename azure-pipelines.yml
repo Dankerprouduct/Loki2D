@@ -75,3 +75,11 @@ steps:
     nuGetFeedType: 'internal'
     publishVstsFeed: 'c61dc58a-1f32-46be-90b8-e31af58e803e/304a3823-408b-451b-854a-a009c1732992'
 
+- task: ado-discord-webhook@1
+  inputs:
+    channelId: '721155107454058527'
+    webhookKey: 'z1v8zO1JyAH05ghUYQGHNhGtl5wQAu3jsT5Efh7BjvpNVyRH6m1h2b7V6eDkStL0vK6Z'
+    name: 'DankBot'
+    avatar: 'https://avatars2.githubusercontent.com/u/8772659?s=460&u=200a491377abf3f599e989cdec2c459bd99d7a5f&v=4'
+    messageType: 'content'
+    content: 'A new version of Loki2D is avaliable!    [![Build Status](https://dev.azure.com/dankerprouduct2/Loki2D/_apis/build/status/Dankerprouduct.Loki2D?branchName=master)](https://dev.azure.com/dankerprouduct2/Loki2D/_build/latest?definitionId=2&branchName=master)'
