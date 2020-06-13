@@ -75,10 +75,3 @@ steps:
     nuGetFeedType: 'internal'
     publishVstsFeed: 'c61dc58a-1f32-46be-90b8-e31af58e803e/304a3823-408b-451b-854a-a009c1732992'
 
-- task: ado-discord-webhook@1
-  inputs:
-    channelId: '721155107454058527'
-    webhookKey: 'https://discordapp.com/api/webhooks/721155107454058527/z1v8zO1JyAH05ghUYQGHNhGtl5wQAu3jsT5Efh7BjvpNVyRH6m1h2b7V6eDkStL0vK6Z'
-    name: 'Azure Devops'
-    messageType: 'content'
-    content: 'A new version of Loki2D is avaliable through nuget.'
