@@ -17,12 +17,17 @@ namespace Loki2D.Core.Component
     public class PhysicsComponent: Component
     {
 
-
+        /// <summary>
+        /// The Physics body
+        /// </summary>
         [JsonIgnore]
         public Body PhysicsBody;
 
         private float _mass;
 
+        /// <summary>
+        /// The mass associated with the physics body
+        /// </summary>
         [EditorInspectable]
         public float Mass
         {
@@ -32,6 +37,9 @@ namespace Loki2D.Core.Component
 
         private BodyType _bodyType;
 
+        /// <summary>
+        /// The body type associated with the physics body
+        /// </summary>
         [EditorInspectable]
         public BodyType BodyType
         {
@@ -50,6 +58,10 @@ namespace Loki2D.Core.Component
             //Initialize();
         }
 
+        /// <summary>
+        /// Component used for entity physics
+        /// </summary>
+        /// <param name="body"></param>
         public PhysicsComponent(Body body)
         {
             PhysicsBody = body;
@@ -57,6 +69,9 @@ namespace Loki2D.Core.Component
             Initialize();
         }
 
+        /// <summary>
+        /// Called when component is deserialized
+        /// </summary>
         public override void Initialize()
         {
             base.Initialize();
