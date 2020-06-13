@@ -36,6 +36,10 @@ namespace Loki2D.Core.Component
 
         }
 
+        /// <summary>
+        /// Render component
+        /// </summary>
+        /// <param name="textureName">The name of the texture to be used</param>
         public RenderComponent(string textureName)
         {
             TextureName = textureName;
@@ -47,6 +51,10 @@ namespace Loki2D.Core.Component
             RenderManager.Instance.UnRegisterComponent(this);
         }
 
+        /// <summary>
+        /// Sets the material to be used for deferred rendering
+        /// </summary>
+        /// <param name="material"></param>
         public void SetMaterial(Material material)
         {
             Material = material;
@@ -58,6 +66,10 @@ namespace Loki2D.Core.Component
             RenderManager.Instance.RegisterComponent(this);
         }
 
+        /// <summary>
+        /// Returns the texture used in rendering
+        /// </summary>
+        /// <returns></returns>
         public Texture2D GetTexture()
         {
             return TextureManager.Instance.GetTexture(TextureName);
