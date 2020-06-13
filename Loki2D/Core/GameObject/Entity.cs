@@ -14,11 +14,27 @@ namespace Loki2D.Core.GameObject
 {
     public class Entity
     {
+        /// <summary>
+        /// The ID associated with this entity
+        /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// The name associated with this entity
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Determines whether or not this entity can be updated
+        /// </summary>
         public bool CanUpdate { get; set; }
 
-        public bool IgnoreUpdatePartition { get; set; }
+        /// <summary>
+        /// Determines whether or not this entity respects spatial partition updates
+        /// False - update when partition cell is loaded
+        /// True - update always
+        /// </summary>
+        public bool AlwaysUpdate { get; set; }
         
         public string EntityType { get; set; }
         public int Index;
