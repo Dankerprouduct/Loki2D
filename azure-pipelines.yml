@@ -13,7 +13,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   monoGameVersion: 'v3.7.1' 
-  buildConfiguration: 'Release'
+  buildConfiguration: 'Debug'
 
 
 steps:
