@@ -16,18 +16,33 @@ namespace Loki2D.Core.Component
     [EditorInspectable("Render Component")]
     public class RenderComponent: Component, IComparable<RenderComponent>
     {
+        /// <summary>
+        /// The render layer of the texture
+        /// </summary>
         [EditorInspectable]
         public int RenderLayer { get; set; } = 0;
 
+        /// <summary>
+        /// The name of the texture
+        /// </summary>
         [EditorInspectable("Texture Name")]
         public string TextureName { get; set; }
 
+        /// <summary>
+        /// The scale of the texture
+        /// </summary>
         [EditorInspectable]
         public float Scale { get; set; } = 1;
 
+        /// <summary>
+        /// The rotation of the texture
+        /// </summary>
         [EditorInspectable]
         public float Rotation { get; set; } = 0;
 
+        /// <summary>
+        /// The material being used by the component
+        /// </summary>
         [JsonIgnore]
         public Material Material { get; set; }
 
