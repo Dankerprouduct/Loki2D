@@ -64,29 +64,57 @@ namespace Loki2D.Core.Scene
             Console.WriteLine($"Initialized Scene: {Name}");
         }
 
+        /// <summary>
+        /// Returns the current physics world
+        /// </summary>
+        /// <returns></returns>
         public World GetPhysicsWorld()
         {
             return _world;
         }
 
+        /// <summary>
+        /// Adds an entity to the scene
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public bool AddEntity(Entity entity)
         {
-            return CellSpacePartition.AddEntity(entity);
+            try
+            {
+                return CellSpacePartition.AddEntity(entity);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return false;
         }
 
+        /// <summary>
+        /// Retrieves an entity based off a position
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         public Entity GetEntity(Vector2 position)
         {
             return CellSpacePartition.GetEntity(position);
         }
-
-
-
-
+        
+        /// <summary>
+        /// Removes an entity
+        /// </summary>
+        /// <param name="entity"></param>
         public void RemoveEntity(Entity entity)
         {
             CellSpacePartition.RemoveEntity(entity);
         }
 
+        /// <summary>
+        /// Adds a physics body to the scene
+        /// </summary>
+        /// <param name="body"></param>
         public void AddBody(Body body)
         {
             _world.Add(body);
