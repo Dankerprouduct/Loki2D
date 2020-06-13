@@ -130,17 +130,19 @@ namespace Loki2D.Systems
                     
                     foreach (var entity in entities)
                     {
-                        var renderComponent = entity.GetComponent<RenderComponent>();
-                        var material = renderComponent.Material;
+                        if (entity.HasComponent<RenderComponent>())
+                        {
+                            var renderComponent = entity.GetComponent<RenderComponent>();
 
-                        var texture =
-                            TextureManager.Instance.GetTexture(renderComponent.TextureName);
-                        var position = entity.GetComponent<TransformComponent>().Position;
+                            var texture =
+                                TextureManager.Instance.GetTexture(renderComponent.TextureName);
+                            var position = entity.GetComponent<TransformComponent>().Position;
 
-                        spriteBatch.Draw(texture, position,
-                            null, Color.White, MathHelper.ToRadians(renderComponent.Rotation),
-                            new Vector2(texture.Width / 2, texture.Height / 2), renderComponent.Scale,
-                            SpriteEffects.None, renderComponent.RenderLayer);
+                            spriteBatch.Draw(texture, position,
+                                null, Color.White, MathHelper.ToRadians(renderComponent.Rotation),
+                                new Vector2(texture.Width / 2, texture.Height / 2), renderComponent.Scale,
+                                SpriteEffects.None, renderComponent.RenderLayer);
+                        }
                     }
                 }
             }
