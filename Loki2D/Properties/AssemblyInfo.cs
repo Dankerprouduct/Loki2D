@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Loki2D")]
 [assembly: AssemblyProduct("Loki2D")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A 2D game engine developed by David Fitzgerald.")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
