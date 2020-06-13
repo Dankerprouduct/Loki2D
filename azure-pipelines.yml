@@ -82,4 +82,4 @@ steps:
     name: 'DankBot'
     avatar: 'https://avatars2.githubusercontent.com/u/8772659?s=460&u=200a491377abf3f599e989cdec2c459bd99d7a5f&v=4'
     messageType: 'content'
-    content: 'A new version of Loki2D is avaliable!    https://dev.azure.com/dankerprouduct2/Loki2D/_apis/build/status/Dankerprouduct.Loki2D?branchName=master'
+    content: 'A new version of Loki2D is avaliable!'
