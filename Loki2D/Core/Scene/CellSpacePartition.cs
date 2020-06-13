@@ -41,7 +41,11 @@ namespace Loki2D.Core.Scene
             {
                 _entities.Add(entity);
 
-                _entities = _entities.OrderBy(e => e.GetComponent<RenderComponent>().RenderLayer).ToList();
+                if (entity.HasComponent<RenderComponent>())
+                {
+                    _entities = _entities.OrderBy(e => e.GetComponent<RenderComponent>().RenderLayer).ToList();
+                }
+
                 return true;
             }
 
