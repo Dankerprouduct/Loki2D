@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Loki2D.Core.Utilities.MathHelper
+namespace Loki2D.Core.Utilities.Noise
 {
     public abstract class Perlin<GradientType>
     {

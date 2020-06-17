@@ -65,8 +65,8 @@
     <Compile Include="Core\Utilities\Extensions.cs" />
     <Compile Include="Core\Utilities\JsonHelper.cs" />
     <Compile Include="Core\Utilities\MathHelper\MathUtils.cs" />
-    <Compile Include="Core\Utilities\MathHelper\Perlin.cs" />
-    <Compile Include="Core\Utilities\MathHelper\Simplex.cs" />
+    <Compile Include="Core\Utilities\Noise\Perlin.cs" />
+    <Compile Include="Core\Utilities\Noise\Simplex.cs" />
     <Compile Include="Core\Utilities\RandomHelper.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GUI\UIClickEventArgs.cs" />

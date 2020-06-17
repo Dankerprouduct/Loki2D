@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Loki2D.Core.Utilities.MathHelper
+namespace Loki2D.Core.Utilities.Noise
 {
     public static class Simplex
     {
