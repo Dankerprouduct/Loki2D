@@ -18,10 +18,14 @@ namespace Loki2D.Systems
         private GraphicsDevice _graphicsDevice;
         public static Texture2D Pixel;
 
-        public TextureManager(GraphicsDevice graphicsDevice)
+        public TextureManager(GraphicsDevice graphicsDevice, bool loadPixel = true)
         {
             _graphicsDevice = graphicsDevice;
-            Pixel = CreateTexture(graphicsDevice, 1, 1, pixel => Color.White);
+
+            if (loadPixel)
+            {
+                Pixel = CreateTexture(graphicsDevice, 1, 1, pixel => Color.White);
+            }
         }
 
         public static Texture2D CreateTexture(GraphicsDevice device, int width, int height, Func<int, Color> paint)
