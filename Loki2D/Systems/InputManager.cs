@@ -70,6 +70,11 @@ namespace Loki2D.Systems
             return KeyboardState.IsKeyDown(key) && OldKeyboardState.IsKeyUp(key);
         }
 
+        public static bool KeyReleased(Keys key)
+        {
+            return (KeyboardState.IsKeyUp(key) && OldKeyboardState.IsKeyDown(key));
+        }
+
         public static bool KeyDown(Keys key)
         {
             return KeyboardState.IsKeyDown(key);
