@@ -138,10 +138,13 @@ namespace Loki2D.Systems
                                 TextureManager.Instance.GetTexture(renderComponent.TextureName);
                             var position = entity.GetComponent<TransformComponent>().Position;
 
-                            spriteBatch.Draw(texture, position,
-                                null, Color.White, MathHelper.ToRadians(renderComponent.Rotation),
-                                new Vector2(texture.Width / 2, texture.Height / 2), renderComponent.Scale,
-                                SpriteEffects.None, renderComponent.RenderLayer);
+                            if (!renderComponent.CustomOrigin)
+                            {
+                                spriteBatch.Draw(texture, position,
+                                    null, Color.White, MathHelper.ToRadians(renderComponent.Rotation),
+                                    renderComponent.Origin, renderComponent.Scale,
+                                    SpriteEffects.None, renderComponent.RenderLayer);
+                            }
                         }
                     }
                 }

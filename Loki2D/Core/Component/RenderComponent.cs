@@ -40,6 +40,12 @@ namespace Loki2D.Core.Component
         [EditorInspectable]
         public float Rotation { get; set; } = 0;
 
+        [EditorInspectable]
+        public Vector2 Origin { get; set; }
+
+        [EditorInspectable]
+        public bool CustomOrigin { get; set; }
+
         /// <summary>
         /// The material being used by the component
         /// </summary>
