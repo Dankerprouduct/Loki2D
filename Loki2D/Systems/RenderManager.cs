@@ -138,7 +138,7 @@ namespace Loki2D.Systems
                                 TextureManager.Instance.GetTexture(renderComponent.TextureName);
                             var position = entity.GetComponent<TransformComponent>().Position;
 
-                            if (!renderComponent.CustomOrigin)
+                            if (!renderComponent.UsesCustomOrigin)
                             {
                                 spriteBatch.Draw(texture, position,
                                     null, Color.White, MathHelper.ToRadians(renderComponent.Rotation),
