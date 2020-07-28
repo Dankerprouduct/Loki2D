@@ -44,7 +44,7 @@ namespace Loki2D.Core.Component
         public Vector2 Origin { get; set; }
 
         [EditorInspectable]
-        public bool CustomOrigin { get; set; }
+        public bool UsesCustomOrigin { get; set; }
 
         /// <summary>
         /// The material being used by the component
