@@ -67,6 +67,7 @@
     <Compile Include="Core\Utilities\MathHelper\MathUtils.cs" />
     <Compile Include="Core\Utilities\Noise\Perlin.cs" />
     <Compile Include="Core\Utilities\Noise\Simplex.cs" />
+    <Compile Include="Core\Utilities\Primitives2D.cs" />
     <Compile Include="Core\Utilities\RandomHelper.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GUI\UIClickEventArgs.cs" />
