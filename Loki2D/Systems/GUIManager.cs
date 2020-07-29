@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Loki2D.Core.Scene;
 using Loki2D.GUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,7 +18,10 @@ namespace Loki2D.Systems
         private List<UIElement> _uiElements;
 
         private List<UIElement> _elementsToAdd;
-        private List<UIElement> _elementsToRemove; 
+        private List<UIElement> _elementsToRemove;
+
+        public static int ScreenWidth = SceneManagement.Instance.GraphicsDevice.PresentationParameters.BackBufferWidth;
+        public static int ScreenHeight = SceneManagement.Instance.GraphicsDevice.PresentationParameters.BackBufferHeight;
 
         public GUIManager()
         {
