@@ -64,6 +64,16 @@ namespace Loki2D.Systems
             return MouseState.LeftButton == ButtonState.Released;
         }
 
+        public static bool LeftMouseReleased()
+        {
+            return MouseState.LeftButton == ButtonState.Released && OldMouseState.LeftButton == ButtonState.Pressed;
+        }
+
+        public static bool RightMouseReleased()
+        {
+            return MouseState.RightButton == ButtonState.Released && OldMouseState.RightButton == ButtonState.Pressed;
+        }
+
 
         public static bool KeyPressed(Keys key)
         {
