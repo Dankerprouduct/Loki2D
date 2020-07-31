@@ -17,9 +17,18 @@ namespace Loki2D.Systems
             Instance = this as T;
         }
 
+        ~SystemManager()
+        {
+            OnDestroy();
+        }
+
         public virtual void Update(GameTime gameTime) { }
         public virtual void Draw(SpriteBatch spriteBatch) { }
 
+        /// <summary>
+        /// Gets called when the object is deconstructed
+        /// </summary>
+        public abstract void OnDestroy();
 
     }
 }
