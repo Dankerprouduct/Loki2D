@@ -103,5 +103,10 @@ namespace Loki2D.Systems
             }
             
         }
+
+        public override void OnDestroy()
+        {
+            
+        }
     }
 }

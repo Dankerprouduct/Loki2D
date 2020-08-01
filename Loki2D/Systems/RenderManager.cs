@@ -159,6 +159,11 @@ namespace Loki2D.Systems
             base.Draw(spriteBatch);
         }
 
+        public override void OnDestroy()
+        {
+            
+        }
+
         public void DeferredDraw(SpriteBatch spriteBatch)
         {
             GraphicsDevice.Clear(Color.Black);
