@@ -56,14 +56,14 @@ namespace Loki2D.GUI
         {
             if (Parent == null)
             {
-                spriteBatch.DrawString(Font, Text, Position.ToVector2(),
+                spriteBatch.DrawString(Font, Text, GetPosition().ToVector2(),
                     Color, Rotation,
                     _halfSize, TextScale,
                     SpriteEffects.None, 0f);
             }
             else
             {
-                spriteBatch.DrawString(Font, Text, Position.ToVector2() + Parent.Position.ToVector2(), Color,
+                spriteBatch.DrawString(Font, Text, GetPosition().ToVector2(), Color,
                     Rotation, _halfSize, TextScale, SpriteEffects.None, 0f);
             }
 

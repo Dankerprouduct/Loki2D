@@ -78,6 +78,13 @@ namespace Loki2D.GUI
         /// </summary>
         public List<UIElement> Children = new List<UIElement>();
 
+        public Point GetPosition()
+        {
+            if (Parent == null)
+                return Position;
+            return Parent.Position + Position; 
+        }
+
         /// <summary>
         /// Disables drawing
         /// </summary>
@@ -218,12 +225,12 @@ namespace Loki2D.GUI
         {
             if (Parent == null)
             {
-                spriteBatch.Draw(TextureManager.Pixel, new Rectangle(Position, new Point(Width, Height)),
+                spriteBatch.Draw(TextureManager.Pixel, new Rectangle(GetPosition(), new Point(Width, Height)),
                     null, Color);
             }
             else
             {
-                spriteBatch.Draw(TextureManager.Pixel, new Rectangle(Position + Parent.Position, new Point(Width, Height)),
+                spriteBatch.Draw(TextureManager.Pixel, new Rectangle(GetPosition(), new Point(Width, Height)),
                     null, Color);
             }
 
