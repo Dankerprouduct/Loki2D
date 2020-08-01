@@ -28,6 +28,7 @@ namespace Loki2D.Systems
 
         public GUIManager()
         {
+            _fonts = new Dictionary<string, SpriteFont>();
             _uiElements = new List<UIElement>();
             _elementsToAdd = new List<UIElement>();
             _elementsToRemove = new List<UIElement>();
