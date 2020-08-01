@@ -24,6 +24,11 @@ namespace Loki2D.Core.Utilities
             return new Vector2(x,y);
         }
 
+        public static Point Half(this Point point)
+        {
+            return (point.ToVector2()).ToPoint();
+        }
+
         
     }
 }
