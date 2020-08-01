@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Loki2D.Core.Scene;
 using Loki2D.GUI;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Loki2D.Systems
@@ -19,6 +20,8 @@ namespace Loki2D.Systems
 
         private List<UIElement> _elementsToAdd;
         private List<UIElement> _elementsToRemove;
+        private Dictionary<string, SpriteFont> _fonts;
+
 
         public static int ScreenWidth = SceneManagement.Instance.GraphicsDevice.PresentationParameters.BackBufferWidth;
         public static int ScreenHeight = SceneManagement.Instance.GraphicsDevice.PresentationParameters.BackBufferHeight;
@@ -28,8 +31,31 @@ namespace Loki2D.Systems
             _uiElements = new List<UIElement>();
             _elementsToAdd = new List<UIElement>();
             _elementsToRemove = new List<UIElement>();
+            
         }
 
+        public void RegisterFont(string key, string path)
+        {
+            var font = SceneManagement.Instance.Content.Load<SpriteFont>(path);
+            if (_fonts.ContainsKey(key) == false)
+            {
+                _fonts.Add(key,font);
+            }
+            else
+            {
+                Console.WriteLine("Key already exists!");
+            }
+        }
+
+        public SpriteFont GetFont(string key)
+        {
+            if (_fonts.ContainsKey(key))
+            {
+                return _fonts[key];
+            }
+            throw new Exception($"Key: {key} does not exists!");
+        }
+        
         /// <summary>
         /// Adds UI Element to be rendered and updated
         /// </summary>
