@@ -82,7 +82,7 @@ namespace Loki2D.GUI
         {
             if (Parent == null)
                 return Position;
-            return Parent.Position + Position; 
+            return Parent.GetPosition() + Position; 
         }
 
         /// <summary>
