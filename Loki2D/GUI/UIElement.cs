@@ -60,8 +60,14 @@ namespace Loki2D.GUI
         /// </summary>
         public float ScaleY { get; set; } = 1;
 
-        public EventHandler<UIClickEventArgs> LeftClicked; 
-        public EventHandler<UIClickEventArgs> RightClicked; 
+        public EventHandler<UIClickEventArgs> LeftClicked;
+
+        public EventHandler<UIClickEventArgs> LeftPressed;
+        public EventHandler<UIClickEventArgs> LeftReleased;
+
+        public EventHandler<UIClickEventArgs> RightClicked;
+
+        public EventHandler<UIClickEventArgs> RightReleased;
 
         /// <summary>
         /// Position of Element
@@ -194,29 +200,74 @@ namespace Loki2D.GUI
             if (Parent == null)
             {
                 var boundsRect = new Rectangle(Position, new Point(Width, Height));
+
+                // left
                 if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
                     InputManager.LeftMouseClicked())
                 {
                     LeftClicked?.Invoke(this, new UIClickEventArgs(this));
                 }
+
+                if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
+                    InputManager.LeftMouseReleased())
+                {
+                    LeftReleased?.Invoke(this, new UIClickEventArgs(this));
+                }
+
+                if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
+                    InputManager.LeftMouseDown())
+                {
+                    LeftPressed?.Invoke(this, new UIClickEventArgs(this));
+                }
+
+                // right
                 if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
                     InputManager.RightMouseClicked())
                 {
                     RightClicked?.Invoke(this, new UIClickEventArgs(this));
                 }
+
+                if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
+                    InputManager.RightMouseReleased())
+                {
+                    RightReleased?.Invoke(this, new UIClickEventArgs(this));
+                }
+
             }
             else
             {
                 var boundsRect = new Rectangle(Position + Parent.Position, new Point(Width, Height));
+
+                // left
                 if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
                     InputManager.LeftMouseClicked())
                 {
                     LeftClicked?.Invoke(this, new UIClickEventArgs(this));
                 }
+
+                if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
+                    InputManager.LeftMouseReleased())
+                {
+                    LeftReleased?.Invoke(this, new UIClickEventArgs(this));
+                }
+
+                if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
+                    InputManager.LeftMouseDown())
+                {
+                    LeftPressed?.Invoke(this, new UIClickEventArgs(this));
+                }
+
+                // right
                 if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
                     InputManager.RightMouseClicked())
                 {
                     RightClicked?.Invoke(this, new UIClickEventArgs(this));
+                }
+
+                if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
+                    InputManager.RightMouseReleased())
+                {
+                    RightReleased?.Invoke(this, new UIClickEventArgs(this));
                 }
             }
         }
