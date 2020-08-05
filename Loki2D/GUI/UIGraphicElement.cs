@@ -22,15 +22,17 @@ namespace Loki2D.GUI
         /// <param name="path"></param>
         public void SetPath(string path)
         {
-
-            Console.WriteLine("Set path");
             GraphicPath = path;
+            var texture = TextureManager.Instance.GetTexture(GraphicPath);
+            Width = texture.Width;
+            Height = texture.Height; 
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Console.WriteLine("drawing element");
-            spriteBatch.Draw(TextureManager.Instance.GetTexture(GraphicPath), GetPosition().ToVector2(), null, Color.White);
+
+            spriteBatch.Draw(TextureManager.Instance.GetTexture(GraphicPath), new Rectangle(GetPosition(), 
+                new Point((int)(Width * ScaleX), (int)(Height * ScaleY))), Color.White);
 
             // draw children
             foreach (var child in Children)
