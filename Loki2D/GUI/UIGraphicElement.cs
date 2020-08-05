@@ -22,6 +22,8 @@ namespace Loki2D.GUI
         /// <param name="path"></param>
         public void SetPath(string path)
         {
+
+            Console.WriteLine("Set path");
             GraphicPath = path;
         }
 
