@@ -27,7 +27,7 @@ namespace Loki2D.GUI
             GraphicPath = path;
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             Console.WriteLine("drawing element");
             spriteBatch.Draw(TextureManager.Instance.GetTexture(GraphicPath), GetPosition().ToVector2(), null, Color.White);
