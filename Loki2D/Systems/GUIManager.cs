@@ -64,6 +64,7 @@ namespace Loki2D.Systems
         public void AddElement(UIElement uiElement)
         {
             _elementsToAdd.Add(uiElement);
+            Console.WriteLine($"queuing element: {uiElement}");
         }
 
         /// <summary>
@@ -85,6 +86,7 @@ namespace Loki2D.Systems
             {
                 var element = _elementsToAdd[i];
                 _uiElements.Add(element);
+                Console.WriteLine($"added element: {element}");
                 _elementsToAdd.Remove(element);
             }
 
