@@ -27,6 +27,7 @@ namespace Loki2D.GUI
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            Console.WriteLine("drawing element");
             if (Parent == null)
             {
                 spriteBatch.Draw(TextureManager.Instance.GetTexture(GraphicPath), GetPosition().ToVector2(), null, Color.White);
