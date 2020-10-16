@@ -51,6 +51,11 @@ namespace Loki2D.Core.GameObject
         /// </summary>
         public Component.Component[] Components => _components?.ToArray();
         internal List<Component.Component> _components = new List<Component.Component>();
+
+        /// <summary>
+        /// The Parent of this Entity; 
+        /// </summary>
+        public Entity Parent { get; set; }
         
         /// <summary>
         /// Base class for all entities
@@ -127,6 +132,23 @@ namespace Loki2D.Core.GameObject
 
             _components.Add(component);
             return component;
+        }
+
+        /// <summary>
+        /// Sets this entity's parent. 
+        /// </summary>
+        /// <param name="entity"></param>
+        public void SetParent(Entity entity)
+        {
+            Parent = entity; 
+        }
+
+        /// <summary>
+        /// Clears this entity's parent
+        /// </summary>
+        public void ClearParent()
+        {
+            Parent = null;
         }
 
         /// <summary>
