@@ -134,6 +134,12 @@ namespace Loki2D.Systems
                         {
                             var renderComponent = entity.GetComponent<RenderComponent>();
 
+                            if (renderComponent.OverrideRender)
+                            {
+                                renderComponent.Draw(spriteBatch);
+                                continue;
+                            }
+
                             var texture =
                                 TextureManager.Instance.GetTexture(renderComponent.TextureName);
                             var position = entity.GetComponent<TransformComponent>().Position;

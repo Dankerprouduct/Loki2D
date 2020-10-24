@@ -46,11 +46,16 @@ namespace Loki2D.Core.Component
         [EditorInspectable]
         public bool UsesCustomOrigin { get; set; }
 
+        [EditorInspectable]
+        public bool OverrideRender { get; set; }
+
         /// <summary>
         /// The material being used by the component
         /// </summary>
         [JsonIgnore]
         public Material Material { get; set; }
+
+        public event EventHandler<DrawEventArgs> OnDraw; 
 
         public RenderComponent()
         {
@@ -101,5 +106,18 @@ namespace Loki2D.Core.Component
             return other.RenderLayer > RenderLayer ? 1 : 0;
         }
 
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            OnDraw?.Invoke(this, new DrawEventArgs()
+            {
+                SpriteBatch = spriteBatch
+            });
+        }
+
+    }
+
+    public class DrawEventArgs : EventArgs
+    {
+        public SpriteBatch SpriteBatch { get; set; }
     }
 }
