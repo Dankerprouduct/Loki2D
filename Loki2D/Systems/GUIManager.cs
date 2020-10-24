@@ -106,7 +106,7 @@ namespace Loki2D.Systems
                     element.Update(gameTime);
                 }
             }
-            base.Update(gameTime);
+            //base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
