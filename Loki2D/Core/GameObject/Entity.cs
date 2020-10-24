@@ -19,6 +19,8 @@ namespace Loki2D.Core.GameObject
         /// </summary>
         public int Id { get; set; }
 
+        public string Tag { get; set; }
+
         /// <summary>
         /// The name associated with this entity
         /// </summary>

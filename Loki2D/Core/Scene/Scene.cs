@@ -11,6 +11,7 @@ using Loki2D.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
+using SharpDX.MediaFoundation;
 using tainicom.Aether.Physics2D.Collision;
 using tainicom.Aether.Physics2D.Dynamics;
 
@@ -72,7 +73,7 @@ namespace Loki2D.Core.Scene
         {
             return _world;
         }
-
+        
         /// <summary>
         /// Adds an entity to the scene
         /// </summary>
@@ -100,6 +101,27 @@ namespace Loki2D.Core.Scene
         public Entity GetEntity(Vector2 position)
         {
             return CellSpacePartition.GetEntity(position);
+        }
+
+        public List<Entity> GetEntitiesByTag(string tag)
+        {
+            List<Entity> allEntities = new List<Entity>();
+            for (int i = 0; i < CellSpacePartition.Cells.Length; i++)
+            {
+                var cell = CellSpacePartition.Cells[i];
+                if (cell != null)
+                {
+                    if (cell.Entities != null)
+                    {
+                        foreach (var entity in cell.Entities)
+                        {
+                            allEntities.Add(entity);
+                        }
+                    }
+                }
+            }
+
+            return allEntities.Where(i => i.Tag == tag).ToList();
         }
         
         /// <summary>
