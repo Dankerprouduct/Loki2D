@@ -96,4 +96,11 @@ namespace Loki2D.Systems
         }
 
     }
+
+    public class KeyEventArgs : EventArgs
+    {
+        public Keys KeyPressed { get; set; }
+        public Keys KeyDown { get; set; }
+        public Keys KeyUp { get; set; }
+    }
 }

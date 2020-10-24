@@ -47,8 +47,11 @@ namespace Loki2D.Core.Component
         public bool UsesCustomOrigin { get; set; }
 
         [EditorInspectable]
-        public bool OverrideRender { get; set; }
+        public Color Color { get; set; } = Color.White;
 
+        [EditorInspectable]
+        public bool OverrideRender { get; set; }
+        
         /// <summary>
         /// The material being used by the component
         /// </summary>
