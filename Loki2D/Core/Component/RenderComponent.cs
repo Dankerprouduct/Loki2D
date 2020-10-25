@@ -58,7 +58,7 @@ namespace Loki2D.Core.Component
         [JsonIgnore]
         public Material Material { get; set; }
 
-        public event EventHandler<DrawEventArgs> OnDraw; 
+        public EventHandler<DrawEventArgs> OnDraw; 
 
         public RenderComponent()
         {

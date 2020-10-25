@@ -150,6 +150,11 @@ namespace Loki2D.Systems
                                     null, renderComponent.Color, MathHelper.ToRadians(renderComponent.Rotation),
                                     renderComponent.Origin, renderComponent.Scale,
                                     SpriteEffects.None, renderComponent.RenderLayer);
+
+                                renderComponent.OnDraw?.Invoke(renderComponent, new DrawEventArgs()
+                                {
+                                    SpriteBatch = spriteBatch
+                                });
                             }
                         }
                     }
