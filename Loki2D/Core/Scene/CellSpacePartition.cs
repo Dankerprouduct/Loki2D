@@ -130,8 +130,9 @@ namespace Loki2D.Core.Scene
                 }
             }
 
-            foreach (var entity in _addQueue)
+            for (var index = 0; index < _addQueue.Count; index++)
             {
+                var entity = _addQueue[index];
                 _entities.Add(entity);
 
                 if (entity.HasComponent<RenderComponent>())
@@ -139,17 +140,17 @@ namespace Loki2D.Core.Scene
                     _entities = _entities.OrderBy(e => e.GetComponent<RenderComponent>().RenderLayer).ToList();
                 }
 
-                _addQueue.Remove(entity); 
+                _addQueue.RemoveAt((index));
             }
 
-            foreach (var entity in _destroyQueue)
+            for (var index = 0; index < _destroyQueue.Count; index++)
             {
+                var entity = _destroyQueue[index];
                 if (_entities.Contains(entity))
                 {
                     _entities.Remove(entity);
-                    _destroyQueue.Remove(entity);
+                    _destroyQueue.RemoveAt(index);
                 }
-
             }
         }
 
