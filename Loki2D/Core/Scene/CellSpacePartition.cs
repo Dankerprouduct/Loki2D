@@ -23,6 +23,7 @@ namespace Loki2D.Core.Scene
         public Entity[] Entities => _entities?.ToArray();
         private List<Entity> _entities { get; set; }
         private List<Entity> _destroyQueue = new List<Entity>();
+        private List<Entity> _addQueue = new List<Entity>();
         public void Initialize()
         {
             _entities = new List<Entity>();
@@ -39,12 +40,7 @@ namespace Loki2D.Core.Scene
 
             if (!_entities.Contains(entity))
             {
-                _entities.Add(entity);
-
-                if (entity.HasComponent<RenderComponent>())
-                {
-                    _entities = _entities.OrderBy(e => e.GetComponent<RenderComponent>().RenderLayer).ToList();
-                }
+                _addQueue.Add(entity);
 
                 return true;
             }
@@ -134,11 +130,24 @@ namespace Loki2D.Core.Scene
                 }
             }
 
+            foreach (var entity in _addQueue)
+            {
+                _entities.Add(entity);
+
+                if (entity.HasComponent<RenderComponent>())
+                {
+                    _entities = _entities.OrderBy(e => e.GetComponent<RenderComponent>().RenderLayer).ToList();
+                }
+
+                _addQueue.Remove(entity); 
+            }
+
             foreach (var entity in _destroyQueue)
             {
                 if (_entities.Contains(entity))
                 {
                     _entities.Remove(entity);
+                    _destroyQueue.Remove(entity);
                 }
 
             }
