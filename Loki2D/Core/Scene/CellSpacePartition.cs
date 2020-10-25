@@ -138,7 +138,7 @@ namespace Loki2D.Core.Scene
             {
                 if (_entities.Contains(entity))
                 {
-                    _entities.Remove(entity)
+                    _entities.Remove(entity);
                 }
 
             }
