@@ -149,7 +149,7 @@ namespace Loki2D.Systems
                                 spriteBatch.Draw(texture, position,
                                     null, renderComponent.Color, MathHelper.ToRadians(renderComponent.Rotation),
                                     renderComponent.Origin, renderComponent.Scale,
-                                    SpriteEffects.None, renderComponent.RenderLayer);
+                                    SpriteEffects.None, ((float)renderComponent.RenderLayer / 100));
 
                                 renderComponent.OnDraw?.Invoke(renderComponent, new DrawEventArgs()
                                 {
