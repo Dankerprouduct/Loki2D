@@ -134,6 +134,9 @@ namespace Loki2D.Systems
                         {
                             var renderComponent = entity.GetComponent<RenderComponent>();
 
+                            if (!renderComponent.CanDraw)
+                                continue;
+
                             if (renderComponent.OverrideRender)
                             {
                                 renderComponent.Draw(spriteBatch);

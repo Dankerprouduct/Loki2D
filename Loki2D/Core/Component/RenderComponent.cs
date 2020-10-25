@@ -50,8 +50,13 @@ namespace Loki2D.Core.Component
         public Color Color { get; set; } = Color.White;
 
         [EditorInspectable]
+        public bool CanDraw { get; set; }
+
+        [EditorInspectable]
         public bool OverrideRender { get; set; }
         
+
+
         /// <summary>
         /// The material being used by the component
         /// </summary>
@@ -71,6 +76,7 @@ namespace Loki2D.Core.Component
         /// <param name="textureName">The name of the texture to be used</param>
         public RenderComponent(string textureName)
         {
+            CanDraw = true; 
             TextureName = textureName;
             Initialize();
         }
