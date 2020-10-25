@@ -22,7 +22,7 @@ namespace Loki2D.Core.Scene
 
         public Entity[] Entities => _entities?.ToArray();
         private List<Entity> _entities { get; set; }
-
+        private List<Entity> _destroyQueue = new List<Entity>();
         public void Initialize()
         {
             _entities = new List<Entity>();
@@ -107,6 +107,7 @@ namespace Loki2D.Core.Scene
 
         public bool RemoveEntity(Entity entity)
         {
+            _destroyQueue.Add(entity);
             if (_entities == null)
             {
                 return false;
@@ -114,7 +115,6 @@ namespace Loki2D.Core.Scene
 
             if (_entities.Contains(entity))
             {
-                _entities.Remove(entity);
                 return true;
             }
 
@@ -132,6 +132,15 @@ namespace Loki2D.Core.Scene
                 {
                     entity.Update(gameTime);
                 }
+            }
+
+            foreach (var entity in _destroyQueue)
+            {
+                if (_entities.Contains(entity))
+                {
+                    _entities.Remove(entity)
+                }
+
             }
         }
 
