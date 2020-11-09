@@ -154,10 +154,13 @@ namespace Loki2D.Systems
                                     renderComponent.Origin, renderComponent.Scale,
                                     SpriteEffects.None, ((float)renderComponent.RenderLayer / 100));
 
-                                renderComponent.OnDraw?.Invoke(renderComponent, new DrawEventArgs()
+                                if (renderComponent.InvokeOnDraw)
                                 {
-                                    SpriteBatch = spriteBatch
-                                });
+                                    renderComponent.OnDraw?.Invoke(renderComponent, new DrawEventArgs()
+                                    {
+                                        SpriteBatch = spriteBatch
+                                    });
+                                }
                             }
                         }
                     }

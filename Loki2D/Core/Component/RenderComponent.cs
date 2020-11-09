@@ -55,6 +55,7 @@ namespace Loki2D.Core.Component
         [EditorInspectable]
         public bool OverrideRender { get; set; }
         
+        public bool InvokeOnDraw { get; set; }
 
 
         /// <summary>
