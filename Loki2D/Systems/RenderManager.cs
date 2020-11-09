@@ -19,6 +19,8 @@ namespace Loki2D.Systems
     public class RenderManager: SystemManager<RenderManager>
     {
 
+
+        public static int MaxRenderLayers = 10000000;
         public List<RenderManager> Components = new List<RenderManager>();
 
         public RenderTarget2D DiffuseTarget;
@@ -152,7 +154,7 @@ namespace Loki2D.Systems
                                 spriteBatch.Draw(texture, position,
                                     null, renderComponent.Color, MathHelper.ToRadians(renderComponent.Rotation),
                                     renderComponent.Origin, renderComponent.Scale,
-                                    SpriteEffects.None, ((float)renderComponent.RenderLayer / 100));
+                                    SpriteEffects.None, ((float)renderComponent.RenderLayer / MaxRenderLayers));
 
                                 if (renderComponent.InvokeOnDraw)
                                 {
