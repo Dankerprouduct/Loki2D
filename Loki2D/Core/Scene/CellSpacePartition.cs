@@ -61,8 +61,8 @@ namespace Loki2D.Core.Scene
                 var vector2 = entity.GetComponent<TransformComponent>().Position;
                 var scale = entity.GetComponent<RenderComponent>().Scale;
                 
-                var width = (int)(texture.Width * scale);
-                var height = (int)(texture.Height * scale);
+                var width = (int)(texture.Width * scale.Length());
+                var height = (int)(texture.Height * scale.Length());
 
                 var vX = (int)(vector2.X - (width / 2));
                 var vY = (int)(vector2.Y - (height / 2));
