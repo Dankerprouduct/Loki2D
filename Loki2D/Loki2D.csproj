@@ -46,6 +46,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AI\Pathfinding.cs" />
     <Compile Include="Content\ContentLoading.cs" />
     <Compile Include="Core\Attributes\EditorInspectable.cs" />
     <Compile Include="Core\Component\Component.cs" />
