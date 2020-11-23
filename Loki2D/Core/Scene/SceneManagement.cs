@@ -169,6 +169,15 @@ namespace Loki2D.Core.Scene
             }
         }
 
+        public void AddEntity(Entity entity)
+        {
+            CurrentScene?.AddEntity(entity);
+        }
+
+        public void RemoveEntity(Entity entity)
+        {
+            CurrentScene?.RemoveEntity(entity);
+        }
 
         /// <summary>
         /// Updates the current Scene;

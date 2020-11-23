@@ -27,7 +27,10 @@ namespace Loki2D.Core.Scene
         public GUIManager GuiManager; 
 
         public Point Size { get; set; } = new Point(5000,5000);
-        public bool DeferredDraw = false; 
+        public bool DeferredDraw = false;
+
+        public event EventHandler<SceneEventArgs> OnDraw;
+
         [JsonIgnore]
         public GraphicsDevice GraphicsDevice { get; set; }
         // managers
@@ -165,6 +168,11 @@ namespace Loki2D.Core.Scene
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            OnDraw?.Invoke(this, new SceneEventArgs()
+            {
+                SpriteBatch = spriteBatch
+            });
+
             if (!DeferredDraw)
             {
                 _renderManager.Draw(spriteBatch);
@@ -182,5 +190,10 @@ namespace Loki2D.Core.Scene
             GuiManager.Draw(spriteBatch);
             spriteBatch.End();
         }
+    }
+
+    public class SceneEventArgs : EventArgs
+    {
+        public SpriteBatch SpriteBatch { get; set; }
     }
 }
