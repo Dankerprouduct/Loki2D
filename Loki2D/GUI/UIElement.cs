@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Loki2D.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 using tainicom.Aether.Physics2D.Dynamics;
 
 namespace Loki2D.GUI
@@ -74,6 +75,7 @@ namespace Loki2D.GUI
         /// </summary>
         public Point Position { get; set; }
 
+        [JsonIgnore]
         /// <summary>
         /// Parent UI Element
         /// </summary>
