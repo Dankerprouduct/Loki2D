@@ -32,7 +32,7 @@ namespace Loki2D.GUI
         {
 
             spriteBatch.Draw(TextureManager.Instance.GetTexture(GraphicPath), new Rectangle(GetPosition(), 
-                new Point((int)(Width * ScaleX), (int)(Height * ScaleY))), Color.White);
+                new Point((int)(Width * ScaleX), (int)(Height * ScaleY))), Color);
 
             // draw children
             foreach (var child in Children)
