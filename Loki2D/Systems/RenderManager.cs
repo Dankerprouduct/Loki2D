@@ -16,12 +16,19 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Loki2D.Systems
 {
+    public class RenderEventArgs : EventArgs
+    {
+        public SpriteBatch SpriteBatch { get; set; }
+    }
+
     public class RenderManager: SystemManager<RenderManager>
     {
 
 
         public static int MaxRenderLayers = 10000000;
         public List<RenderManager> Components = new List<RenderManager>();
+
+        public event EventHandler<RenderEventArgs> OnDraw;
 
         public RenderTarget2D DiffuseTarget;
         public RenderTarget2D NormalTarget;
@@ -119,6 +126,12 @@ namespace Loki2D.Systems
         public override void Draw(SpriteBatch spriteBatch)
         {
             GraphicsDevice.Clear(_graphicsColor);
+
+            OnDraw?.Invoke(this, new RenderEventArgs()
+            {
+                SpriteBatch = spriteBatch
+            });
+
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, SceneManagement.Instance.CurrentScene.Camera.transform);
             
 
