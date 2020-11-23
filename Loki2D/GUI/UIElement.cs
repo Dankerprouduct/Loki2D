@@ -18,7 +18,7 @@ namespace Loki2D.GUI
         /// <summary>
         /// LightColor Tint
         /// </summary>
-        public Color Color { get; set; }
+        public Color Color { get; set; } = Color.White; 
         
         /// <summary>
         /// Element ID
@@ -186,7 +186,7 @@ namespace Loki2D.GUI
         public void AddChild(UIElement element)
         {
             element.SetParent(this);
-            Children.Add(element);
+            //Children.Add(element);
         }
 
         public virtual void Update(GameTime gameTime)
