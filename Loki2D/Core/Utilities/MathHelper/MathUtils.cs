@@ -10,6 +10,11 @@ namespace Loki2D.Core.Utilities.MathHelper
         /// </summary>
         public static Random Random = new Random();
 
+        public static void SetSeed(int seed)
+        {
+            Random = new Random(seed);
+        }
+
         public static T Clamp<T>(T val, T min, T max) where T: IComparable<T>
         {
             if (val.CompareTo(min) < 0)
