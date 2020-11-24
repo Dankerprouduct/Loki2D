@@ -47,6 +47,14 @@ namespace Loki2D.Systems
             return texture;
         }
 
+        public static Texture2D CreateTexture(GraphicsDevice device, int width, int height, Color[] colors)
+        {
+            //initialize a texture
+            Texture2D texture = new Texture2D(device, width, height);
+            texture.SetData(colors);
+            return texture;
+        }
+
         public Texture2D GetTexture(string key)
         {
             return Textures[key];
