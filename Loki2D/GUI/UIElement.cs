@@ -238,7 +238,7 @@ namespace Loki2D.GUI
             }
             else
             {
-                var boundsRect = new Rectangle(Position + Parent.Position, new Point(Width, Height));
+                var boundsRect = new Rectangle(GetPosition(), new Point(Width, Height));
 
                 // left
                 if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
