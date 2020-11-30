@@ -175,7 +175,7 @@ namespace Loki2D.Core.GameObject
         /// <summary>
         /// Removes this entity from the scene. 
         /// </summary>
-        public void Destroy()
+        public virtual void Destroy()
         {
             SceneManagement.Instance.CurrentScene.RemoveEntity(this);
         }
