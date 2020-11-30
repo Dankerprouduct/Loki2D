@@ -49,6 +49,11 @@ namespace Loki2D.Core.GameObject
         public int Index;
 
         /// <summary>
+        /// On Destroy is fired right before the entity is removed from a scene
+        /// </summary>
+        public event EventHandler<EventArgs> OnDestroy; 
+
+        /// <summary>
         /// The Components owned by this entity
         /// </summary>
         public Component.Component[] Components => _components?.ToArray();
@@ -175,8 +180,13 @@ namespace Loki2D.Core.GameObject
         /// <summary>
         /// Removes this entity from the scene. 
         /// </summary>
-        public virtual void Destroy()
+        public void Destroy()
         {
+            OnDestroy?.Invoke(this, new EntityDestroyArgs()
+            {
+                Entity = this
+            });
+
             SceneManagement.Instance.CurrentScene.RemoveEntity(this);
         }
 
@@ -200,5 +210,13 @@ namespace Loki2D.Core.GameObject
         {
             return Name ?? GetType().Name;
         }
+    }
+
+    public class EntityDestroyArgs : EventArgs
+    {
+        /// <summary>
+        /// Entity being destroyed
+        /// </summary>
+        public Entity Entity { get; set; }
     }
 }
