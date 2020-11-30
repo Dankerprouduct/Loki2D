@@ -124,7 +124,28 @@ namespace Loki2D.Core.Scene
 
             return allEntities.Where(i => i.Tag == tag).ToList();
         }
-        
+
+        public List<Entity> GetEntitiesName(string name)
+        {
+            List<Entity> allEntities = new List<Entity>();
+            for (int i = 0; i < CellSpacePartition.Cells.Length; i++)
+            {
+                var cell = CellSpacePartition.Cells[i];
+                if (cell != null)
+                {
+                    if (cell.Entities != null)
+                    {
+                        foreach (var entity in cell.Entities)
+                        {
+                            allEntities.Add(entity);
+                        }
+                    }
+                }
+            }
+
+            return allEntities.Where(i => i.Name == name).ToList();
+        }
+
         /// <summary>
         /// Removes an entity
         /// </summary>
