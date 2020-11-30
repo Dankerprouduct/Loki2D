@@ -17,7 +17,7 @@ namespace Loki2D.GUI
     public class UIElement
     {
         /// <summary>
-        /// Additional string data. can be anything you want. 
+        /// Additional string data. can be anything you want.
         /// </summary>
         public string Tag { get; set; }
 
