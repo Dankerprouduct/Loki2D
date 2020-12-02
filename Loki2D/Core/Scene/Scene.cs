@@ -169,6 +169,8 @@ namespace Loki2D.Core.Scene
         {
             GuiManager.Update(gameTime);
             Camera.Update();
+            _renderManager.Update(gameTime);
+
             float totalSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             for (int i = 0; i < 5; i++)
@@ -183,6 +185,7 @@ namespace Loki2D.Core.Scene
                     CellSpacePartition.UpdateCell(x, y, gameTime);
                 }
             }
+            
         }
 
         public void Draw(SpriteBatch spriteBatch)

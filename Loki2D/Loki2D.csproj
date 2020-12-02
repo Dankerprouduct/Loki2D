@@ -53,6 +53,10 @@
     <Compile Include="Core\Component\PhysicsComponent.cs" />
     <Compile Include="Core\Component\RenderComponent.cs" />
     <Compile Include="Core\Component\TransformComponent.cs" />
+    <Compile Include="Core\Effects\Particle.cs" />
+    <Compile Include="Core\Effects\ParticleDefinition.cs" />
+    <Compile Include="Core\Effects\ParticleEmitter.cs" />
+    <Compile Include="Core\Effects\ParticleSystem.cs" />
     <Compile Include="Core\GameObject\Entity.cs" />
     <Compile Include="Core\Scene\CellSpacePartition.cs" />
     <Compile Include="Core\Scene\Scene.cs" />

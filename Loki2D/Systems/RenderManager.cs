@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Loki2D.Core.Component;
+using Loki2D.Core.Effects;
 using Loki2D.Core.Scene;
 using Loki2D.Core.Shaders;
 using Loki2D.Core.Utilities;
@@ -24,6 +25,7 @@ namespace Loki2D.Systems
     public class RenderManager: SystemManager<RenderManager>
     {
 
+        public ParticleSystem ParticleSystem { get; set; }
 
         public static int MaxRenderLayers = 10000000;
         public List<RenderManager> Components = new List<RenderManager>();
@@ -68,6 +70,8 @@ namespace Loki2D.Systems
         public RenderManager()
         {
             GraphicsDevice = SceneManagement.Instance.CurrentScene.GraphicsDevice;
+
+            ParticleSystem = new ParticleSystem(10000);
 
             var width = GraphicsDevice.PresentationParameters.BackBufferWidth;
             var height = GraphicsDevice.PresentationParameters.BackBufferHeight;
@@ -121,6 +125,12 @@ namespace Loki2D.Systems
         public void UnRegisterComponent(RenderComponent renderComponent)
         {
 
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            ParticleSystem.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -181,6 +191,8 @@ namespace Loki2D.Systems
                     }
                 }
             }
+
+            ParticleSystem.Draw(spriteBatch);
 
             if (SceneManagement.Instance.DrawDebug)
             {
