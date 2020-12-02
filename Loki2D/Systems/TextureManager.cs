@@ -25,6 +25,7 @@ namespace Loki2D.Systems
             if (loadPixel)
             {
                 Pixel = CreateTexture(graphicsDevice, 1, 1, pixel => Color.White);
+                Textures.Add("pixel", Pixel);
             }
         }
 
