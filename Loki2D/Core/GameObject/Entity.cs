@@ -181,18 +181,6 @@ namespace Loki2D.Core.GameObject
         }
 
         /// <summary>
-        /// Called every frame. NOT CURRENTLY IN USE
-        /// </summary>
-        /// <param name="spriteBatch"></param>
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-            foreach (var component in _components)
-            {
-
-            }
-        }
-
-        /// <summary>
         /// Returns the name of this entity
         /// </summary>
         /// <returns></returns>
