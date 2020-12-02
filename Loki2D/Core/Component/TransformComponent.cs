@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Loki2D.Core.Attributes;
 using Loki2D.Core.GameObject;
+using Loki2D.Core.Scene;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
 
@@ -49,6 +50,9 @@ namespace Loki2D.Core.Component
             Position = position;
 
             Initialize();
+
+            var currentIndex = SceneManagement.Instance.CurrentScene.CellSpacePartition.PositionToIndex(Position);
+            Owner.Index = currentIndex; 
         }
     }
 }
