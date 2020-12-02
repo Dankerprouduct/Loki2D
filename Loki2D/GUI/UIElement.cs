@@ -279,6 +279,12 @@ namespace Loki2D.GUI
             }
         }
 
+        public bool Hover(Point point)
+        {
+            var boundsRect = new Rectangle(GetPosition(), new Point(Width, Height));
+            return boundsRect.Contains(point);
+        }
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             if (Parent == null)
