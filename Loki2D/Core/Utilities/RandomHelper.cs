@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+using Loki2D.Core.Utilities.MathHelper;
+using SharpDX;
+using Color = Microsoft.Xna.Framework.Color;
+using Vector3 = Microsoft.Xna.Framework.Vector3;
 
 namespace Loki2D.Core.Utilities
 {
@@ -33,6 +37,18 @@ namespace Loki2D.Core.Utilities
         {
             var index = random.Next(0, list.Count);
             return list[index];
+        }
+
+        /// <summary>
+        /// Retrieves a random value from the list
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static T RandomValue<T>(this IList<T> collection)
+        {
+            var index = MathUtils.Random.Next(0, collection.Count);
+            return collection[index];
         }
 
         /// <summary>

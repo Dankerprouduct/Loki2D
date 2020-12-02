@@ -17,6 +17,11 @@ namespace Loki2D.GUI
     public class UIElement
     {
         /// <summary>
+        /// Additional string data. can be anything you want.
+        /// </summary>
+        public string Tag { get; set; }
+
+        /// <summary>
         /// LightColor Tint
         /// </summary>
         public Color Color { get; set; } = Color.White; 
@@ -238,7 +243,7 @@ namespace Loki2D.GUI
             }
             else
             {
-                var boundsRect = new Rectangle(Position + Parent.Position, new Point(Width, Height));
+                var boundsRect = new Rectangle(GetPosition(), new Point(Width, Height));
 
                 // left
                 if (boundsRect.Contains(InputManager.GetMousePosition().ToPoint()) &&
@@ -272,6 +277,12 @@ namespace Loki2D.GUI
                     RightReleased?.Invoke(this, new UIClickEventArgs(this));
                 }
             }
+        }
+
+        public bool Hover(Point point)
+        {
+            var boundsRect = new Rectangle(GetPosition(), new Point(Width, Height));
+            return boundsRect.Contains(point);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

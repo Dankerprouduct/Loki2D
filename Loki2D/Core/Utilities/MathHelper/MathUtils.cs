@@ -15,6 +15,25 @@ namespace Loki2D.Core.Utilities.MathHelper
             Random = new Random(seed);
         }
 
+        /// <summary>
+        /// Roll an x sided die n number of times
+        /// </summary>
+        /// <param name="sides"></param>
+        /// <param name="roll"></param>
+        /// <returns></returns>
+        public static int RollDice(int sides, int roll)
+        {
+            var random = new Random();
+            var total = 0;
+
+            for (int i = 0; i < roll; i++)
+            {
+                total += random.Next(1, sides);
+            }
+
+            return total; 
+        }
+
         public static T Clamp<T>(T val, T min, T max) where T: IComparable<T>
         {
             if (val.CompareTo(min) < 0)
