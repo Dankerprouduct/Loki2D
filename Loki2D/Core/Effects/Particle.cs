@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Loki2D.Core.Utilities;
 using Loki2D.Core.Utilities.MathHelper;
 using Loki2D.Systems;
 using Microsoft.Xna.Framework;
@@ -20,7 +21,8 @@ namespace Loki2D.Core.Effects
         private Vector2 _velocity { get; set; }
         public Vector2 Position { get; set; }
 
-        private ParticleDefinition _particleDefinition; 
+        private ParticleDefinition _particleDefinition;
+        private Timer _particleLifeTimer; 
 
         public Particle(int index)
         {
@@ -38,8 +40,10 @@ namespace Loki2D.Core.Effects
             _particleDefinition.Color *= _particleDefinition.Alpha;
             _particleDefinition.Size += (float)_random.Next(_particleDefinition.MinSizeVariance, _particleDefinition.MaxSizeVariance) / 100;
             _particleDefinition.Rotation += MathHelper.ToRadians((float)_random.Next(_particleDefinition.MinAngleVariance, _particleDefinition.MaxAngleVariance));
-            _particleDefinition.Dampening += (float) _random.Next(_particleDefinition.MinDampeningVariance, _particleDefinition.MaxDampeningVariance) / 100; 
-            
+            _particleDefinition.Dampening += (float) _random.Next(_particleDefinition.MinDampeningVariance, _particleDefinition.MaxDampeningVariance) / 100;
+
+            _particleLifeTimer = new Timer(_particleDefinition.Lifetime);
+
             // F=MA
             // A = F/M => V(t) = F/M
             var velocity = _particleDefinition.Force / _particleDefinition.Mass;
@@ -64,11 +68,19 @@ namespace Loki2D.Core.Effects
                 return;
             }
 
+            if (_particleLifeTimer.Update(gameTime.ElapsedGameTime.Milliseconds))
+            {
+                Destroy();
+                return;
+            }
+
             _particleDefinition.Color *= _particleDefinition.AlphaDelta;
             _particleDefinition.Size *= _particleDefinition.SizeDelta;
             _particleDefinition.Rotation += _particleDefinition.RotationDelta;
             _particleDefinition.TextureRotation += _particleDefinition.RotationDelta;
-            
+
+            _velocity *= _particleDefinition.Dampening; 
+            Position += _velocity;
         }
 
         public void Draw(SpriteBatch spriteBatch)
