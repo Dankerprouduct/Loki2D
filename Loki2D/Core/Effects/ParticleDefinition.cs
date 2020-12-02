@@ -177,8 +177,8 @@ namespace Loki2D.Core.Effects
                 Mass = 1,
                 Force = 1,
                 Dampening = .95f,
-                MinDampeningVariance = 1,
-                MaxDampeningVariance = 100,
+                MinDampeningVariance = 0,
+                MaxDampeningVariance = 0,
             };
     }
 }

@@ -63,7 +63,13 @@ namespace Loki2D.Core.GameObject
         /// The Parent of this Entity; 
         /// </summary>
         public Entity Parent { get; set; }
-        
+
+
+        /// <summary>
+        /// Determines whether or not entities are allowed to change partitions
+        /// </summary>
+        public  bool AllowEntityPartitionSwap { get; set; } = true;
+
         /// <summary>
         /// Base class for all entities
         /// </summary>
@@ -164,15 +170,18 @@ namespace Loki2D.Core.GameObject
         /// <param name="gameTime"></param>
         public virtual void Update(GameTime gameTime)
         {
-            
-            var currentIndex = SceneManagement.Instance.CurrentScene.CellSpacePartition.PositionToIndex(
-                GetComponent<TransformComponent>().Position);
-
-            if (Index != currentIndex)
+            if (AllowEntityPartitionSwap)
             {
-                SceneManagement.Instance.CurrentScene.CellSpacePartition.ChangeEntityCell(Index, currentIndex, this);
-                
-                Index = currentIndex;
+                var currentIndex = SceneManagement.Instance.CurrentScene.CellSpacePartition.PositionToIndex(
+                    GetComponent<TransformComponent>().Position);
+
+                if (Index != currentIndex)
+                {
+                    SceneManagement.Instance.CurrentScene.CellSpacePartition
+                        .ChangeEntityCell(Index, currentIndex, this);
+
+                    Index = currentIndex;
+                }
             }
 
         }
