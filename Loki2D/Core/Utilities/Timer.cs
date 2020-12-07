@@ -1,4 +1,6 @@
-﻿namespace Loki2D.Core.Utilities
+﻿using Microsoft.Xna.Framework;
+
+namespace Loki2D.Core.Utilities
 {
     public class Timer
     {
@@ -38,6 +40,11 @@
             }
 
             return false;
+        }
+
+        public bool Update(GameTime gameTime)
+        {
+            return Update(gameTime.ElapsedGameTime.Milliseconds);
         }
 
     }
