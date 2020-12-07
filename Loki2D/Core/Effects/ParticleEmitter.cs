@@ -15,11 +15,19 @@ namespace Loki2D.Core.Effects
         /// </summary>
         public float EmissionSpeed { get; set; }
         
-
+        /// <summary>
+        /// The amount of particles to emit 
+        /// </summary>
+        public int BurstAmount { get; set; }
 
         public ParticleEmitter()
         {
             
+        }
+
+        public void Emit()
+        {
+
         }
     }
 }
