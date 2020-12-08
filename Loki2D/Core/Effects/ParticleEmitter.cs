@@ -16,7 +16,15 @@ namespace Loki2D.Core.Effects
         /// <summary>
         /// How often this particle emits in milliseconds
         /// </summary>
-        public float EmissionSpeed { get; set }
+        public float EmissionSpeed
+        {
+            get => _emissionSpeed;
+            set
+            {
+                _emissionSpeed = value;
+                _particleTimer = new Timer(_emissionSpeed);
+            }
+        }
         
         /// <summary>
         /// The amount of particles to emit 
@@ -39,19 +47,22 @@ namespace Loki2D.Core.Effects
         
         public ParticleEmitter(Vector2 position, ParticleDefinition particleDefinition, int burstAmount, float emissionSpeed)
         {
+            Enabled = true; 
+
             Position = position;
             ParticleDefinition = particleDefinition;
             EmissionSpeed = emissionSpeed;
             BurstAmount = burstAmount; 
-
-            _particleTimer = new Timer(EmissionSpeed);
         }
 
         public void Update(GameTime gameTime)
         {
             if (_particleTimer.Update(gameTime))
             {
-                Emit();
+                for (int i = 0; i < BurstAmount; i++)
+                {
+                    Emit();
+                }
             }
         }
 

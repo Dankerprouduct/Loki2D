@@ -84,12 +84,12 @@ namespace Loki2D.Core.Effects
 
         public void AddEmitter(ParticleEmitter emitter)
         {
-
+            _particleEmitters.Add(emitter);
         }
 
-        public void RemoveEmmiter(ParticleEmitter emitter)
+        public void RemoveEmitter(ParticleEmitter emitter)
         {
-
+            _particleEmitters.Remove(emitter); 
         }
 
 
