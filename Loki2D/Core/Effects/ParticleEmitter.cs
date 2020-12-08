@@ -9,9 +9,11 @@ using SharpDX.X3DAudio;
 
 namespace Loki2D.Core.Effects
 {
+    /// <summary>
+    /// A container for particle emission
+    /// </summary>
     public class ParticleEmitter
     {
-
         private float _emissionSpeed; 
         /// <summary>
         /// How often this particle emits in milliseconds
@@ -41,6 +43,10 @@ namespace Loki2D.Core.Effects
         /// </summary>
         public ParticleDefinition ParticleDefinition { get; set; }
 
+        /// <summary>
+        /// True - emit particles
+        /// False - stop emission
+        /// </summary>
         public bool Enabled { get; set; }
 
         private Timer _particleTimer; 
