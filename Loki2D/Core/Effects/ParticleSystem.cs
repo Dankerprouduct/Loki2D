@@ -15,6 +15,8 @@ namespace Loki2D.Core.Effects
         private static Particle[] _particles; 
         private static List<int> _deadParticles;
 
+        private List<ParticleEmitter> _particleEmitters = new List<ParticleEmitter>();
+
         public static bool Enable { get; set; }
 
         public ParticleSystem(int poolSize)
@@ -69,8 +71,26 @@ namespace Loki2D.Core.Effects
                     _particles[i].Update(gameTime);
                 }
             }
+
+            
+            foreach (var emitter in _particleEmitters)
+            {
+                if (emitter.Enabled)
+                {
+                    emitter.Update(gameTime);
+                }
+            }
         }
 
+        public void AddEmitter(ParticleEmitter emitter)
+        {
+
+        }
+
+        public void RemoveEmmiter(ParticleEmitter emitter)
+        {
+
+        }
 
 
         public override void Draw(SpriteBatch spriteBatch)
